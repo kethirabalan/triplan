@@ -7,8 +7,9 @@ import { ToastController, Platform } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
 import { CommonModule } from '@angular/common';
 import { SliderComponent } from 'src/app/components/slider/slider.component';
-import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
 import { adventureContent } from 'src/app/data/adventure-content';
+import { GeminiService } from 'src/app/services/gemini.service';
+import { PixabayService } from 'src/app/services/pixabay.service';
 
 @Component({
   selector: 'app-home',
@@ -18,12 +19,28 @@ import { adventureContent } from 'src/app/data/adventure-content';
     IonSearchbar, IonListHeader, IonLabel, IonItem, IonText, CommonModule, SliderComponent],
 })
 export class Home implements OnInit{
-  locationName: string | null = null;
-  recommendedPlaces = recommendedPlaces;
-  adventureContent = adventureContent;
-  constructor(private toastController: ToastController, private platform: Platform) { }
+  locationName: string | any;
+  recommendedPlaces: any[] = [];
+  adventureContent: any[] = [];
+  constructor(private toastController: ToastController, private platform: Platform, private geminiService: GeminiService, private pixabay: PixabayService) { }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.requestLocation();
+    this.recommendedPlaces = await this.geminiService.getGlobalRecommendations();
+    this.recommendedPlaces.forEach(place => {
+      this.pixabay.searchImage(place.image_query).subscribe(result => {
+        place.image = result.hits?.[0]?.largeImageURL || 'assets/images/placeholderimg.png';
+      });
+    });
+    this.adventureContent = await this.geminiService.getGlobalAdventure();
+    console.log("this.adventureContent",this.adventureContent);
+    
+    this.adventureContent.forEach(content => {
+      this.pixabay.searchImage(content.image_query).subscribe(result => {
+        content.image = result.hits?.[0]?.largeImageURL || 'assets/images/placeholderimg.png';
+      });
+    });
+  }
 
   async requestLocation() {
     try {
@@ -59,7 +76,6 @@ export class Home implements OnInit{
     try {
       const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
       const data = await response.json();
-      console.log('data', data);
       const city = data.address.city || data.address.county || data.address.village || '';
       const country = data.address.country || '';
       this.locationName = `${city}, ${country}`;
