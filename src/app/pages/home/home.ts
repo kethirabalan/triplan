@@ -7,7 +7,6 @@ import { ToastController, Platform } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
 import { CommonModule } from '@angular/common';
 import { SliderComponent } from 'src/app/components/slider/slider.component';
-import { adventureContent } from 'src/app/data/adventure-content';
 import { GeminiService } from 'src/app/services/gemini.service';
 import { PixabayService } from 'src/app/services/pixabay.service';
 

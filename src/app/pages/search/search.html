@@ -1,17 +1,31 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Search
-    </ion-title>
-  </ion-toolbar>
+  <ion-searchbar placeholder="Search"></ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Search</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
+  <ion-item lines="full">
+    <ion-button color="light" class="button">Popular</ion-button>
+  </ion-item>
   <!-- <app-explore-container name="search"></app-explore-container> -->
 </ion-content>
+
+<!-- <ion-header [translucent]="true">
+  <div class="search-bar-container">
+    <ion-searchbar placeholder="Search"></ion-searchbar>
+  </div>
+</ion-header>
+
+<ion-content class="search-content" [fullscreen]="true">
+
+  <div class="filter-row">
+    <button class="pill selected">Popular</button>
+  </div>
+
+  <div class="nearby-section">
+    <div class="nearby-card">
+      <ion-icon name="navigate-outline"></ion-icon>
+    </div>
+    <span>Nearby</span>
+  </div>
+</ion-content> -->
