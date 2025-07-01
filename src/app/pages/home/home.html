@@ -1,18 +1,67 @@
-<ion-header [translucent]="true" collapse="translucent">
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title size="large">Where to?</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="notifications-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title></ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    
+    <ion-toolbar>
+      <ion-title size="large" class="fs-26">Where to?</ion-title>
+      <ion-buttons slot="end">
+        <ion-button color="medium">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar
+      placeholder="Places to go, things to do, hotels..."
+      class="custom-searchbar">
+    </ion-searchbar>
+    </ion-toolbar>
   </ion-header>
 
-  <!-- <app-explore-container name="home"></app-explore-container> -->
+  <ion-item lines="none">
+    <ion-icon class="location-icon" name="location-outline" slot="start" color="medium"></ion-icon>
+    <ion-label>
+      <h3>Looking for something nearby?</h3>
+      @if(locationName) {
+      <ion-text color="medium">
+        {{ locationName }}
+      </ion-text>
+      }
+      @if(!locationName) {
+      <ion-text color="medium">
+        <a (click)="requestLocation()" class="location-link">Allow location access</a>
+      </ion-text>
+      }
+    </ion-label>
+    @if(!locationName) {
+    <ion-icon name="arrow-forward-circle-outline" slot="end" color="medium" (click)="requestLocation()"></ion-icon>
+    }
+  </ion-item>
+
+  <ion-list lines="none" class="horizontal-card-list">
+    <ion-list-header>
+      <ion-label class="section-title fs-20">You might also like</ion-label>
+    </ion-list-header>
+
+    <app-slider [items]="recommendedPlaces" cardWidth="280px" cardHeight="280px"></app-slider>
+  </ion-list>
+
+  <ion-item lines="none">
+    <h2 class="fs-20">Must-do experiences in Mauritius</h2>
+    <ion-button fill="clear" slot="end" color="medium" class="fs-14">View all</ion-button>
+  </ion-item>
+  <ion-list lines="none" class="horizontal-card-list">
+    <app-slider 
+    [adventureContent]="adventureContent" 
+    cardWidth="150px" 
+    cardHeight="200px" 
+    iconKey="favorite" 
+    iconTrue="heart" 
+    iconFalse="heart-outline">
+  </app-slider>
+  </ion-list>
+
 </ion-content>

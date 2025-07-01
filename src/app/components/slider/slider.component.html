@@ -1,0 +1,47 @@
+<div class="slider-scroll">
+  @for (item of items; track item) {
+    <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="slider-card">
+      <div class="image-wrapper">
+        <ion-img [src]="item.image || 'assets/images/placeholderimg.png'" [alt]="item.name"></ion-img>
+
+        @if (item.name) {
+          <div class="bottom-overlay">
+            <h2><strong>{{ item.name }}</strong></h2>
+            <p><strong>{{ item.country }}</strong></p>
+          </div>
+        }
+      </div>
+    </ion-card>
+  }
+</div>
+
+<div class="slider-scroll">
+  @for (item of adventureContent; track item) {
+    <div class="slider-item">
+      <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="image-only-card">
+        @if (item.image) {
+          <div class="image-wrapper">
+            <ion-img [src]="item.image" [alt]="item.name"></ion-img>
+
+            <ion-icon
+            class="fav-icon"
+            [name]="item[iconKey] ? iconTrue : iconFalse"
+            color="danger"
+            (click)="toggleFavorite(item)">
+          </ion-icon>
+          </div>
+        } @else {
+          <div class="image-wrapper">
+            <ion-img src="assets/images/placeholderimg.png" [alt]="item.name"></ion-img>
+          </div>
+        }
+      </ion-card>
+
+      <div class="adventure-meta">
+        <h3>{{ item.name }}</h3>
+        <p class="type">{{ item.type }}</p>
+        <p class="rating">★ {{ item.rating }}/5</p>
+      </div>
+    </div>
+  }
+</div>

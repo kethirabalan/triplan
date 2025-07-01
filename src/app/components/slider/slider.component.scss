@@ -1,0 +1,129 @@
+.slider-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 8px 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slider-card {
+    margin: 2px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      ion-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .bottom-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 15px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 70%);
+        color: #fff;
+
+        h2 {
+          font-size: 25px;
+          font-weight: 600;
+          margin: 0;
+          margin-bottom: 5px;
+        }
+
+        p {
+          font-size: 16px;
+          margin: 0;
+          color: #ddd;
+        }
+      }
+    }
+  }
+
+  .slider-card:first-child {
+    margin-inline-start: 15px;
+  }
+}
+
+.image-only-card {
+  margin: 0;
+  padding: 0;
+  border-radius: 12px;
+
+  ion-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.adventure-meta {
+  padding: 6px 2px 0;
+  width: 160px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 2px;
+  }
+
+  .type {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 2px;
+  }
+
+  .rating {
+    font-size: 13px;
+    color: var(--ion-color-warning);
+    font-weight: 500;
+  }
+}
+
+
+.slider-item:first-child {
+  margin-inline-start: 15px;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  ion-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .fav-icon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 20px;
+    z-index: 1;
+    background: var(--ion-color-light);
+    border-radius: 50%;
+    padding: 4px;
+    transition: transform 0.2s ease;
+  
+    &:active {
+      transform: scale(1.2);
+    }
+  }
+}
