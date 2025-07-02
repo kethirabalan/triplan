@@ -1,5 +1,10 @@
 <ion-header [translucent]="true" mode="ios">
-  <ion-searchbar placeholder="Search"></ion-searchbar>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button text=""></ion-back-button>
+      <ion-searchbar placeholder="Search" (ionInput)="onSearchInput($event)"></ion-searchbar>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -14,7 +19,7 @@
   </ion-item>
 
   <ion-list>
-    @for(place of places; track place){
+    @for (place of places; track place) {
       <ion-item lines="none" class="ion-margin-bottom">
         <ion-thumbnail slot="start">
           <img [src]="place.image" [alt]="place.name" />
@@ -26,6 +31,5 @@
       </ion-item>
     }
   </ion-list>
-
 
 </ion-content>

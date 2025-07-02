@@ -32,6 +32,20 @@ export const routes: Routes = [
           import('../pages/account/account').then((m) => m.Account),
       },
       {
+        path: 'home/notifications',
+        loadComponent: () => import('../pages/account/notifications/notifications.page').then( m => m.NotificationsPage)
+      },
+      {
+        path: 'home/search',
+        loadComponent: () =>
+          import('../pages/search/search').then((m) => m.Search),
+      },
+      {
+        path: 'search/trips',
+        loadComponent: () =>
+          import('../pages/trips/trips').then((m) => m.Trips),
+      },
+      {
         path: 'account/profile',
         loadComponent: () => import('../pages/account/profile/profile.page').then( m => m.ProfilePage)
       },

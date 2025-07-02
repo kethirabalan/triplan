@@ -12,13 +12,14 @@ import { PixabayService } from 'src/app/services/pixabay.service';
 import { recommendedPlaces as staticRecommended } from 'src/app/data/recommendedPlaces';
 import { adventureContent as staticAdventure } from 'src/app/data/adventure-content';
 import { staticBestRestaurants } from 'src/app/data/staticBestRestaurants';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.html',
   styleUrls: ['home.scss'],
   imports: [IonList, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon,
-    IonSearchbar, IonListHeader, IonLabel, IonItem, IonText, CommonModule, SliderComponent,IonThumbnail],
+    IonSearchbar, IonListHeader, IonLabel, IonItem, IonText, CommonModule, SliderComponent,IonThumbnail, RouterLink],
 })
 export class Home implements OnInit{
   locationName: string | any;

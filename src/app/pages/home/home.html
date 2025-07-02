@@ -6,9 +6,9 @@
 <ion-content [fullscreen]="true" mode="ios">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large" class="fs-26">Where to?</ion-title>
+      <ion-title size="large" color="primary">Where to?</ion-title>
       <ion-buttons slot="end">
-        <ion-button color="medium">
+        <ion-button color="medium" routerLink="notifications">
           <ion-icon name="notifications-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -16,7 +16,7 @@
     <ion-toolbar>
       <ion-searchbar
       placeholder="Places to go, things to do, hotels..."
-      class="custom-searchbar">
+      class="custom-searchbar" routerLink="search">
     </ion-searchbar>
     </ion-toolbar>
   </ion-header>
@@ -60,7 +60,7 @@
         </ion-thumbnail>
         <ion-label>
           <h3 class="fs-14"><strong>{{ recentlyViewed.place }}</strong></h3>
-          <ion-text color="warning" class="fs-12">★ {{ recentlyViewed.rating }}</ion-text>
+          <ion-text color="warning" class="fs-14">★ {{ recentlyViewed.rating }}</ion-text>
           <br>
           <ion-text color="medium" class="fs-12 ion-text-captilise">{{ recentlyViewed.tag }}</ion-text>
         </ion-label>
