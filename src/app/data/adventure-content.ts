@@ -51,7 +51,7 @@ export const adventureContent = [
     name: "Sahara Desert, Morocco",
     type: "Desert Expedition & Sandboarding",
     rating: 4.6,
-    image: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=300&h=200&fit=crop"
+    image: "https://images.pexels.com/photos/1703312/pexels-photo-1703312.jpeg"
   },
   {
     name: "Hawaii Volcanoes",
