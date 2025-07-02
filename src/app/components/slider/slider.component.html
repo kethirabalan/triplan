@@ -8,7 +8,7 @@
           @if (item.name) {
             <div class="bottom-overlay">
               <h2><strong>{{ item.name }}</strong></h2>
-              <p><strong>{{ item.location }}</strong></p>
+              <p><strong>{{ item.location || item.country }}</strong></p>
             </div>
           }
         </div>
@@ -20,11 +20,11 @@
 @if(customCard){
   <div class="card">
     @for (item of customCard; track item) {
-      <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="customCard">
+      <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="customCard" [style.margin]="cardMargin" [style.border-radius]="cardBorderRadius">
         <div class="image-wrapper">
           <ion-img [src]="item.image || 'assets/images/placeholderimg.png'" [alt]="item.name"></ion-img>
   
-          @if  (item.title) {
+          @if  (item.title || item.subtitle) {
             <div class="bottom-overlay">
               <h2><strong>{{ item.title }}</strong></h2>
               <p><strong>{{item.subtitle }}</strong></p>
@@ -46,13 +46,9 @@
           @if (item.image) {
             <div class="image-wrapper">
               <ion-img [src]="item.image" [alt]="item.name"></ion-img>
-  
-              <ion-icon
-              class="fav-icon"
-              [name]="item[iconKey] ? iconTrue : iconFalse"
-              color="danger"
-              (click)="toggleFavorite(item)">
-            </ion-icon>
+            <ion-button shape="round" class="fav-icon" color="light" (click)="toggleFavorite(item)">
+              <ion-icon slot="icon-only" [name]="item[iconKey] ? iconTrue : iconFalse" color="danger"></ion-icon>
+            </ion-button>
             </div>
           } @else {
             <div class="image-wrapper">
@@ -62,9 +58,16 @@
         </ion-card>
   
         <div class="adventure-meta">
-          <h3>{{ item.name }}</h3>
+          <h3>{{ item.name }}
+          </h3>
+          @if(item.tag)  {
+            <p class="type fs-10">{{ item.tag }}</p>
+            <p class="type"><ion-icon name="location-outline" class="fs-10"></ion-icon> {{ item.type }}</p>
+            <p class="rating">★ {{ item.rating }}/5</p>
+           } @else {
           <p class="type">{{ item.type }}</p>
           <p class="rating">★ {{ item.rating }}/5</p>
+           }
         </div>
       </div>
     }

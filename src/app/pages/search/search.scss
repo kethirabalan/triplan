@@ -13,7 +13,6 @@
 
     ion-icon {
         font-size: 18px;
-        color: #aaa;
     }
 }
 
@@ -24,7 +23,8 @@
 
 .navigate-icon {
     font-size: 24px;
-    background: var(--ion-color-light);
+    background: var(--ion-color-medium);
+    color: var(--ion-color-light);
     border-radius: 8px;
     padding: 15px;
 }

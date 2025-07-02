@@ -30,3 +30,12 @@
         color: #aaa;
     }
 }
+
+ion-thumbnail {
+    --size: 65px;
+    --border-radius: 8px;
+}
+
+.underline-button {
+    text-decoration: underline;
+}

@@ -1,0 +1,44 @@
+.account-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem 0 1.5rem 0;
+  }
+  
+  .account-list {
+    margin-bottom: 0.5rem;
+  }
+  
+  .account-section-header {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+  }
+  
+  ion-item {
+    font-size: 1rem;
+  }
+  
+  ion-avatar img {
+    object-fit: cover;
+  }
+  
+  ion-note {
+    font-weight: bold;
+  }
+  
+  .account-signout {
+    margin: 2rem 0 1rem 1rem;
+    text-align: left;
+  }
+  
+  .signout-link {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 1rem;
+  }
+  
+  .account-version {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+  }

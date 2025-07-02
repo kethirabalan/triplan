@@ -15,6 +15,8 @@ export class SliderComponent  implements OnInit {
   @Input() customCard: any[] = [];
   @Input() cardWidth = '160px';
   @Input() cardHeight = '180px';
+  @Input() cardMargin = '0px';
+  @Input() cardBorderRadius = '0px';
   @Input() iconKey: string = 'favorite';
   @Input() iconTrue: string = 'heart-fill';
   @Input() iconFalse: string = 'heart-outline';

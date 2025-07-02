@@ -3,10 +3,9 @@ import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angu
 import { addIcons } from 'ionicons';
 import { chatboxOutline, heartOutline, homeOutline, personCircleOutline, searchOutline, notificationsOutline, locationOutline, 
   sparklesOutline, arrowForwardCircleOutline, heart, navigateOutline, 
-  globe,
-  airplane,
-  add,
-  pencilOutline,imageOutline} from 'ionicons/icons';
+  globe,airplane,add,pencilOutline,imageOutline,
+  cameraOutline,cashOutline,settingsOutline,
+  helpCircleOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -19,6 +18,8 @@ export class TabsPage {
 
   constructor() {
     addIcons({ homeOutline, searchOutline ,heartOutline, chatboxOutline, personCircleOutline, 
-      notificationsOutline , locationOutline, sparklesOutline, arrowForwardCircleOutline, heart, navigateOutline, globe,airplane, add, pencilOutline, imageOutline});
+      notificationsOutline , locationOutline, sparklesOutline, arrowForwardCircleOutline, heart, 
+      navigateOutline, globe,airplane, add, pencilOutline, imageOutline, cameraOutline,
+      cashOutline,settingsOutline,helpCircleOutline});
   }
 }

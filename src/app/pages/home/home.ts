@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonSearchbar,
-  IonList, IonListHeader, IonLabel, IonItem, IonText
+  IonList, IonListHeader, IonLabel, IonItem, IonText,IonThumbnail,IonCard,IonCardHeader,IonCardTitle
 } from '@ionic/angular/standalone';
 import { ToastController, Platform } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
@@ -11,19 +11,39 @@ import { GeminiService } from 'src/app/services/gemini.service';
 import { PixabayService } from 'src/app/services/pixabay.service';
 import { recommendedPlaces as staticRecommended } from 'src/app/data/recommendedPlaces';
 import { adventureContent as staticAdventure } from 'src/app/data/adventure-content';
+import { staticBestRestaurants } from 'src/app/data/staticBestRestaurants';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.html',
   styleUrls: ['home.scss'],
   imports: [IonList, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon,
-    IonSearchbar, IonListHeader, IonLabel, IonItem, IonText, CommonModule, SliderComponent],
+    IonSearchbar, IonListHeader, IonLabel, IonItem, IonText, CommonModule, SliderComponent,IonThumbnail],
 })
 export class Home implements OnInit{
   locationName: string | any;
   recommendedPlaces: any[] = staticRecommended;
   adventureContent: any[] = staticAdventure;
-  constructor(private toastController: ToastController, private platform: Platform, private geminiService: GeminiService, private pixabay: PixabayService) { }
+  bestRestaurants: any[] = staticBestRestaurants;
+  customFeed = {
+    title: 'Triplan Rewards',
+    subtitle: 'Book with Triplan, earn 5% back on hotals in Dubai',
+    image: 'https://www.culinaryspecialties.net/wp-content/uploads/2021/11/Making-Breakfast-a-Valuable-Hotel-Guest-Add-On-1.jpg',
+    buttonTitle: 'Find a hotel'
+  }
+  exploreCard = {
+    title: '12 island getaways we love',
+    image: 'https://images.pexels.com/photos/29974430/pexels-photo-29974430.jpeg',
+    buttonTitle: 'Explore'
+  }
+  recentlyViewed = {
+    image: 'https://images.unsplash.com/photo-1569096651661-820d0de8b4ab?q=80&w=663&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  
+    place: 'Cozy Restaurant',
+    rating: '4.7',
+    tag: 'Copenhague, Denmark'
+  };
+  constructor(private toastController: ToastController, private platform: Platform, 
+    private geminiService: GeminiService, private pixabay: PixabayService) { }
 
   async ngOnInit() {
     // this.requestLocation();

@@ -43,23 +43,40 @@
   @if(recommendedPlaces){
     <ion-list lines="none" class="horizontal-card-list">
       <ion-list-header>
-        <ion-label class="section-title fs-20">You might also like</ion-label>
+        <ion-label class="fs-20">You might also like</ion-label>
       </ion-list-header>
   
       <app-slider [items]="recommendedPlaces" cardWidth="280px" cardHeight="280px"></app-slider>
     </ion-list>
   }
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="fs-20">Recently viewed</ion-label>
+    </ion-list-header>
+      <ion-item lines="none" class="ion-margin-bottom">
+        <ion-thumbnail slot="start">
+          <img [src]="recentlyViewed.image" [alt]="recentlyViewed.place" />
+        </ion-thumbnail>
+        <ion-label>
+          <h3 class="fs-14"><strong>{{ recentlyViewed.place }}</strong></h3>
+          <ion-text color="warning" class="fs-12">★ {{ recentlyViewed.rating }}</ion-text>
+          <br>
+          <ion-text color="medium" class="fs-12 ion-text-captilise">{{ recentlyViewed.tag }}</ion-text>
+        </ion-label>
+      </ion-item>
+  </ion-list>
   
   @if(adventureContent){
     <ion-item lines="none">
       <h2 class="fs-20">Must-do experiences in Mauritius</h2>
-      <ion-button fill="clear" slot="end" color="medium" class="fs-14">View all</ion-button>
+      <ion-button fill="clear" slot="end" color="medium" class="fs-14 underline-button">View all</ion-button>
     </ion-item>
     <ion-list lines="none" class="horizontal-card-list">
       <app-slider 
       [adventureContent]="adventureContent" 
       cardWidth="150px" 
-      cardHeight="200px" 
+      cardHeight="200px"
       iconKey="favorite" 
       iconTrue="heart" 
       iconFalse="heart-outline">
@@ -67,4 +84,17 @@
     </ion-list>
   }
 
+  <app-slider [customCard]="[customFeed]" cardWidth="fit-content" cardHeight="500px" cardMargin="15px" cardBorderRadius="5px"></app-slider>
+
+
+  <ion-item lines="none">
+    <h2 class="fs-20">Best restaurants nearby</h2>
+    <ion-button fill="clear" slot="end" color="medium" class="fs-14 underline-button">View all</ion-button>
+  </ion-item>
+  
+  <ion-list lines="none" class="horizontal-card-list">
+    <app-slider [adventureContent]="bestRestaurants" cardWidth="150px" cardHeight="200px"></app-slider>
+  </ion-list>
+
+  <app-slider [customCard]="[exploreCard]" cardWidth="fit-content" cardHeight="500px" cardMargin="15px" cardBorderRadius="5px"></app-slider>
 </ion-content>
