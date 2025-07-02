@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" mode="ios">
   <ion-toolbar>
     <ion-title>
       <!-- Account -->
@@ -14,7 +14,7 @@
   </ion-header>
 
   <ion-list lines="none" class="account-list">
-    <ion-item button detail>
+    <ion-item button detail routerLink="profile">
       <ion-avatar slot="start">
         <img src="assets/images/placeholderimg.png" />
       </ion-avatar>
@@ -26,11 +26,11 @@
 
   <ion-list-header class="account-section-header">Bookings &amp; rewards</ion-list-header>
   <ion-list lines="full" class="account-list">
-    <ion-item button detail>
+    <ion-item button detail routerLink="bookings">
       <ion-icon name="camera-outline" slot="start"></ion-icon>
       <ion-label>Bookings</ion-label>
     </ion-item>
-    <ion-item button detail>
+    <ion-item button detail routerLink="rewards">
       <ion-icon name="cash-outline" slot="start"></ion-icon>
       <ion-label>Rewards</ion-label>
       <ion-note slot="end">$0.00</ion-note>
@@ -39,7 +39,7 @@
 
   <ion-list-header class="account-section-header">Communication</ion-list-header>
   <ion-list lines="full" class="account-list">
-    <ion-item button detail>
+    <ion-item button detail routerLink="notifications">
       <ion-icon name="notifications-outline" slot="start"></ion-icon>
       <ion-label>Notifications</ion-label>
     </ion-item>
@@ -47,11 +47,11 @@
 
   <ion-list-header class="account-section-header">Settings</ion-list-header>
   <ion-list lines="full" class="account-list">
-    <ion-item button detail>
+    <ion-item button detail routerLink="preferences">
       <ion-icon name="settings-outline" slot="start"></ion-icon>
       <ion-label>Preferences</ion-label>
     </ion-item>
-    <ion-item button detail>
+    <ion-item button detail routerLink="support">
       <ion-icon name="help-circle-outline" slot="start"></ion-icon>
       <ion-label>Support</ion-label>
     </ion-item>

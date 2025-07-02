@@ -32,6 +32,30 @@ export const routes: Routes = [
           import('../pages/account/account').then((m) => m.Account),
       },
       {
+        path: 'account/profile',
+        loadComponent: () => import('../pages/account/profile/profile.page').then( m => m.ProfilePage)
+      },
+      {
+        path: 'account/bookings',
+        loadComponent: () => import('../pages/account/bookings/bookings.page').then( m => m.BookingsPage)
+      },
+      {
+        path: 'account/rewards',
+        loadComponent: () => import('../pages/account/rewards/rewards.page').then( m => m.RewardsPage)
+      },
+      {
+        path: 'account/notifications',
+        loadComponent: () => import('../pages/account/notifications/notifications.page').then( m => m.NotificationsPage)
+      },
+      {
+        path: 'account/preferences',
+        loadComponent: () => import('../pages/account/preferences/preferences.page').then( m => m.PreferencesPage)
+      },
+      {
+        path: 'account/support',
+        loadComponent: () => import('../pages/account/support/support.page').then( m => m.SupportPage)
+      },
+      {
         path: '',
         redirectTo: 'tabs/home',
         pathMatch: 'full',
