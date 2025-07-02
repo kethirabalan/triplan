@@ -1,17 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonCard, IonImg,IonIcon } from '@ionic/angular/standalone';
+import { IonCard, IonImg,IonIcon,IonButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-slider',
   standalone: true,
-  imports: [CommonModule, IonCard, IonImg,IonIcon],
+  imports: [CommonModule, IonCard, IonImg,IonIcon, IonButton],
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
 })
 export class SliderComponent  implements OnInit {
   @Input() items: any[] = [];
   @Input() adventureContent: any[] = [];
+  @Input() customCard: any[] = [];
   @Input() cardWidth = '160px';
   @Input() cardHeight = '180px';
   @Input() iconKey: string = 'favorite';

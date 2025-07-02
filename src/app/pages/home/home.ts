@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { SliderComponent } from 'src/app/components/slider/slider.component';
 import { GeminiService } from 'src/app/services/gemini.service';
 import { PixabayService } from 'src/app/services/pixabay.service';
+import { recommendedPlaces as staticRecommended } from 'src/app/data/recommendedPlaces';
+import { adventureContent as staticAdventure } from 'src/app/data/adventure-content';
 
 @Component({
   selector: 'app-home',
@@ -19,26 +21,37 @@ import { PixabayService } from 'src/app/services/pixabay.service';
 })
 export class Home implements OnInit{
   locationName: string | any;
-  recommendedPlaces: any[] = [];
-  adventureContent: any[] = [];
+  recommendedPlaces: any[] = staticRecommended;
+  adventureContent: any[] = staticAdventure;
   constructor(private toastController: ToastController, private platform: Platform, private geminiService: GeminiService, private pixabay: PixabayService) { }
 
   async ngOnInit() {
-    this.requestLocation();
-    this.recommendedPlaces = await this.geminiService.getGlobalRecommendations();
-    this.recommendedPlaces.forEach(place => {
-      this.pixabay.searchImage(place.image_query).subscribe(result => {
-        place.image = result.hits?.[0]?.largeImageURL || 'assets/images/placeholderimg.png';
-      });
-    });
-    this.adventureContent = await this.geminiService.getGlobalAdventure();
-    console.log("this.adventureContent",this.adventureContent);
-    
-    this.adventureContent.forEach(content => {
-      this.pixabay.searchImage(content.image_query).subscribe(result => {
-        content.image = result.hits?.[0]?.largeImageURL || 'assets/images/placeholderimg.png';
-      });
-    });
+    // this.requestLocation();
+    // Load dynamic recommendations
+    try {
+      // const recommendations = await this.geminiService.getGlobalRecommendations();
+      // recommendations.forEach(place => {
+      //   this.pixabay.searchImage(place.image_query).subscribe(result => {
+      //     place.image = result.hits?.[0]?.largeImageURL || 'assets/images/placeholderimg.png';
+      //   });
+      // });
+      // this.recommendedPlaces = recommendations;
+    } catch (err) {
+      console.error('Failed to load recommendedPlaces:', err);
+    }
+
+    // Load dynamic adventure content
+    try {
+      // const adventures = await this.geminiService.getGlobalAdventure();
+      // adventures.forEach(content => {
+      //   this.pixabay.searchImage(content.image_query).subscribe(result => {
+      //     content.image = result.hits?.[0]?.largeImageURL || 'assets/images/placeholderimg.png';
+      //   });
+      // });
+      // this.adventureContent = adventures;
+    } catch (err) {
+      console.error('Failed to load adventureContent:', err);
+    }
   }
 
   async requestLocation() {

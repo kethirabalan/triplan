@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
       My Trips
@@ -12,6 +12,40 @@
       <ion-title size="large">Trips</ion-title>
     </ion-toolbar>
   </ion-header>
+</ion-content> -->
 
-  <!-- <app-explore-container name="trips"></app-explore-container> -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <!-- My trips -->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">My trips</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="trips-center">
+    <ion-card class="trips-card">
+      <div class="trips-icons">
+        <ion-icon name="heart" color="danger"></ion-icon>
+        <ion-icon name="globe" class="tinted-icon"></ion-icon>
+        <ion-icon name="airplane" color="medium"></ion-icon>
+      </div>
+      <ion-text class="fs-18"><strong>Plan your way with Trips...</strong></ion-text>
+      <p class="fs-14 ion-margin-bottom">
+          Build a trip with your saves or use AI to get custom recommendations, collaborate with friends, and organize your trip ideas.
+      </p>
+      <ion-button fill="outline" shape="round" class="trips-signin" expand="block" color="secondary">
+        Create a trip
+      </ion-button>
+      <ion-button shape="round" color="dark" class="trips-signin" expand="block">
+        <ion-icon name="sparkles-outline" color="light" class="fs-18 ion-margin-end ion-justify-content-center"></ion-icon>
+        Plan with AI
+      </ion-button>
+    </ion-card>
+  </div>
 </ion-content>

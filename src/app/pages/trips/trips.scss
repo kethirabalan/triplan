@@ -1,0 +1,28 @@
+.trips-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .trips-card {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .trips-icons {
+    font-size: 2rem;
+    margin: 1.5rem 0 1rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .trips-signin {
+    font-weight: bold;
+  }
+
+  .tinted-icon {
+    color: #28bb50; /* your custom tint color */
+  }
