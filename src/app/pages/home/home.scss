@@ -35,3 +35,28 @@ ion-thumbnail {
     --size: 65px;
     --border-radius: 8px;
 }
+
+.fixed-top-searchbar {
+    padding-top: 12px !important;
+    position: fixed;
+    z-index: 999;
+    background: var(--ion-background-color, #fff);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .fixed-top-searchbar.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .visible {
+    opacity: 1;
+    pointer-events: auto;
+  }

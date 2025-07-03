@@ -20,7 +20,8 @@
 @if(customCard){
   <div class="card">
     @for (item of customCard; track item) {
-      <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="customCard" [style.margin]="cardMargin" [style.border-radius]="cardBorderRadius">
+      <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="customCard" 
+      [style.margin]="cardMargin" [style.border-radius]="cardBorderRadius">
         <div class="image-wrapper">
           <ion-img [src]="item.image || 'assets/images/placeholderimg.png'" [alt]="item.name"></ion-img>
   
@@ -42,7 +43,7 @@
   <div class="slider-scroll">
     @for (item of adventureContent; track item) {
       <div class="slider-item">
-        <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="image-only-card">
+        <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="image-only-card" (click)="onItemClick(item)">
           @if (item.image) {
             <div class="image-wrapper">
               <ion-img [src]="item.image" [alt]="item.name"></ion-img>

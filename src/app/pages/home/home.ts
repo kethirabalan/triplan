@@ -26,6 +26,7 @@ export class Home implements OnInit{
   recommendedPlaces: any[] = staticRecommended;
   adventureContent: any[] = staticAdventure;
   bestRestaurants: any[] = staticBestRestaurants;
+  isScrolled = false;
   customFeed = {
     title: 'Triplan Rewards',
     subtitle: 'Book with Triplan, earn 5% back on hotals in Dubai',
@@ -37,12 +38,13 @@ export class Home implements OnInit{
     image: 'https://images.pexels.com/photos/29974430/pexels-photo-29974430.jpeg',
     buttonTitle: 'Explore'
   }
-  recentlyViewed = {
-    image: 'https://images.unsplash.com/photo-1569096651661-820d0de8b4ab?q=80&w=663&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  
-    place: 'Cozy Restaurant',
-    rating: '4.7',
-    tag: 'Copenhague, Denmark'
-  };
+  recentlyViewed: any[] = [];
+  // recentlyViewed = {
+  //   image: 'https://images.unsplash.com/photo-1569096651661-820d0de8b4ab?q=80&w=663&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  
+  //   place: 'Cozy Restaurant',
+  //   rating: '4.7',
+  //   tag: 'Copenhague, Denmark'
+  // };
   constructor(private toastController: ToastController, private platform: Platform, 
     private geminiService: GeminiService, private pixabay: PixabayService) { }
 
@@ -73,6 +75,20 @@ export class Home implements OnInit{
     } catch (err) {
       console.error('Failed to load adventureContent:', err);
     }
+  }
+
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    this.isScrolled = scrollTop > 30; // adjust as needed
+  }
+
+  viewPlace(place: any) {  
+    this.recentlyViewed = [
+      place,
+      ...this.recentlyViewed.filter(p => p.place !== place.place)
+    ].slice(0, 5);
+  
+    localStorage.setItem('recentlyViewed', JSON.stringify(this.recentlyViewed));
   }
 
   async requestLocation() {

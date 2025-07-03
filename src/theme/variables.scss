@@ -69,6 +69,10 @@
 
 }
 
+.safe-area {
+  padding-top: env(safe-area-inset-top) !important;
+}
+
 
 .fs-10 {
     font-size: 10px;

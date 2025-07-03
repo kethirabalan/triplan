@@ -1,21 +1,19 @@
 <ion-header [translucent]="true" mode="ios">
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <!-- <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-searchbar placeholder="Search" (ionInput)="onSearchInput($event)"></ion-searchbar>
   </ion-toolbar>
+  <ion-toolbar>
+  <ion-button slot="start" shape="round" size="small">Popular</ion-button>
+</ion-toolbar>
+
 </ion-header>
 
 
-<ion-content [fullscreen]="true" mode="ios"> 
-  <ion-header [translucent]="true" mode="ios">
-  </ion-header>
-  <ion-item lines="full">
-    <ion-button class="button">Popular</ion-button>
-  </ion-item>
-
-  <ion-item lines="none" class="ion-margin-top">
+<ion-content [fullscreen]="true" mode="ios">
+  <ion-item lines="none">
     <ion-icon class="navigate-icon" name="navigate-outline" slot="start"></ion-icon>
     <h2 class="fs-16">Nearby</h2>
   </ion-item>

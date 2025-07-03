@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonCard, IonImg,IonIcon,IonButton } from '@ionic/angular/standalone';
 
@@ -22,13 +22,21 @@ export class SliderComponent  implements OnInit {
   @Input() iconFalse: string = 'heart-outline';
   @Input() iconFunction: Function = () => {};
 
-  constructor() { }
+  @Output() itemClick = new EventEmitter<any>();
 
+  constructor() { 
+    
+  }
+  
   ngOnInit() {
     this.adventureContent = this.adventureContent.map(item => ({
       ...item,
       [this.iconKey]: item[this.iconKey] ?? false
     }));
+  }
+  
+  onItemClick(item: any) {
+    this.itemClick.emit(item);
   }
 
   toggleFavorite(item: any) {

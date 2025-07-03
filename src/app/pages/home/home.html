@@ -1,10 +1,13 @@
-<ion-header [translucent]="true" mode="ios">
-  <ion-toolbar>
-    <ion-title></ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content [fullscreen]="true" mode="ios">
-  <ion-header collapse="condense">
+<ion-searchbar mode="ios"
+  class="fixed-top-searchbar safe-area"
+  placeholder="Search..."
+  routerLink="/tabs/search"
+  [class.visible]="isScrolled"
+  [class.hidden]="!isScrolled">
+</ion-searchbar>
+
+<ion-content [fullscreen]="true" mode="ios" scrollEvents="true" (ionScroll)="onScroll($event)">
+  <ion-header collapse="condense" class="safe-area ion-margin-top">
     <ion-toolbar>
       <ion-title size="large" color="primary">Where to?</ion-title>
       <ion-buttons slot="end">
@@ -16,7 +19,8 @@
     <ion-toolbar>
       <ion-searchbar
       placeholder="Places to go, things to do, hotels..."
-      class="custom-searchbar" routerLink="search">
+      class="custom-searchbar"  [class.hidden]="isScrolled"
+      [class.visible]="!isScrolled" routerLink="/tabs/search">
     </ion-searchbar>
     </ion-toolbar>
   </ion-header>
@@ -50,7 +54,7 @@
     </ion-list>
   }
 
-  <ion-list>
+  <!-- <ion-list>
     <ion-list-header>
       <ion-label class="fs-20">Recently viewed</ion-label>
     </ion-list-header>
@@ -65,7 +69,27 @@
           <ion-text color="medium" class="fs-12 ion-text-captilise">{{ recentlyViewed.tag }}</ion-text>
         </ion-label>
       </ion-item>
-  </ion-list>
+  </ion-list> -->
+  @if(recentlyViewed.length){
+    <ion-list>
+      <ion-list-header>
+        <ion-label class="fs-20">Recently viewed</ion-label>
+      </ion-list-header>
+      @for(place of recentlyViewed; track place){
+        <ion-item lines="none" class="ion-margin-bottom">
+          <ion-thumbnail slot="start">
+            <img [src]="place.image" [alt]="place.place" />
+          </ion-thumbnail>
+          <ion-label>
+            <h3 class="fs-14"><strong>{{ place.name }}</strong></h3>
+            <ion-text color="warning" class="fs-14">★ {{ place.rating }}</ion-text>
+            <br />
+            <ion-text color="medium" class="fs-12 ion-text-capitalize">{{ place.type }}</ion-text>
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  }
   
   @if(adventureContent){
     <ion-item lines="none">
@@ -79,7 +103,7 @@
       cardHeight="200px"
       iconKey="favorite" 
       iconTrue="heart" 
-      iconFalse="heart-outline">
+      iconFalse="heart-outline" (itemClick)="viewPlace($event)">
     </app-slider>
     </ion-list>
   }
@@ -93,7 +117,7 @@
   </ion-item>
   
   <ion-list lines="none" class="horizontal-card-list">
-    <app-slider [adventureContent]="bestRestaurants" cardWidth="150px" cardHeight="200px"></app-slider>
+    <app-slider [adventureContent]="bestRestaurants" cardWidth="150px" cardHeight="200px" (itemClick)="viewPlace($event)"></app-slider>
   </ion-list>
 
   <app-slider [customCard]="[exploreCard]" cardWidth="fit-content" cardHeight="500px" cardMargin="15px" cardBorderRadius="5px"></app-slider>
