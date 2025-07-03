@@ -17,13 +17,35 @@
       <p class="fs-12 ion-margin-bottom">
           Build a trip with your saves or use AI to get custom recommendations, collaborate with friends, and organize your trip ideas.
       </p>
-      <ion-button fill="outline" shape="round" class="trips-signin" expand="block" color="primary">
+      <ion-button fill="outline" shape="round" class="trips-signin" expand="block" color="primary" id="open-trip-modal">
         Create a trip
       </ion-button>
-      <ion-button shape="round" color="dark" class="trips-signin" expand="block">
+      <ion-button shape="round" color="dark" class="trips-signin" expand="block" routerLink="/ai-plan">
         <ion-icon name="sparkles-outline" color="light" class="fs-18 ion-margin-end ion-justify-content-center"></ion-icon>
         Plan with AI
       </ion-button>
     </ion-card>
   </div>
+
+  <ion-modal #tripModal trigger="open-trip-modal" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.3, 0.5]">
+    <ng-template>
+      <ion-content class="ion-padding">
+
+        <ion-header collapse="condense" class="ion-no-border">
+          <ion-toolbar>
+            <ion-title class="ion-text-center">Create a trip</ion-title>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-item lines="full" class="ion-margin-top">
+          <ion-input label="Trip name" labelPlacement="stacked" [(ngModel)]="tripName" placeholder="Ex. Weekend in NYC"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" class="ion-margin-top" (click)="createTrip(tripModal)">
+          Create Trip
+        </ion-button>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

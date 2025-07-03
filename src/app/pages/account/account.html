@@ -4,7 +4,7 @@
       <ion-title size="large" color="primary">Account</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-list lines="none" class="account-list">
+  <ion-list lines="none" class="account-list ion-margin-top">
     <ion-item button detail routerLink="profile">
       <ion-avatar slot="start">
         <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
@@ -47,7 +47,7 @@
       <ion-label>Support</ion-label>
     </ion-item>
   </ion-list>
-  <ion-button fill="light" class="signout-link" color="danger">Sign Out</ion-button>
+  <ion-button fill="light" class="signout-link" color="danger" (click)="presentSignOutAlert()">Sign Out</ion-button>
   @if(isNative){
     <div class="account-version">
       <div>Version: v{{ appInfo.version }} (Build {{ appInfo.build }})</div>

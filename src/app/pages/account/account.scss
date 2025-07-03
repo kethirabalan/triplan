@@ -42,3 +42,31 @@
     margin-bottom: 1rem;
     margin-left: 1rem;
   }
+
+  ::ng-deep .alert-wrapper.custom-signout-alert {
+    padding: 16px !important;
+    text-align: center;
+  }
+
+  ::ng-deep .alert-message {
+    padding-bottom: 0px !important;
+  }
+  
+  ::ng-deep .alert-button-group {
+    justify-content: center !important;
+    display: flex !important;
+    width: 100%;
+    padding: 16px
+  }
+  
+  ::ng-deep .alert-button.white-button {
+    background-color: var(--ion-color-light);
+    color: var(--ion-color-dark);
+    border: 1px solid #ccc;
+    border-radius: 48px;
+    font-size: 14px;
+    padding: 6px 16px;
+    height: auto;
+    margin: 0 auto; /* helps center the button if needed */
+    min-width: 100px;
+  }

@@ -39,12 +39,6 @@ export class Home implements OnInit{
     buttonTitle: 'Explore'
   }
   recentlyViewed: any[] = [];
-  // recentlyViewed = {
-  //   image: 'https://images.unsplash.com/photo-1569096651661-820d0de8b4ab?q=80&w=663&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',  
-  //   place: 'Cozy Restaurant',
-  //   rating: '4.7',
-  //   tag: 'Copenhague, Denmark'
-  // };
   constructor(private toastController: ToastController, private platform: Platform, 
     private geminiService: GeminiService, private pixabay: PixabayService) { }
 

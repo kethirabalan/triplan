@@ -6,6 +6,7 @@ import { Device } from '@capacitor/device';
 import { AppInfo } from 'src/app/core/interfaces';
 import { CommonModule } from '@angular/common';
 import { Capacitor } from '@capacitor/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -22,7 +23,7 @@ export class Account  implements OnInit{
     build: '',
     deviceId: ''
   };
-  constructor(private appVersionPlugin: AppVersion) {}
+  constructor(private appVersionPlugin: AppVersion,private alertController: AlertController) {}
 
   async ngOnInit() {
     this.isNative = Capacitor.isNativePlatform();
@@ -37,5 +38,27 @@ export class Account  implements OnInit{
         console.warn('Error fetching native info:', err);
       }
     }
+  }
+
+  async presentSignOutAlert() {
+    const alert = await this.alertController.create({
+      message: 'Are you sure you want to sign out?',
+      buttons: [
+        {
+          text: 'Sign Out',
+          role: 'destructive',
+          cssClass: 'white-button',
+          handler: () => {
+            this.signOut();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  signOut() {
+    console.log('User signed out');
   }
 }
