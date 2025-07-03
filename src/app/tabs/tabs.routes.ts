@@ -70,6 +70,16 @@ export const routes: Routes = [
         loadComponent: () => import('../pages/account/support/support.page').then( m => m.SupportPage)
       },
       {
+        path: 'trips/trip-view',
+        loadComponent: () =>
+          import('../pages/trip-view/trip-view.page').then( m => m.TripViewPage),
+      },
+      {
+        path: 'trips/ai-plan',
+        loadComponent: () =>
+          import('../pages/ai-plan/ai-plan.page').then( m => m.AiPlanPage),
+      },
+      {
         path: '',
         redirectTo: 'tabs/home',
         pathMatch: 'full',

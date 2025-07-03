@@ -1,9 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'triplan',
+  appId: 'com.triplan.app',
   appName: 'triplan',
-  webDir: 'www'
+  webDir: 'www',
 };
 
 export default config;

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">local-guide</string>
-    <string name="title_activity_main">local-guide</string>
-    <string name="package_name">local.guide</string>
-    <string name="custom_url_scheme">local.guide</string>
+    <string name="app_name">triplan</string>
+    <string name="title_activity_main">triplan</string>
+    <string name="package_name">com.triplan.app</string>
+    <string name="custom_url_scheme">com.triplan.app</string>
 </resources>

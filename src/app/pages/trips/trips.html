@@ -27,7 +27,7 @@
     </ion-card>
   </div>
 
-  <ion-modal #tripModal trigger="open-trip-modal" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.3, 0.5]">
+  <ion-modal #tripModal trigger="open-trip-modal" initialBreakpoint="0.4" [breakpoints]="[0, 0.25, 0.5]">
     <ng-template>
       <ion-content class="ion-padding">
 
@@ -41,7 +41,7 @@
           <ion-input label="Trip name" labelPlacement="stacked" [(ngModel)]="tripName" placeholder="Ex. Weekend in NYC"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" class="ion-margin-top" (click)="createTrip(tripModal)">
+        <ion-button expand="block" class="ion-margin-top">
           Create Trip
         </ion-button>
 

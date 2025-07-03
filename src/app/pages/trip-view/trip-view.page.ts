@@ -14,7 +14,7 @@ export class TripViewPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
   }
 
 }

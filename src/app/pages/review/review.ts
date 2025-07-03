@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton,IonGrid,IonRow, 
-  IonButtons,IonFab,IonFabButton,IonIcon,IonCard,IonImg, IonLabel,IonFabList,IonText,IonCol } from '@ionic/angular/standalone';
+  IonFab,IonFabButton,IonIcon, IonLabel,IonFabList,IonText,IonCol } from '@ionic/angular/standalone';
 import { SliderComponent } from "../../components/slider/slider.component";
 
 @Component({
   selector: 'app-review',
   templateUrl: 'review.html',
   styleUrls: ['review.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonFab, IonFabButton, IonIcon, 
-    IonCard, IonImg, SliderComponent, IonLabel,IonFabList, IonText, IonGrid,IonRow,IonCol],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonFab, IonFabButton, IonIcon, 
+     SliderComponent, IonLabel,IonFabList, IonText, IonGrid,IonRow,IonCol],
 })
 export class Review {
   reviewOverlay = {

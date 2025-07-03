@@ -1,4 +1,4 @@
-package triplan;
+package com.triplan.app;
 
 import com.getcapacitor.BridgeActivity;
 
