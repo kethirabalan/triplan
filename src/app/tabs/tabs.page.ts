@@ -5,7 +5,7 @@ import { chatboxOutline, heartOutline, homeOutline, personCircleOutline, searchO
   sparklesOutline, arrowForwardCircleOutline, heart, navigateOutline, 
   globe,airplane,add,pencilOutline,imageOutline,
   cameraOutline,cashOutline,settingsOutline,walletOutline,
-  helpCircleOutline,linkOutline,lockClosedOutline} from 'ionicons/icons';
+  helpCircleOutline,linkOutline,lockClosedOutline,navigateCircleOutline,createOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -20,6 +20,7 @@ export class TabsPage {
     addIcons({ homeOutline, searchOutline ,heartOutline, chatboxOutline, personCircleOutline, 
       notificationsOutline , locationOutline, sparklesOutline, arrowForwardCircleOutline, heart, 
       navigateOutline, globe,airplane, add, pencilOutline, imageOutline, cameraOutline,
-      cashOutline,settingsOutline,helpCircleOutline,walletOutline, linkOutline,lockClosedOutline});
+      cashOutline,settingsOutline,helpCircleOutline,walletOutline, linkOutline,
+      lockClosedOutline,navigateCircleOutline, createOutline});
   }
 }

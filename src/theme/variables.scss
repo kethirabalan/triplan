@@ -2,44 +2,6 @@
 // http://ionicframework.com/docs/theming/
 
 
-.fs-10 {
-    font-size: 10px;
-}
-
-.fs-12 {
-    font-size: 12px;
-}
-
-.fs-14 {
-    font-size: 14px;
-}
-
-.fs-16 {
-    font-size: 16px;
-}
-
-.fs-18 {
-    font-size: 18px;
-}
-
-.fs-20 {
-    font-size: 20px;
-}
-
-
-.fs-22 {
-    font-size: 22px;
-}
-
-.fs-24 {
-    font-size: 24px;
-}
-
-.fs-26 {
-    font-size: 26px;
-}
-
-
 :root {
 	--ion-color-primary: #00ebb0;
 	--ion-color-primary-rgb: 0,235,176;
@@ -96,6 +58,7 @@
 	--ion-color-medium-contrast-rgb: 255,255,255;
 	--ion-color-medium-shade: #545454;
 	--ion-color-medium-tint: #6f6f6f;
+	--ion-color-medium-custom: #cfcaca;
 
 	--ion-color-dark: #2f2f2f;
 	--ion-color-dark-rgb: 47,47,47;
@@ -104,4 +67,53 @@
 	--ion-color-dark-shade: #292929;
 	--ion-color-dark-tint: #444444;
 
+}
+
+
+.fs-10 {
+    font-size: 10px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.fs-16 {
+    font-size: 16px;
+}
+
+.fs-18 {
+    font-size: 18px;
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+
+.fs-22 {
+    font-size: 22px;
+}
+
+.fs-24 {
+    font-size: 24px;
+}
+
+.fs-26 {
+    font-size: 26px;
+}
+
+.underline-button {
+    text-decoration: underline;
+	color: var(--ion-text-light);
+}
+
+.custom-icon {
+    font-size: 18px;
+    border-radius: 50%;
+    padding: 10px;
 }

@@ -1,11 +1,18 @@
-<ion-header translucent="true" collapse="fade">
+<ion-header [translucent]="true" collapse="condense" mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text=""></ion-back-button>
+      <ion-back-button defaultHref="/" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Rewards</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true">
+
+<ion-content [fullscreen]="true" mode="ios">
+
 </ion-content>

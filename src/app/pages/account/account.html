@@ -9,10 +9,9 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Account</ion-title>
+      <ion-title size="large" color="primary">Account</ion-title>
     </ion-toolbar>
   </ion-header>
-
   <ion-list lines="none" class="account-list">
     <ion-item button detail routerLink="profile">
       <ion-avatar slot="start">
@@ -56,10 +55,7 @@
       <ion-label>Support</ion-label>
     </ion-item>
   </ion-list>
-
-  <div class="account-signout">
-    <a href="#" class="signout-link">Sign Out</a>
-  </div>
+  <ion-button fill="light" class="signout-link" color="danger">Sign Out</ion-button>
 
   <!-- <div class="account-version">
     <div>Version: v63.5 build 250623010</div>

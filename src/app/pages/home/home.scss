@@ -7,7 +7,7 @@
 
 .location-icon {
     font-size: 24px;
-    background: var(--ion-color-light);
+    background: var(--ion-color-dark-tint);
     border-radius: 50%;
     padding: 15px;
 }
@@ -34,8 +34,4 @@
 ion-thumbnail {
     --size: 65px;
     --border-radius: 8px;
-}
-
-.underline-button {
-    text-decoration: underline;
 }

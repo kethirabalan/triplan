@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonContent, IonSearchbar, IonIcon, IonItem,IonButton,IonThumbnail,IonLabel,
+import { IonHeader, IonContent, IonSearchbar, IonIcon, IonItem,IonButton,IonThumbnail,IonLabel,IonTitle,
   IonList,IonButtons, IonBackButton,IonToolbar } from '@ionic/angular/standalone';
 import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
 
@@ -8,7 +8,7 @@ import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
   templateUrl: 'search.html',
   styleUrls: ['search.scss'],
   imports: [IonHeader, IonContent, IonSearchbar, IonIcon, IonItem, IonButton, IonThumbnail,IonLabel,
-    IonList,IonButtons, IonBackButton,IonToolbar]
+    IonList,IonButtons, IonBackButton,IonToolbar,IonTitle]
 })
 export class Search {
   allPlaces = recommendedPlaces;

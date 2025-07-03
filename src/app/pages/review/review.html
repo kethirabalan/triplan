@@ -5,19 +5,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" mode="ios">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Review</ion-title>
+      <ion-title size="large" color="primary">Review</ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="ion-padding">
     <h2 class="review-title">No reviews yet</h2>
     <p class="review-desc">You have not written any reviews yet, get started!</p>
-    <div class="review-actions">
-      <ion-button fill="outline" shape="round" class="review-btn">Write a review</ion-button>
-      <ion-button fill="outline" shape="round" class="review-btn">Upload a photo</ion-button>
-    </div>
+    <ion-button fill="outline" shape="round" size="default">Write a review</ion-button>
+    <ion-button fill="outline" shape="round" size="default">Upload a photo</ion-button>
   </div>
 
   <app-slider [customCard]="[reviewOverlay]" cardWidth="fit-content" cardHeight="500px"></app-slider>

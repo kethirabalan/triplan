@@ -7,8 +7,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
 
+<ion-content [fullscreen]="true" mode="ios"> 
+  <ion-header [translucent]="true" mode="ios">
+  </ion-header>
   <ion-item lines="full">
     <ion-button class="button">Popular</ion-button>
   </ion-item>

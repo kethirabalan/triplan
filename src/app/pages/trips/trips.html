@@ -5,10 +5,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" mode="ios">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">My trips</ion-title>
+      <ion-title size="large" color="primary">My trips</ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="trips-center">
@@ -19,12 +19,12 @@
         <!-- <ion-icon name="airplane" color="tertiary" class="trip-icon"></ion-icon> -->
       </div>
       <ion-label>
-        <ion-text class="fs-18" color="primary"><strong>Plan your way with Trips...</strong></ion-text>
+        <ion-text class="fs-18" color="medium"><strong>Plan your way with Trips...</strong></ion-text>
       </ion-label>
       <p class="fs-12 ion-margin-bottom">
           Build a trip with your saves or use AI to get custom recommendations, collaborate with friends, and organize your trip ideas.
       </p>
-      <ion-button fill="outline" shape="round" class="trips-signin" expand="block" color="secondary">
+      <ion-button fill="outline" shape="round" class="trips-signin" expand="block" color="primary">
         Create a trip
       </ion-button>
       <ion-button shape="round" color="dark" class="trips-signin" expand="block">

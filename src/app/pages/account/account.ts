@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonListHeader,IonLabel,IonItem,IonList, IonAvatar, IonIcon,IonNote } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonListHeader,IonLabel,IonItem,IonList, IonAvatar, IonIcon,IonNote,IonButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-account',
   templateUrl: 'account.html',
   styleUrls: ['account.scss'],
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, 
-    IonListHeader,IonAvatar,IonIcon, IonNote, RouterLink],
+    IonListHeader,IonAvatar,IonIcon, IonNote, RouterLink,IonButton],
 })
 export class Account {
   constructor() {}
