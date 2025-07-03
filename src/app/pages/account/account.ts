@@ -1,14 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonListHeader,IonLabel,IonItem,IonList, IonAvatar, IonIcon,IonNote,IonButton } from '@ionic/angular/standalone';
+import { AppVersion } from '@awesome-cordova-plugins/app-version/ngx';
+import { Device } from '@capacitor/device';
+import { AppInfo } from 'src/app/core/interfaces';
+import { CommonModule } from '@angular/common';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-account',
   templateUrl: 'account.html',
   styleUrls: ['account.scss'],
+  providers: [AppVersion],
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, 
-    IonListHeader,IonAvatar,IonIcon, IonNote, RouterLink,IonButton],
+    IonListHeader,IonAvatar,IonIcon, IonNote, RouterLink,IonButton,CommonModule],
 })
-export class Account {
-  constructor() {}
+export class Account  implements OnInit{
+  isNative: boolean = false;
+  appInfo: AppInfo = {
+    version: '',
+    build: '',
+    deviceId: ''
+  };
+  constructor(private appVersionPlugin: AppVersion) {}
+
+  async ngOnInit() {
+    this.isNative = Capacitor.isNativePlatform();
+    if (this.isNative) {
+      try {
+        this.appInfo.version = await this.appVersionPlugin.getVersionNumber();
+        this.appInfo.build = await this.appVersionPlugin.getVersionCode();
+  
+        const info = await Device.getId();
+        this.appInfo.deviceId = info.identifier ?? '';
+      } catch (err) {
+        console.warn('Error fetching native info:', err);
+      }
+    }
+  }
 }

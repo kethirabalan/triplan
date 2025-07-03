@@ -56,9 +56,10 @@
     </ion-item>
   </ion-list>
   <ion-button fill="light" class="signout-link" color="danger">Sign Out</ion-button>
-
-  <!-- <div class="account-version">
-    <div>Version: v63.5 build 250623010</div>
-    <div>Device ID: 968c072c-b4ca-4b09-97f4-394c1c78c629</div>
-  </div> -->
+  @if(isNative){
+    <div class="account-version">
+      <div>Version: v{{ appInfo.version }} (Build {{ appInfo.build }})</div>
+      <div>Device ID: {{ appInfo.deviceId }}</div>
+    </div>
+  }
 </ion-content>
