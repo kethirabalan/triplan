@@ -2,10 +2,9 @@ import { Component, EnvironmentInjector, inject } from '@angular/core';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chatboxOutline, heartOutline, homeOutline, personCircleOutline, searchOutline, notificationsOutline, locationOutline, 
-  sparklesOutline, arrowForwardCircleOutline, heart, navigateOutline, 
-  globe,airplane,add,pencilOutline,imageOutline,
-  cameraOutline,cashOutline,settingsOutline,walletOutline,
-  helpCircleOutline,linkOutline,lockClosedOutline,navigateCircleOutline,createOutline,chevronForwardOutline,ellipsisHorizontalOutline,closeOutline,chevronDownOutline} from 'ionicons/icons';
+  sparklesOutline, arrowForwardCircleOutline, heart, navigateOutline,globe,airplane,add,pencilOutline,imageOutline,cameraOutline,cashOutline,settingsOutline,walletOutline,
+  helpCircleOutline,linkOutline,lockClosedOutline,navigateCircleOutline,createOutline,chevronForwardOutline,ellipsisHorizontalOutline,
+  closeOutline,chevronDownOutline,saveOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -21,6 +20,7 @@ export class TabsPage {
       notificationsOutline , locationOutline, sparklesOutline, arrowForwardCircleOutline, heart, 
       navigateOutline, globe,airplane, add, pencilOutline, imageOutline, cameraOutline,
       cashOutline,settingsOutline,helpCircleOutline,walletOutline, linkOutline,
-      lockClosedOutline,navigateCircleOutline, createOutline,chevronForwardOutline,ellipsisHorizontalOutline,closeOutline,chevronDownOutline});
+      lockClosedOutline,navigateCircleOutline, createOutline,chevronForwardOutline,
+      ellipsisHorizontalOutline,closeOutline,chevronDownOutline,saveOutline});
   }
 }

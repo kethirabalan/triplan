@@ -1,0 +1,40 @@
+.profile-pic-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    --background: #fff;
+    --box-shadow: none;
+    z-index: 1;
+}
+
+ion-searchbar {
+    padding: 0px !important;
+}
+
+.custom-outline-input-box {
+    border: 1px solid var(--ion-color-light-shade);
+    border-radius: 5px;
+    margin-top: 0.2rem;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.camera-btn {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --box-shadow: none;
+    --background: var(--ion-color-light-shade);
+    color: var(--ion-color-dark-shade);
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    z-index: 10;
+}

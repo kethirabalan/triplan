@@ -80,6 +80,11 @@ export const routes: Routes = [
           import('../pages/ai-plan/ai-plan.page').then( m => m.AiPlanPage),
       },
       {
+        path: 'account/profile/edit-profile',
+        loadComponent: () =>
+          import('../pages/account/profile/edit-profile/edit-profile.page').then( m => m.EditProfilePage),
+      },
+      {
         path: '',
         redirectTo: 'tabs/home',
         pathMatch: 'full',
