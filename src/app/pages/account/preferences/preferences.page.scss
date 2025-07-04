@@ -1,0 +1,24 @@
+.preferences-content {
+    ion-list {
+        margin-top: 16px;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    ion-item {
+        --padding-start: 16px;
+        --padding-end: 8px;
+        --min-height: 48px;
+        font-size: 16px;
+
+        ion-label {
+            font-weight: 500;
+        }
+
+        ion-note {
+            font-size: 15px;
+            color: #444;
+            margin-right: 8px;
+        }
+    }
+}
