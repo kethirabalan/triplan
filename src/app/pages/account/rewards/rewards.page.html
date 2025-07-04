@@ -3,11 +3,59 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Rewards</ion-title>
+    <ion-title>Your rewards</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment value="rewards" class="rewards-segment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="rewards">
+        <ion-label>Rewards</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="offers">
+        <ion-label>Offers</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
+<ion-content [fullscreen]="true" mode="ios" class="rewards-content">
+  @if(segment === 'rewards') {
+  <div>
+    <div class="rewards-card">
+      <div class="rewards-card-header">
+        <ion-icon name="cash-outline" class="rewards-icon"></ion-icon>
+        <div class="rewards-amount">
+          <span>$0.00</span>
+        </div>
+      </div>
+      <div class="rewards-card-body">
+        <h2 class="rewards-title">Triplan Rewards</h2>
+        <p class="rewards-desc">Valid for use on eligible hotels directly booked on the app</p>
+        <a class="rewards-link" href="#">View activity</a>
+      </div>
+    </div>
 
-<ion-content [fullscreen]="true" mode="ios">
-  <app-coming-soon></app-coming-soon>
+    <ion-card class="how-to-earn-card">
+      <ion-card-header>
+        <ion-card-title>How to earn</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ol>
+          <li>Book an eligible hotel in the Triplan app.</li>
+          <li>Earn 5% back in Triplan Rewards 24 hours after your stay.</li>
+          <li>Apply your rewards to your next eligible hotel booking.</li>
+        </ol>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="view-terms">
+      <a href="#">View terms</a>
+    </div>
+  </div>
+  } 
+  @if(segment === 'offers') {
+  <div class="offers-empty">
+    <h2>No offers available</h2>
+    <p>Check back later for new limited-time offers.</p>
+  </div>
+  }
 </ion-content>

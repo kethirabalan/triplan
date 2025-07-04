@@ -1,0 +1,89 @@
+.rewards-content {
+    .rewards-segment {
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+    .rewards-card {
+      background: linear-gradient(120deg, #fffbe6 60%, #fff 100%);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .rewards-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .rewards-icon {
+      font-size: 32px;
+      color: #fbc02d;
+      background: #fffde7;
+      border-radius: 50%;
+      padding: 8px;
+    }
+    .rewards-amount {
+      background: #fbc02d;
+      color: #222;
+      border-radius: 16px;
+      padding: 4px 16px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .rewards-title {
+      font-weight: 600;
+      margin-top: 12px;
+      font-size: 16px;
+    }
+    .rewards-desc {
+      color: #666;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+    .rewards-link {
+      color: #222;
+      font-weight: 500;
+      text-decoration: underline;
+      margin-top: 8px;
+      display: inline-block;
+      font-size: 15px;
+    }
+    .how-to-earn-card {
+      margin: 16px;
+      border-radius: 12px;
+      ol {
+        padding-left: 20px;
+        margin: 0;
+        li {
+          margin-bottom: 8px;
+          font-size: 15px;
+        }
+      }
+    }
+    .view-terms {
+      text-align: center;
+      margin: 16px 0;
+      a {
+        color: #222;
+        text-decoration: underline;
+        font-weight: 500;
+        font-size: 15px;
+      }
+    }
+    .offers-empty {
+      margin-top: 64px;
+      text-align: center;
+      .offers-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #222;
+      }
+      .offers-desc {
+        color: #666;
+        font-size: 15px;
+      }
+    }
+  }

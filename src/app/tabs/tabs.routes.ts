@@ -33,7 +33,7 @@ export const routes: Routes = [
       },
       {
         path: 'home/notifications',
-        loadComponent: () => import('../pages/account/notifications/notifications.page').then( m => m.NotificationsPage)
+        loadComponent: () => import('../modals/notifications/notifications.page').then( m => m.NotificationsPage)
       },
       {
         path: 'home/search',
@@ -51,7 +51,7 @@ export const routes: Routes = [
       },
       {
         path: 'account/bookings',
-        loadComponent: () => import('../pages/account/bookings/bookings.page').then( m => m.BookingsPage)
+        loadComponent: () => import('../modals/bookings/bookings.page').then( m => m.BookingsPage)
       },
       {
         path: 'account/rewards',
@@ -59,7 +59,7 @@ export const routes: Routes = [
       },
       {
         path: 'account/notifications',
-        loadComponent: () => import('../pages/account/notifications/notifications.page').then( m => m.NotificationsPage)
+        loadComponent: () => import('../modals/notifications/notifications.page').then( m => m.NotificationsPage)
       },
       {
         path: 'account/preferences',
