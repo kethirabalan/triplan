@@ -21,11 +21,6 @@ import { firstValueFrom } from 'rxjs';
 export class OnboardPage implements OnInit {
 
   constructor(private authService: AuthService, private router: Router,private userService: UserService,private loadingService: LoadingService) {
-    this.authService.currentUser$.subscribe((user) => {
-      if (user) {
-        this.userService.currentUser = user;
-      }
-    });
     addIcons({
       radioButtonOnOutline,
       logoGoogle
