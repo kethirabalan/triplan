@@ -10,7 +10,7 @@ import { ComingSoonComponent } from 'src/app/components/slider/coming-soon/comin
   styleUrls: ['./bookings.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, 
-    IonButtons, IonBackButton,ComingSoonComponent]
+    IonButtons, IonBackButton]
 })
 export class BookingsPage implements OnInit {
 
