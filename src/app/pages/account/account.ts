@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonListHeader,IonLabel,IonItem,IonList, IonAvatar, IonIcon,IonNote,IonButton,ModalController } from '@ionic/angular/standalone';
 import { AppVersion } from '@awesome-cordova-plugins/app-version/ngx';
 import { Device } from '@capacitor/device';
@@ -9,6 +9,8 @@ import { Capacitor } from '@capacitor/core';
 import { AlertController } from '@ionic/angular';
 import { BookingsPage } from 'src/app/modals/bookings/bookings.page';
 import { NotificationsPage } from 'src/app/modals/notifications/notifications.page';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-account',
@@ -25,7 +27,15 @@ export class Account  implements OnInit{
     build: '',
     deviceId: ''
   };
-  constructor(private appVersionPlugin: AppVersion,private alertController: AlertController,private modalCtrl: ModalController) {}
+  user: any;
+  constructor(private appVersionPlugin: AppVersion,private alertController: AlertController,
+    private modalCtrl: ModalController,private authService: AuthService,private router: Router) {
+      this.authService.currentUser$.subscribe((user) => {
+        if (user) {
+          this.user = user;
+        }
+      });
+    }
 
   async ngOnInit() {
     this.isNative = Capacitor.isNativePlatform();
@@ -75,6 +85,7 @@ export class Account  implements OnInit{
   }
 
   signOut() {
-    console.log('User signed out');
+    this.authService.signOut();
+    this.router.navigate(['/onboard-welcome']);
   }
 }

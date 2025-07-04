@@ -6,6 +6,9 @@ import { addIcons } from 'ionicons';
 import { logoGoogle, radioButtonOnOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { LoadingService } from 'src/app/services/loading.service';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -17,7 +20,12 @@ import { Router } from '@angular/router';
 })
 export class OnboardPage implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router,private userService: UserService,private loadingService: LoadingService) {
+    this.authService.currentUser$.subscribe((user) => {
+      if (user) {
+        this.userService.currentUser = user;
+      }
+    });
     addIcons({
       radioButtonOnOutline,
       logoGoogle
@@ -27,14 +35,37 @@ export class OnboardPage implements OnInit {
   ngOnInit() {
   }
 
-  signInWithGoogle() {
-    this.authService.signInWithGoogle().then((user) => {
-      this.router.navigate(['/home']);
-    });
+  async googleSignIn() {
+    try {
+      const loader = await this.loadingService.show();
+      await this.authService.signInWithGoogle();
+  
+      // Get the current user from AuthService
+      const currentUser = await firstValueFrom(this.authService.currentUser$);
+  
+      // Save/update user in Firestore
+      const loginMethodToken = await this.authService.getIdToken();
+
+      await this.userService.createOrUpdateUser('Google', {
+        moreUserData: {
+          loginMethod: 'Google',
+          loginMethodId: currentUser?.uid || null,
+          loginMethodType: 'Google',
+          loginMethodToken,
+          loginMethodRefreshToken: null,
+        }
+      });
+  
+      await this.loadingService.dismiss(loader);
+      this.router.navigate(['/tabs/home']);
+    } catch (error) {
+      await this.loadingService.dismissAll();
+      // Optionally show error to user
+    }
   }
 
   signIn() {
-    this.router.navigate(['/signin']);
+    this.router.navigate(['/tabs/signin']);
   }
 
 }

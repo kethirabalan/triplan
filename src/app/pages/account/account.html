@@ -7,7 +7,7 @@
   <ion-list lines="none" class="account-list ion-margin-top">
     <ion-item button detail routerLink="profile">
       <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <img [src]="user?.photoURL || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
       </ion-avatar>
       <ion-label>
         <strong>Profile</strong>

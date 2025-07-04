@@ -17,14 +17,14 @@ export class Trips {
   tripName: string = '';
   constructor(private router: Router) {}
 
-  // createTrip(modal: HTMLIonModalElement) {
-  //   const name = this.tripName.trim();
-  //   if (name) {
-  //     modal.dismiss();
-  //     this.router.navigate(['/trip-view'], {
-  //       queryParams: { name } // You can access this in trip-view
-  //     });
-  //     this.tripName = ''; // optional: reset field
-  //   }
-  // }
+  createTrip(modal: HTMLIonModalElement) {
+    const name = this.tripName.trim();
+    if (name) {
+      modal.dismiss();
+      this.router.navigate(['/trip-view'], {
+        queryParams: { name } // You can access this in trip-view
+      });
+      this.tripName = ''; // optional: reset field
+    }
+  }
 }

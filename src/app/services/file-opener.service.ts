@@ -2,21 +2,21 @@
 // import { BehaviorSubject } from 'rxjs';
 // import { Globals } from '../core/global';
 // import { Capacitor } from '@capacitor/core';
-// import { FirebaseStorageService } from './firebase-storage.service';
 // import write_blob from 'capacitor-blob-writer'
-// import saveAs from 'file-saver';
+// import { saveAs } from 'file-saver';
 // import { Directory, Filesystem } from '@capacitor/filesystem';
 // import { FileOpener, FileOpenerOptions } from '@capacitor-community/file-opener';
+// import { FirebaseFirestoreService } from './firebase-firestore.service';
 
 // @Injectable() export class FileOpenerService {
 //   current = Globals.current;
 //   observationPathSubject = new BehaviorSubject<string | null>(null)
-//   constructor(private firebaseStorageService: FirebaseStorageService) {
+//   constructor(private firebaseFirestoreService: FirebaseFirestoreService) {
 //   }
 
 
 //   async previewImage(storagePath: string, filename: string, type?: string) {
-//     const blob = await this.firebaseStorageService.getImageAsBlobOriginal(`${storagePath}/original`)
+//     const blob = await this.firebaseFirestoreService.getImageAsBlobOriginal(`${storagePath}/original`)
 //     await this.previewBlob(blob, filename, type ? type : '')
 //   }
 
@@ -33,10 +33,10 @@
 //           path: extension ? 'original.' + extension : 'original',
 //           directory: Directory.Cache,
 //         })
-//           .then(async (savedFile) => {
+//           .then(async (savedFile: any) => {
 //             await this.openFileWithType(savedFile.uri, type)
 //           })
-//           .catch((error) => {
+//           .catch((error: any) => {
 //             console.error(error)
 //             throw new Error('Cannot save/open the file')
 //           })

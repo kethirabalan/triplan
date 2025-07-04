@@ -1,10 +1,24 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { inject } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { map } from 'rxjs';
+
+const isLoggedIn = () => {
+  const userService = inject(UserService);
+  return userService.getCurrentUser$().pipe(map((user) => {
+    if (user) {
+      return false;
+    }
+    return true;
+  }));
+}
 
 export const routes: Routes = [
   {
-    path: 'onboard',
+    path: 'onboard-welcome',
     loadComponent: () => import('../pages/onboard/onboard.page').then( m => m.OnboardPage),
+    // canActivate: [isLoggedIn],
   },
   {
     path: 'tabs',

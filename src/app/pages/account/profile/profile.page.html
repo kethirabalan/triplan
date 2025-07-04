@@ -18,10 +18,10 @@
     <ion-list>
       <ion-item lines="none">
         <ion-thumbnail slot="start" class="">
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="Profile" />
+          <img [src]="user?.photoURL || 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Profile" />
         </ion-thumbnail>
         <ion-label>
-          <ion-text><strong>User Name</strong></ion-text><br>
+          <ion-text><strong>{{user?.displayName}}</strong></ion-text><br>
           <ion-text class="fs-12">Joined in 2025</ion-text><br>
           <ion-text class="fs-12">0 contributions</ion-text>
         </ion-label>
