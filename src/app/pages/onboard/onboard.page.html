@@ -1,0 +1,56 @@
+<ion-content [fullscreen]="true" mode="ios" class="safe-area-top onboard-wrapper">
+  <div class="onboard-bg"></div>
+
+  <!-- Header Section -->
+  <ion-grid class="onboard-header">
+    <ion-row>
+      <ion-col size="9">
+        <ion-text color="light" class="onboard-tour-title">Chichen Itza, Cenote, and Valladolid Tour</ion-text>
+        <div class="onboard-tour-rating">
+          <ion-icon name="radio-button-on-outline" class="dot"></ion-icon>
+          <ion-icon name="radio-button-on-outline" class="dot"></ion-icon>
+          <ion-icon name="radio-button-on-outline" class="dot"></ion-icon>
+          <ion-icon name="radio-button-on-outline" class="dot"></ion-icon>
+          <ion-icon name="radio-button-on-outline" class="dot"></ion-icon>
+          <span class="rating-count">(20,100)</span>
+        </div>
+        <ion-text color="light">Cancun, Mexico</ion-text>
+      </ion-col>
+      <ion-col size="3" class="ion-text-right">
+        <button class="onboard-skip">Skip</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Bottom Content Section -->
+  <ion-grid class="onboard-content-inner ion-justify-content-end h-85">
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="12">
+        <ion-text color="light" class="onboard-title">Earn rewards on your next hotel stay</ion-text>
+      </ion-col>
+
+      <ion-col size="12" class="ion-no-padding">
+        <ion-button expand="block" shape="round" color="success">Create account</ion-button>
+      </ion-col>
+
+      <ion-col size="12" class="ion-no-padding">
+        <ion-button expand="block" shape="round" color="light" (click)="signInWithGoogle()">
+          <ion-icon name="logo-google" slot="start"></ion-icon>
+          Continue with Google
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="12" class="ion-text-center">
+        <ion-button color="light" fill="clear" class="underline-button" (click)="signIn()">Have an account? Sign in</ion-button>
+      </ion-col>
+
+      <ion-col size="12" class="onboard-terms">
+        <p>
+          By proceeding, you agree to our <a href="#">Terms of Use</a> and confirm you have read our
+          <a href="#">Privacy and Cookie Statement</a>.
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

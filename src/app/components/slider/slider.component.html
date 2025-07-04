@@ -1,6 +1,6 @@
 @if(items){
   <div class="slider-scroll">
-    @for (item of items; track item) {
+    @for (item of items; track item.id) {
       <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="slider-card">
         <div class="image-wrapper">
           <ion-img [src]="item.image || 'assets/images/placeholderimg.png'" [alt]="item.name"></ion-img>
@@ -19,7 +19,7 @@
 
 @if(customCard){
   <div class="card">
-    @for (item of customCard; track item) {
+    @for (item of customCard; track item.id) {
       <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="customCard" 
       [style.margin]="cardMargin" [style.border-radius]="cardBorderRadius">
         <div class="image-wrapper">
@@ -41,7 +41,7 @@
 }
 @if(adventureContent){
   <div class="slider-scroll">
-    @for (item of adventureContent; track item) {
+    @for (item of adventureContent; track item.id) {
       <div class="slider-item">
         <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="image-only-card" (click)="onItemClick(item)">
           @if (item.image) {
