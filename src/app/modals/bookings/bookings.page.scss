@@ -1,0 +1,47 @@
+.bookings-modal-content {
+    .center-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 32px;
+      margin-bottom: 24px;
+      h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #183c1c;
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+      .desc {
+        color: #183c1c;
+        text-align: center;
+        margin-bottom: 16px;
+        font-size: 16px;
+        max-width: 320px;
+      }
+      .bookings-illustration {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 8px;
+      }
+    }
+    .recent-bookings-card {
+      background: #b6f7c2;
+      border-radius: 12px;
+      margin: 0 16px;
+      .recent-bookings-avatar {
+        background: #fff;
+        border-radius: 8px;
+        width: 40px;
+        height: 40px;
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+      ion-label {
+        font-weight: 500;
+        color: #183c1c;
+      }
+    }
+  }

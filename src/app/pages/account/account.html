@@ -17,7 +17,7 @@
 
   <ion-list-header class="account-section-header">Bookings &amp; rewards</ion-list-header>
   <ion-list lines="full" class="account-list">
-    <ion-item button detail routerLink="bookings">
+    <ion-item button detail (click)="openBookingsModal()">
       <ion-icon name="camera-outline" slot="start"></ion-icon>
       <ion-label>Bookings</ion-label>
     </ion-item>
