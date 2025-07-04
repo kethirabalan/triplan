@@ -4,10 +4,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">onboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="onboard-content">
+  <div class="onboard-bg"></div>
+  <div class="onboard-header">
+    <div class="onboard-tour-info">
+      <div class="onboard-tour-title">Chichen Itza, Cenote, and Valladolid Tour</div>
+      <div class="onboard-tour-rating">
+        <ion-icon name="ellipse" class="dot"></ion-icon>
+        <ion-icon name="ellipse" class="dot"></ion-icon>
+        <ion-icon name="ellipse" class="dot"></ion-icon>
+        <ion-icon name="ellipse" class="dot"></ion-icon>
+        <ion-icon name="ellipse" class="dot"></ion-icon>
+        <span class="rating-count">(20,100)</span>
+      </div>
+      <div class="onboard-tour-location">Cancun, Mexico</div>
+    </div>
+    <button class="onboard-skip">Skip</button>
+  </div>
+  <div class="onboard-main-img">
+    <img src="assets/images/placeholderimg.png" alt="Tour" />
+  </div>
+  <div class="onboard-content-inner">
+    <div class="onboard-logo">
+      <img src="assets/icon/favicon.png" alt="Logo" />
+    </div>
+    <div class="onboard-title">Earn rewards on your next hotel stay</div>
+    <ion-button expand="block" class="onboard-create-account">Create account</ion-button>
+    <ion-button expand="block" fill="outline" class="onboard-google">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Continue with Google
+    </ion-button>
+    <div class="onboard-signin">
+      <a href="#">Have an account? Sign in</a>
+    </div>
+    <div class="onboard-terms">
+      By proceeding, you agree to our <a href="#">Terms of Use</a> and confirm you have read our <a href="#">Privacy and Cookie Statement</a>.
+    </div>
+  </div>
 </ion-content>

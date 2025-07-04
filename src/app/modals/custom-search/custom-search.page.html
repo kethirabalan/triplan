@@ -1,13 +1,33 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" mode="ios">
   <ion-toolbar>
-    <ion-title>custom-search</ion-title>
-  </ion-toolbar>
+    <!-- <ion-buttons slot="start" (click)="cancel()">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons> -->
+    <ion-icon name="chevron-back-outline" slot="start" (click)="cancel()" class="back-icon"></ion-icon>
+    <ion-searchbar placeholder="Search" (ionInput)="onSearchInput($event)"></ion-searchbar>
+</ion-toolbar>
+
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">custom-search</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+<ion-content [fullscreen]="true" mode="ios">
+  <ion-item lines="none">
+    <ion-icon class="navigate-icon" name="navigate-outline" slot="start"></ion-icon>
+    <h2 class="fs-16">Nearby</h2>
+  </ion-item>
+
+  <ion-list>
+    @for (place of places; track place) {
+      <ion-item lines="none" class="ion-margin-bottom" (click)= "fromPage === 'edit-profile' ? selectPlace(place) : null">
+        <ion-thumbnail slot="start">
+          <img [src]="place.image" [alt]="place.name" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2 class="fs-12">{{ place.name }}</h2>
+          <p class="fs-10">{{ place.country }}</p>
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
 </ion-content>

@@ -1,0 +1,52 @@
+.custom-searchbar {
+    --placeholder-color: var(--ion-text-medium);
+    --border-radius: 50px;
+    --box-shadow: none;
+
+    .searchbar-input {
+        font-size: 14px;
+        height: 40px;
+        padding: 0 8px;
+        background: transparent !important;
+        border-radius: 50px !important;
+    }
+
+    ion-icon {
+        font-size: 18px;
+    }
+}
+
+ion-searchbar {
+   padding-top: 15px !important;
+   padding-left: 6px !important;
+}
+
+ion-buttons {
+    padding-top: 15px;
+    width: 30px !important;
+}
+
+.back-icon {
+    font-size: 24px;
+    padding-top: 20px !important;
+    padding-left: 0px !important;
+    color: var(--ion-color-primary);
+}
+
+.button {
+    width: 75px;
+    height: 30px;
+}
+
+.navigate-icon {
+    font-size: 24px;
+    background: var(--ion-color-medium);
+    color: var(--ion-color-light);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+ion-thumbnail img {
+    border-radius: 8px;  /* or 8px, 16px, etc. */
+    object-fit: cover;
+}

@@ -8,14 +8,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" mode="ios">
+  <form [formGroup]="form">
   <div class="ion-padding">
     <div class="ion-text-center ion-margin-bottom profile-avatar-wrapper">
       <div class="avatar-container">
         <ion-avatar style="width: 80px; height: 80px;">
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          <img [src]="avatar" />   
         </ion-avatar>
     
-        <ion-button fill="clear" size="small" class="camera-btn" shape="round">
+        <ion-button fill="clear" size="small" class="camera-btn" shape="round" (click)="uploadUserImage()">
           <ion-icon name="camera-outline"></ion-icon>
         </ion-button>
       </div>
@@ -23,27 +24,27 @@
     <ion-list lines="none">
       <ion-item class="custom-outline-input">
         <ion-label position="stacked">Name</ion-label>
-        <ion-input placeholder="Your name" value=""class="custom-outline-input-box"></ion-input>
+        <ion-input formControlName="name" placeholder="Your name" value="{{form.value.name}}" class="custom-outline-input-box"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Current city</ion-label>
-        <!-- <ion-searchbar placeholder="Search"></ion-searchbar> -->
-        <ion-input placeholder="Search" value="" class="custom-outline-input-box">
+        <ion-input formControlName="currentCity" placeholder="Search" value="{{selectedPlace?.name}}" class="custom-outline-input-box" (click)="openCustomSearch()">
           <ion-icon name="search-outline" slot="end"></ion-icon>
         </ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Website</ion-label>
-        <ion-input placeholder="Add a website" class="custom-outline-input-box"></ion-input>
+        <ion-input formControlName="website" placeholder="Add a website" class="custom-outline-input-box"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">About you</ion-label>
-        <ion-textarea placeholder="Write some details about yourself" 
+        <ion-textarea formControlName="aboutYou" placeholder="Write some details about yourself" 
          counter="true" rows="4" class="custom-outline-input-box" lines="none"></ion-textarea>
       </ion-item>
     </ion-list>
-    <ion-button color="medium" expand="block" class="ion-margin-top ion-padding" shape="round">
+    <ion-button color="medium" expand="block" class="ion-margin-top ion-padding" shape="round" (click)="save()">
       Save
     </ion-button>
   </div>
+</form>
 </ion-content>

@@ -4,7 +4,7 @@ import { addIcons } from 'ionicons';
 import { chatboxOutline, heartOutline, homeOutline, personCircleOutline, searchOutline, notificationsOutline, locationOutline, 
   sparklesOutline, arrowForwardCircleOutline, heart, navigateOutline,globe,airplane,add,pencilOutline,imageOutline,cameraOutline,cashOutline,settingsOutline,walletOutline,
   helpCircleOutline,linkOutline,lockClosedOutline,navigateCircleOutline,createOutline,chevronForwardOutline,ellipsisHorizontalOutline,
-  closeOutline,chevronDownOutline,saveOutline} from 'ionicons/icons';
+  closeOutline,chevronDownOutline,saveOutline,chevronBackOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -21,6 +21,6 @@ export class TabsPage {
       navigateOutline, globe,airplane, add, pencilOutline, imageOutline, cameraOutline,
       cashOutline,settingsOutline,helpCircleOutline,walletOutline, linkOutline,
       lockClosedOutline,navigateCircleOutline, createOutline,chevronForwardOutline,
-      ellipsisHorizontalOutline,closeOutline,chevronDownOutline,saveOutline});
+      ellipsisHorizontalOutline,closeOutline,chevronDownOutline,saveOutline,chevronBackOutline});
   }
 }
