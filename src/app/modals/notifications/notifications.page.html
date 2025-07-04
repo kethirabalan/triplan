@@ -1,12 +1,33 @@
-<ion-header translucent="true" collapse="fade">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-back-button text=""></ion-back-button>
+      <ion-button fill="clear" (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Notifications</ion-title>
+    <ion-title>Inbox</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true">
-  <app-coming-soon></app-coming-soon>
+<ion-content fullscreen="true" class="notifications-content">
+  <div class="inbox-header">
+    <div class="inbox-title">Inbox</div>
+    <ion-icon name="ellipsis-horizontal-outline" color="light"></ion-icon>
+  </div>
+  <div class="sort-row">
+    <ion-button size="small" fill="outline">
+      Sort <ion-icon name="chevron-down-outline"></ion-icon>
+    </ion-button>
+    <ion-button size="small" fill="solid" color="light">
+      Newest
+    </ion-button>
+  </div>
+  <p class="empty-message">
+    No alerts or messages at this time
+  </p>
 </ion-content>

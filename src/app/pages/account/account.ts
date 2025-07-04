@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Capacitor } from '@capacitor/core';
 import { AlertController } from '@ionic/angular';
 import { BookingsPage } from 'src/app/modals/bookings/bookings.page';
+import { NotificationsPage } from 'src/app/modals/notifications/notifications.page';
 
 @Component({
   selector: 'app-account',
@@ -41,13 +42,16 @@ export class Account  implements OnInit{
     }
   }
 
+  async openNotificationsModal() {
+    const modal = await this.modalCtrl.create({
+      component: NotificationsPage,
+    });
+    await modal.present();
+  }
+
   async openBookingsModal() {
     const modal = await this.modalCtrl.create({
       component: BookingsPage,
-      // breakpoints: [0, 1],
-      // initialBreakpoint: 1,
-      // showBackdrop: true,
-      // cssClass: 'bookings-modal'
     });
     await modal.present();
   }

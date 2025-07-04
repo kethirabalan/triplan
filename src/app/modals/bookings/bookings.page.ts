@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar,IonButtons,IonBackButton,IonList,
-  IonItem,IonLabel,IonNote,IonIcon,IonAvatar,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton,IonModal } from '@ionic/angular/standalone';
+  IonItem,IonLabel,IonNote,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton,IonModal,IonThumbnail,IonText } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
 
 
@@ -13,7 +13,7 @@ import { ModalController } from '@ionic/angular/standalone';
   standalone: true,
   providers: [ModalController,IonModal],
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, 
-    IonButtons, IonBackButton,IonList,IonItem,IonLabel,IonNote,IonIcon,IonAvatar,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton]
+    IonButtons, IonBackButton,IonList,IonItem,IonLabel,IonNote,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonCardContent,IonButton,IonThumbnail,IonText]
 })
 export class BookingsPage implements OnInit {
   bookings: any[] = [];

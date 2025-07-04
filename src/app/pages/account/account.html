@@ -30,7 +30,7 @@
 
   <ion-list-header class="account-section-header">Communication</ion-list-header>
   <ion-list lines="full" class="account-list">
-    <ion-item button detail routerLink="notifications">
+    <ion-item button detail (click)="openNotificationsModal()">
       <ion-icon name="notifications-outline" slot="start"></ion-icon>
       <ion-label>Notifications</ion-label>
     </ion-item>

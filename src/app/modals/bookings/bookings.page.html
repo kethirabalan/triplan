@@ -1,11 +1,11 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-button fill="clear" (click)="dismiss()">
         <ion-icon name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Your bookings</ion-title>
+    <!-- <ion-title>Your bookings</ion-title> -->
     <ion-buttons slot="end">
       <ion-button fill="clear">
         <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
@@ -17,19 +17,21 @@
 <ion-content class="bookings-modal-content">
   <div class="center-content">
     <img src="assets/images/bookings-suitcase.svg" alt="Suitcase" class="bookings-illustration" />
-    <h2>My bookings</h2>
+    <h3><strong>My bookings</strong></h3>
     <p class="desc">
-      Book things before you go, and get right to the good stuff when you're there.
+     <strong>Book things before you go, and get right to the good stuff when you're there.</strong>
     </p>
     <ion-button expand="block" shape="round" color="dark">Start planning</ion-button>
   </div>
-  <ion-card class="recent-bookings-card">
-    <ion-item button>
-      <ion-avatar slot="start">
-        <img src="assets/images/bookings-ticket.svg" alt="Ticket" />
-      </ion-avatar>
-      <ion-label>
-        Find recent in-app hotel bookings here
+  <ion-card>
+    <ion-item button lines="none" class="card-item">
+      <ion-thumbnail>
+        <img src="assets/images/bookings-ticket.svg" alt="Ticket" class="ticket-icon"/>
+      </ion-thumbnail>
+      <ion-label class="ion-margin-start">
+        <ion-text class="fs-14">
+          Find recent in-app hotel bookings here
+        </ion-text>
       </ion-label>
     </ion-item>
   </ion-card>
