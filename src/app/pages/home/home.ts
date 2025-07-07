@@ -13,6 +13,8 @@ import { recommendedPlaces as staticRecommended } from 'src/app/data/recommended
 import { adventureContent as staticAdventure } from 'src/app/data/adventure-content';
 import { staticBestRestaurants } from 'src/app/data/staticBestRestaurants';
 import { RouterLink } from '@angular/router';
+import { FirebaseFirestoreService } from 'src/app/services/firebase-firestore.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -40,10 +42,11 @@ export class Home implements OnInit{
   }
   recentlyViewed: any[] = [];
   constructor(private toastController: ToastController, private platform: Platform, 
-    private geminiService: GeminiService, private pixabay: PixabayService) { }
+    private geminiService: GeminiService, private pixabay: PixabayService, 
+    private firebaseFirestoreService: FirebaseFirestoreService, private authService: AuthService) { }
 
   async ngOnInit() {
-    // this.requestLocation();
+    this.requestLocation();
     // Load dynamic recommendations
     try {
       // const recommendations = await this.geminiService.getGlobalRecommendations();
@@ -123,6 +126,7 @@ export class Home implements OnInit{
       const country = data.address.country || '';
       this.locationName = `${city}, ${country}`;
       this.showToast('Location access granted!');
+      await this.saveCurrentLocation(lat, lon, city, country);
     } catch (error) {
       console.error('Reverse geocoding failed', error);
       this.showToast('Could not determine location name.');
@@ -137,5 +141,32 @@ export class Home implements OnInit{
       color: 'dark',
     });
     await toast.present();
+  }
+
+  async saveCurrentLocation(lat: number, lon: number, city: string, country: string) {
+    try {
+      const currentUser = await this.authService.getCurrentAuthUser();
+      if (currentUser) {
+        const locationData = {
+          latitude: lat,
+          longitude: lon,
+          city: city,
+          country: country,
+          locationName: `${city}, ${country}`,
+          timestamp: this.firebaseFirestoreService.timestamp,
+          userId: currentUser.uid
+        };
+
+        // Save to users/{userId}/currentLocation
+        const locationPath = `users/${currentUser.uid}/currentLocation`;
+        await this.firebaseFirestoreService.set(locationPath, locationData);
+        
+        console.log('Current location saved to database');
+      } else {
+        console.log('No authenticated user found, location not saved');
+      }
+    } catch (error) {
+      console.error('Error saving current location:', error);
+    }
   }
 }

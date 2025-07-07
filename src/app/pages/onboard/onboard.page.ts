@@ -19,6 +19,7 @@ import { firstValueFrom } from 'rxjs';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonIcon, IonText, IonGrid, IonRow, IonCol]
 })
 export class OnboardPage implements OnInit {
+  currentUser: any;
 
   constructor(private authService: AuthService, private router: Router,private userService: UserService,private loadingService: LoadingService) {
     addIcons({
@@ -33,6 +34,7 @@ export class OnboardPage implements OnInit {
   async googleSignIn() {
     try {
       const loader = await this.loadingService.show();
+      
       await this.authService.signInWithGoogle();
   
       // Get the current user from AuthService
@@ -49,14 +51,28 @@ export class OnboardPage implements OnInit {
           loginMethodToken,
           loginMethodRefreshToken: null,
         }
-      });
+      }, currentUser);
   
       await this.loadingService.dismiss(loader);
-      this.router.navigate(['/tabs/home']);
+      this.router.navigate(['/tabs/home']).then(() => {
+        // Navigation completed successfully
+      }).catch(err => {
+        console.error('Navigation to home failed:', err);
+      });
     } catch (error) {
+      console.error('Error during Google sign-in:', error);
       await this.loadingService.dismissAll();
-      // Optionally show error to user
+      // Show error to user
+      alert('Error during sign-in: ' + error);
     }
+  }
+
+  skip() {
+    this.router.navigate(['/tabs/home']).then(() => {
+      // Navigation completed successfully
+    }).catch(err => {
+      console.error('Navigation failed:', err);
+    });
   }
 
   signIn() {

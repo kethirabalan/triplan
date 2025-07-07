@@ -3,13 +3,13 @@ import { TabsPage } from './tabs.page';
 
 export const routes: Routes = [
   {
+    path: 'onboard-welcome',      
+    loadComponent: () => import('../pages/onboard/onboard.page').then( m => m.OnboardPage),
+  },
+  {
     path: 'tabs',
     component: TabsPage,
     children: [
-      {
-        path: 'onboard-welcome',
-        loadComponent: () => import('../pages/onboard/onboard.page').then( m => m.OnboardPage),
-      },
       {
         path: 'home',
         loadComponent: () =>

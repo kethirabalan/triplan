@@ -1,7 +1,6 @@
 // import { Injectable } from '@angular/core';
 // import { FirebaseRemoteConfig } from '@capacitor-firebase/remote-config';
 // import { RemoteConfigs } from '../core/enums';
-// import { KompisService } from './kompis.service';
 // import {
 //   Observable,
 //   Subject,
@@ -38,7 +37,7 @@
 // })
 // export class FirebaseRemoteConfigService {
 //   constructor(
-//     private kompisService: KompisService) { }
+//   ) { }
 
 //   remoteConfig$: Observable<RemoteConfig[]>;
 //   async initialize() {
@@ -71,7 +70,6 @@
 //         );
 //       }
 //     } catch (error) {
-//       this.kompisService.logError(error);
 //     }
 //   }
 

@@ -1,7 +1,7 @@
 <ion-header collapse="condense" [translucent]="true" mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="" text=""></ion-back-button>
+      <ion-back-button defaultHref="/tabs/account/profile" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Edit profile</ion-title>
   </ion-toolbar>
@@ -13,7 +13,7 @@
     <div class="ion-text-center ion-margin-bottom profile-avatar-wrapper">
       <div class="avatar-container">
         <ion-avatar style="width: 80px; height: 80px;">
-          <img [src]="avatar" />   
+          <img [src]="avatar || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />   
         </ion-avatar>
     
         <ion-button fill="clear" size="small" class="camera-btn" shape="round" (click)="uploadUserImage()">
@@ -28,7 +28,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Current city</ion-label>
-        <ion-input formControlName="currentCity" placeholder="Search" value="{{selectedPlace?.name}}" class="custom-outline-input-box" (click)="openCustomSearch()">
+        <ion-input formControlName="currentCity" placeholder="Search" [value]="selectedPlace?.name || form.value.currentCity" class="custom-outline-input-box" (click)="openCustomSearch()" readonly>
           <ion-icon name="search-outline" slot="end"></ion-icon>
         </ion-input>
       </ion-item>

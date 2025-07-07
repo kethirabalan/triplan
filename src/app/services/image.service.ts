@@ -44,7 +44,7 @@ export class ImageService {
       reader.readAsDataURL(file);
       reader.onload = async () => {
         try {
-          // const res = await this.firebaseStorageService.uploadBytes(path, file);
+          const res = await this.firebaseStorageService.uploadBytes(path, file);
           resolve(true);
         } catch (error) {
           resolve(false);

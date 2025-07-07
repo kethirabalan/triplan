@@ -8,9 +8,9 @@ export class LoadingService {
   private loaders: HTMLIonLoadingElement[] = []
   constructor(private loadingCtrl: LoadingController) { }
 
-  async show(message = 'loading...', opts?: LoadingOptions, minms?: number, msgInput?: any): Promise<HTMLIonLoadingElement> {
+  async show(message = 'Loading...', opts?: LoadingOptions, minms?: number, msgInput?: any): Promise<HTMLIonLoadingElement> {
     const loader = await this.loadingCtrl.create({
-      message: 'loading...',
+      message: message,
       backdropDismiss: false,
       ...opts
     });

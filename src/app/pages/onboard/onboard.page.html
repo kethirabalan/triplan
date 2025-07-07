@@ -1,7 +1,6 @@
 <ion-content [fullscreen]="true" mode="ios" class="safe-area-top onboard-wrapper">
   <div class="onboard-bg"></div>
 
-  <!-- Header Section -->
   <ion-grid class="onboard-header">
     <ion-row>
       <ion-col size="9">
@@ -17,12 +16,11 @@
         <ion-text color="light">Cancun, Mexico</ion-text>
       </ion-col>
       <ion-col size="3" class="ion-text-right">
-        <button class="onboard-skip">Skip</button>
+        <button class="onboard-skip" (click)="skip()">Skip</button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <!-- Bottom Content Section -->
   <ion-grid class="onboard-content-inner ion-justify-content-end h-85">
     <ion-row class="ion-justify-content-end">
       <ion-col size="12">
