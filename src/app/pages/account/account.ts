@@ -113,7 +113,7 @@ export class Account implements OnInit {
     });
     modal.present();
     const { data, role } = await modal.onWillDismiss();
-    this.isModalOpen = false;
+    // this.isModalOpen = false;
     console.log(data, role);
     if (role === 'createAccount') {
       this.authService.signUpWithEmailAndPassword(data.email, data.password).then(() => {

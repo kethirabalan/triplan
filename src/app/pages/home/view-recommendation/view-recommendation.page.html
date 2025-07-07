@@ -17,6 +17,7 @@
 
 <ion-content [fullscreen]="true" mode="ios">
   <!-- Chips as tabs/filters -->
+  @if(spot && !loading) {
   <div class="ion-padding-horizontal ion-margin-top">
     <ion-chip color="primary">Overview</ion-chip>
     <ion-chip outline>Hotels</ion-chip>
@@ -47,10 +48,11 @@
     </ion-card-content>
   </ion-card>
 
-  <div class="ion-text-center">
+  <div class="ion-text-center ion-margin-bottom">
     <ion-button shape="round" fill="outline" color="primary">
       <ion-icon name="map-outline" slot="start"></ion-icon>
       Map
     </ion-button>
   </div>
+  }
 </ion-content>

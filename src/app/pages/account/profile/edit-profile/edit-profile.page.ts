@@ -71,7 +71,7 @@ export class EditProfilePage implements OnInit {
           
           // Populate form with existing data
           this.form.patchValue({
-            name: this.userData.displayName || this.currentUser.displayName || '',
+            name: this.userData.displayName || this.currentUser?.displayName || this.currentUser?.email.split('@')[0] || '',
             currentCity: this.userData.currentCity || '',
             website: this.userData.website || '',
             aboutYou: this.userData.aboutYou || ''
@@ -80,7 +80,7 @@ export class EditProfilePage implements OnInit {
           // If no user data in Firestore, use auth user data
           this.avatar = this.currentUser.photoUrl || '';
           this.form.patchValue({
-            name: this.currentUser.displayName || '',
+            name: this.currentUser?.displayName || this.currentUser?.email.split('@')[0] || '',
             currentCity: '',
             website: '',
             aboutYou: ''

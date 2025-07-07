@@ -20,7 +20,7 @@
 
   <ion-list>
     @for (place of places; track place) {
-      <ion-item lines="none" class="ion-margin-bottom">
+      <ion-item lines="none" class="ion-margin-bottom" (click)="goToPlace(place)">
         <ion-thumbnail slot="start">
           <img [src]="place.image" [alt]="place.name" />
         </ion-thumbnail>

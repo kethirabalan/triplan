@@ -21,7 +21,7 @@
           <img [src]="user?.photoURL || 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Profile" />
         </ion-thumbnail>
         <ion-label>
-          <ion-text><strong>{{user?.displayName}}</strong></ion-text><br>
+          <ion-text><strong>{{user?.displayName || user?.email.split('@')[0]}}</strong></ion-text><br>
           <ion-text class="fs-12">Joined in 2025</ion-text><br>
           <ion-text class="fs-12">0 contributions</ion-text>
         </ion-label>

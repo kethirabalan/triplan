@@ -29,7 +29,6 @@ export class SignPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.isSignIn);
   }
 
   async presentAlert(message: string) {
@@ -52,7 +51,6 @@ export class SignPage implements OnInit {
   }
 
   async createAccount() {
-    console.log(this.modalForm.value);
     if (this.modalForm.invalid) {
       await this.presentAlert('Please enter a valid email and password');
       return;

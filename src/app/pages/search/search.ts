@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonHeader, IonContent, IonSearchbar, IonIcon, IonItem,IonButton,IonThumbnail,IonLabel,
   IonList,IonToolbar,IonBackButton,IonButtons } from '@ionic/angular/standalone';
 import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -14,7 +15,7 @@ export class Search {
   allPlaces = recommendedPlaces;
   places = recommendedPlaces.slice(0, 3);
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   onSearchInput(event: any) {
     const query = event.target.value?.toLowerCase() || '';
@@ -28,6 +29,10 @@ export class Search {
       place.name.toLowerCase().includes(query) ||
       place.country.toLowerCase().includes(query)
     );
+  }
+
+  goToPlace(place: any) {
+    this.router.navigate(['/tabs/home/view-recommendation'], { state: { item: place} });
   }
 
 }
