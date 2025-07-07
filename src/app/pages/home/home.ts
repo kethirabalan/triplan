@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonSearchbar,
   IonList, IonListHeader, IonLabel, IonItem, IonText,IonThumbnail,IonCard,IonCardHeader,IonCardTitle
 } from '@ionic/angular/standalone';
-import { ToastController, Platform } from '@ionic/angular';
+import { ToastController, Platform, ModalController } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
 import { CommonModule } from '@angular/common';
 import { SliderComponent } from 'src/app/components/slider/slider.component';
@@ -15,11 +15,13 @@ import { staticBestRestaurants } from 'src/app/data/staticBestRestaurants';
 import { Router, RouterLink } from '@angular/router';
 import { FirebaseFirestoreService } from 'src/app/services/firebase-firestore.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CustomSearchPage } from 'src/app/modals/custom-search/custom-search.page';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.html',
   styleUrls: ['home.scss'],
+  providers:[ModalController],
   imports: [IonList, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon,
     IonSearchbar, IonListHeader, IonLabel, IonItem, IonText, CommonModule, SliderComponent,IonThumbnail, RouterLink],
 })
@@ -29,6 +31,7 @@ export class Home implements OnInit{
   adventureContent: any[] = staticAdventure;
   bestRestaurants: any[] = staticBestRestaurants;
   isScrolled = false;
+  selectedPlace: any;
   customFeed = {
     title: 'Triplan Rewards',
     subtitle: 'Book with Triplan, earn 5% back on hotals in Dubai',
@@ -43,7 +46,8 @@ export class Home implements OnInit{
   recentlyViewed: any[] = [];
   constructor(private toastController: ToastController, private platform: Platform, 
     private geminiService: GeminiService, private pixabay: PixabayService, 
-    private firebaseFirestoreService: FirebaseFirestoreService, private authService: AuthService, private router: Router) { }
+    private firebaseFirestoreService: FirebaseFirestoreService, private authService: AuthService, private router: Router,
+    private modalCtrl: ModalController, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
     // Load dynamic recommendations
@@ -85,6 +89,22 @@ export class Home implements OnInit{
     ].slice(0, 5);
   
     localStorage.setItem('recentlyViewed', JSON.stringify(this.recentlyViewed));
+  }
+
+
+  async openCustomSearch() {
+    const modal = await this.modalCtrl.create({
+      component: CustomSearchPage,
+      componentProps: {
+        fromPage: 'home'
+      }
+    })
+    modal.present();
+    const { data, role } = await modal.onWillDismiss()
+    if (data && role === 'select') {
+      this.selectedPlace = data;
+      this.cdr.detectChanges();
+    }
   }
 
   async requestLocation() {

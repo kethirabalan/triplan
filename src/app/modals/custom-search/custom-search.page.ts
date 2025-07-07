@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonList, IonThumbnail, IonLabel, IonIcon, IonButton,IonButtons,IonSearchbar,IonBackButton,ModalController } from '@ionic/angular/standalone';
 import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-custom-search',
@@ -18,7 +19,7 @@ export class CustomSearchPage implements OnInit {
   selectedPlace: any;
   @Input() fromPage: string = '';
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController, private router: Router) {}
 
   ngOnInit() {
   }
@@ -37,9 +38,13 @@ export class CustomSearchPage implements OnInit {
     );
   }
 
-  selectPlace(place: any) {
+  async selectPlace(place: any) {
     this.selectedPlace = place;
     this.modalCtrl.dismiss(this.selectedPlace, 'select');
+    if (this.fromPage === 'home') {
+      await this.router.navigate(['/tabs/home/view-recommendation'], { state: { item: place } });
+      await this.modalCtrl.dismiss(null, 'select');
+    }
   }
 
   cancel() {

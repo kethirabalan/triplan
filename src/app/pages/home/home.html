@@ -1,7 +1,7 @@
 <ion-searchbar mode="ios"
   class="fixed-top-searchbar safe-area"
   placeholder="Search..."
-  routerLink="/tabs/search"
+  (click)="openCustomSearch()"
   [class.visible]="isScrolled"
   [class.hidden]="!isScrolled">
 </ion-searchbar>
@@ -20,7 +20,7 @@
       <ion-searchbar
       placeholder="Places to go, things to do, hotels..."
       class="custom-searchbar"  [class.hidden]="isScrolled"
-      [class.visible]="!isScrolled" routerLink="/tabs/search">
+      [class.visible]="!isScrolled" (click)="openCustomSearch()">
     </ion-searchbar>
     </ion-toolbar>
   </ion-header>

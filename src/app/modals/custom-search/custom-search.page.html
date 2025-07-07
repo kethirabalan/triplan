@@ -18,7 +18,7 @@
 
   <ion-list>
     @for (place of places; track place) {
-      <ion-item lines="none" class="ion-margin-bottom" (click)= "fromPage === 'edit-profile' ? selectPlace(place) : null">
+      <ion-item lines="none" class="ion-margin-bottom" (click)= "fromPage === 'edit-profile' || fromPage === 'home' ? selectPlace(place) : null">
         <ion-thumbnail slot="start">
           <img [src]="place.image" [alt]="place.name" />
         </ion-thumbnail>
