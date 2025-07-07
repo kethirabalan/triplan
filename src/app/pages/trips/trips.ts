@@ -65,14 +65,6 @@ export class Trips implements OnInit{
     this.loadingService.showLoading('Loading...');
   }
 
-  // async createTrip(name: string) {
-  //   if (name) {
-  //     this.modal.dismiss();
-  //     await this.router.navigate(['/tabs/trips/trip-view', name]);
-  //     this.tripName = '';
-  //   }
-  // }
-
   async createTrip(tripName: string) {
     const trip = {
       _meta: {
@@ -87,7 +79,7 @@ export class Trips implements OnInit{
       imageUrl: 'assets/images/placeholderimg.png',
     };
     await this.tripService.addTrip(trip);
-    await this.router.navigate(['/tabs/trips/trip-view', trip.name]);
+    await this.router.navigate(['/tabs/trips/trip-view', trip.id]);
     this.modal.dismiss();
     this.tripName = '';
   }
