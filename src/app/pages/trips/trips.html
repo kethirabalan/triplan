@@ -6,7 +6,7 @@
     </ion-toolbar>
   </ion-header>
   @if(trips.length > 0 && user && !loading) {
-    <ion-list class="ion-padding-horizontal" lines="none">
+    <ion-list class="ion-padding-horizontal" lines="none" (click)="openTrip(trip.id)">
       @for(trip of trips; track trip.id) {
       <ion-item class="ion-no-padding" detail="false">
         <ion-thumbnail slot="start">
@@ -23,7 +23,7 @@
             {{ trip.savesCount || 0 }} saves
           </h6> 
         </ion-label>
-        <ion-icon name="ellipsis-vertical" slot="end" class="fs-16" color="medium" (click)="openTripOptions(trip)"></ion-icon>
+        <ion-icon name="ellipsis-vertical" slot="end" class="fs-16" color="medium" (click)="openTripOptions(trip.id)"></ion-icon>
       </ion-item> 
       }
     </ion-list>
@@ -82,28 +82,28 @@
     </ion-fab-list>
   </ion-fab>
   }
-</ion-content>
-
   @if(user) {
-  <ion-modal #tripModal trigger="open-trip-modal" initialBreakpoint="0.4" [breakpoints]="[0, 0.25, 0.5]">
+  <ion-modal #tripModal id="trip-modal" trigger="open-trip-modal" initialBreakpoint="0.4" [breakpoints]="[0, 0.25, 0.5]">
     <ng-template>
       <ion-content class="ion-padding">
-
+  
         <ion-header collapse="condense" class="ion-no-border">
           <ion-toolbar>
             <ion-title class="ion-text-center">Create a trip</ion-title>
           </ion-toolbar>
         </ion-header>
-
+  
         <ion-item lines="full" class="ion-margin-top">
-          <ion-input label="Trip name" labelPlacement="stacked" [(ngModel)]="tripName" placeholder="Ex. Weekend in NYC"></ion-input>
+          <ion-input class="ion-input" label="Trip name" labelPlacement="stacked" [(ngModel)]="tripName" placeholder="Ex. Weekend in NYC"></ion-input>
         </ion-item>
-
+  
         <ion-button expand="block" class="ion-margin-top" (click)="createTrip(tripName)">
           Create Trip
         </ion-button>
-
+  
       </ion-content>
     </ng-template>
   </ion-modal>
   }
+</ion-content>
+

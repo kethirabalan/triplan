@@ -11,6 +11,10 @@ export class TripService {
     private authService: AuthService
   ) {}
 
+  createId(): string {
+    return this.firestoreService.createId();
+  }
+
   addTrip(trip: any): Promise<any> {
     return this.authService.getCurrentAuthUser().then(user => {
       if (!user) throw new Error('No user signed in');

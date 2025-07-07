@@ -28,6 +28,8 @@ export class Trips implements OnInit{
   user: any;
   isModalOpen = false;
   loading = false;
+  tripId: string = '';
+  trip: any;
   constructor(private router: Router, private modal: ModalController, private actionSheetCtrl: ActionSheetController, 
     private tripService: TripService, private authService: AuthService, private modalCtrl: ModalController, private loadingService: LoadingService, private toastCtrl: ToastController) {
       this.authService.currentUser$.subscribe((user) => {
@@ -78,6 +80,7 @@ export class Trips implements OnInit{
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
+      id: this.tripService.createId(),
       name: tripName,
       startDate: new Date().toISOString(),
       endDate: new Date().toISOString(),
@@ -89,19 +92,19 @@ export class Trips implements OnInit{
     this.tripName = '';
   }
 
-  async openTripOptions(trip: any) {
+  async openTripOptions(tripId: string) {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Trip options',
       cssClass: 'trip-action-sheet',
       buttons: [
         { text: 'Share', icon: 'share-outline', handler: () => {
-          this.shareTrip(trip);
+          this.shareTrip(tripId);
         } },
         { text: 'Make public', icon: 'globe-outline', handler: () => {
-          this.makePublic(trip);
+          this.makePublic(tripId);
         } },
         { text: 'Invite', icon: 'person-add-outline', handler: () => {
-          this.inviteToTrip(trip);
+          this.inviteToTrip(tripId);
         } }, 
         { text: 'Delete', icon: 'trash-outline', role: 'destructive', handler: () => {} },
         { text: 'Edit', icon: 'pencil-outline', handler: () => {} },
@@ -111,8 +114,8 @@ export class Trips implements OnInit{
     await actionSheet.present();
   }
 
-  async shareTrip(trip: any) {
-    const url = `${window.location.origin}/tabs/trips/trip-view/${trip.name}`;
+  async shareTrip(tripId: string) {    
+    const url = `${window.location.origin}/tabs/trips/trip-view/${tripId}`;
     this.toastCtrl.create({
       message: 'Trip Url copied to clipboard',
       duration: 2000,
@@ -122,7 +125,7 @@ export class Trips implements OnInit{
     });
   }
 
-  async makePublic(trip: any) {
+  async makePublic(tripId: string) { 
     this.toastCtrl.create({
       message: 'Trip made public',
       duration: 2000,
@@ -131,7 +134,7 @@ export class Trips implements OnInit{
     });
   }
 
-  async inviteToTrip(trip: any) {
+  async inviteToTrip(tripId: string) {
     this.toastCtrl.create({
       message: 'Invite sent',
       duration: 2000,
@@ -140,8 +143,9 @@ export class Trips implements OnInit{
     });
   }
 
-  async deleteTrip(trip: any) {
-    await this.tripService.deleteTrip(trip.id as any);
+  async deleteTrip(tripId: string) { 
+    this.trips = this.trips.filter((t) => t.id !== tripId);
+    await this.tripService.deleteTrip(tripId);
     this.toastCtrl.create({
       message: 'Trip deleted',
       duration: 2000,
@@ -150,14 +154,19 @@ export class Trips implements OnInit{
     });
   }
 
-  async editTrip(trip: any) {
-    await this.tripService.updateTrip(trip, trip.id as any, trip.data);
+  async editTrip(tripId: string, data: any) { 
+    this.trips = this.trips.map((t) => t.id === tripId ? data : t);
+    await this.tripService.updateTrip(data, tripId, data);
     this.toastCtrl.create({
       message: 'Trip edited',
       duration: 2000,
     }).then((toast) => {
       toast.present();
     });
+  }
+
+  openTrip(tripId: string) { 
+    this.router.navigate(['/tabs/trips/trip-view', tripId]);
   }
 
 

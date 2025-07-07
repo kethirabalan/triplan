@@ -48,3 +48,8 @@
   width: 56px !important;
   height: 56px !important;
 }
+
+::ng-deep .ion-input {
+  --background: none !important;
+  --color: none !important;
+}
