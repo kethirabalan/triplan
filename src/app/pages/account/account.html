@@ -4,6 +4,7 @@
       <ion-title size="large" color="primary">Account</ion-title>
     </ion-toolbar>
   </ion-header>
+  @if(user){
   <ion-list lines="none" class="account-list ion-margin-top">
     <ion-item button detail routerLink="profile">
       <ion-avatar slot="start">
@@ -14,7 +15,30 @@
       </ion-label>
     </ion-item>
   </ion-list>
+  }
 
+  @if(!user){
+  <!-- <ion-list lines="none" class="ion-margin-top">
+    <ion-item button detail="false" (click)="signInOption()">
+      <ion-icon name="log-in-outline" slot="start"></ion-icon>
+      <ion-label>Sign In</ion-label>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-card class="ion-margin-top" color="favorite">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center fs-18">Kickstart your trip planning</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h4 class="ion-text-center ion-margin-top">Get travel recommendations, book your trip and earn rewards</h4>
+      <ion-button id="isModalOpen" color="light" expand="block" shape="round" fill="solid" class="ion-margin-top">
+        Sign In
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  }
+
+  @if(user){
   <ion-list-header class="account-section-header">Bookings &amp; rewards</ion-list-header>
   <ion-list lines="full" class="account-list">
     <ion-item button detail (click)="openBookingsModal()">
@@ -35,6 +59,7 @@
       <ion-label>Notifications</ion-label>
     </ion-item>
   </ion-list>
+  }
 
   <ion-list-header class="account-section-header">Settings</ion-list-header>
   <ion-list lines="full" class="account-list">
@@ -47,11 +72,46 @@
       <ion-label>Support</ion-label>
     </ion-item>
   </ion-list>
+  @if(user){
   <ion-button fill="light" class="signout-link" color="danger" (click)="presentSignOutAlert()">Sign Out</ion-button>
+  }
   @if(isNative){
-    <div class="account-version">
-      <div>Version: v{{ appInfo.version }} (Build {{ appInfo.build }})</div>
-      <div>Device ID: {{ appInfo.deviceId }}</div>
-    </div>
+  <div class="account-version">
+    <div>Version: v{{ appInfo.version }} (Build {{ appInfo.build }})</div>
+    <div>Device ID: {{ appInfo.deviceId }}</div>
+  </div>
   }
 </ion-content>
+
+<!-- <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <div class="block">Block of Content</div>
+  </ng-template>
+</ion-modal> -->
+
+<!-- modal -->
+<ion-modal trigger="isModalOpen" id="isModalOpen" [initialBreakpoint]="0.5" [breakpoints]="[0, 1]">
+  <ng-template>
+    <div class="block">
+      <ion-content class="ion-padding" mode="ios">
+        <h2 class="ion-text-center"><strong class="fs-16 ion-margin-bottom">Sign in and plan your next adventure</strong></h2>
+        <div class="ion-text-center ion-margin-top">
+          <ion-button expand="block" shape="round" fill="outline" class="ion-margin-bottom" (click)="createAccount()">Create
+            account</ion-button>
+          <ion-button expand="block" shape="round" fill="solid" color="dark" class="ion-margin-bottom"
+            (click)="signInWithGoogle()">
+            <ion-icon name="logo-google" slot="start"></ion-icon>
+            Continue with Google
+          </ion-button>
+          <div class="ion-margin-top">
+            <a style="text-decoration: underline;" (click)="signIn()">Have an account? Sign in</a>
+          </div>
+        </div>
+        <div class="ion-text-center ion-margin-top ion-margin-bottom" style="font-size: 12px; color: #888;">
+          By proceeding, you agree to our <a href="#" style="text-decoration: underline;">Terms of Use</a> and confirm
+          you have read our <a href="#" style="text-decoration: underline;">Privacy and Cookie Statement</a>.
+        </div>
+      </ion-content>
+    </div>
+  </ng-template>
+</ion-modal>

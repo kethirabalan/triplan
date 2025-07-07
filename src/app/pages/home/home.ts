@@ -12,7 +12,7 @@ import { PixabayService } from 'src/app/services/pixabay.service';
 import { recommendedPlaces as staticRecommended } from 'src/app/data/recommendedPlaces';
 import { adventureContent as staticAdventure } from 'src/app/data/adventure-content';
 import { staticBestRestaurants } from 'src/app/data/staticBestRestaurants';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FirebaseFirestoreService } from 'src/app/services/firebase-firestore.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -43,10 +43,9 @@ export class Home implements OnInit{
   recentlyViewed: any[] = [];
   constructor(private toastController: ToastController, private platform: Platform, 
     private geminiService: GeminiService, private pixabay: PixabayService, 
-    private firebaseFirestoreService: FirebaseFirestoreService, private authService: AuthService) { }
+    private firebaseFirestoreService: FirebaseFirestoreService, private authService: AuthService, private router: Router) { }
 
   async ngOnInit() {
-    this.requestLocation();
     // Load dynamic recommendations
     try {
       // const recommendations = await this.geminiService.getGlobalRecommendations();
@@ -156,7 +155,6 @@ export class Home implements OnInit{
           timestamp: this.firebaseFirestoreService.timestamp
         };
 
-        // Update the user document with current location and _meta structure
         const userPath = `users/${currentUser.uid}`;
         await this.firebaseFirestoreService.update(userPath, {
           currentLocation: locationData,
@@ -168,10 +166,9 @@ export class Home implements OnInit{
             updatedAt: this.firebaseFirestoreService.timestamp
           }
         });
-        
-        console.log('Current location saved to database with _meta structure');
       } else {
-        console.log('No authenticated user found, location not saved');
+        await this.showToast('Please sign in to save your location');
+        this.router.navigate(['/tabs/account']);
       }
     } catch (error) {
       console.error('Error saving current location:', error);

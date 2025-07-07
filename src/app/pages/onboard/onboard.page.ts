@@ -19,8 +19,6 @@ import { firstValueFrom } from 'rxjs';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonIcon, IonText, IonGrid, IonRow, IonCol]
 })
 export class OnboardPage implements OnInit {
-  currentUser: any;
-
   constructor(private authService: AuthService, private router: Router,private userService: UserService,private loadingService: LoadingService) {
     addIcons({
       radioButtonOnOutline,

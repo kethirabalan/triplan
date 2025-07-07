@@ -1,0 +1,41 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true" mode="ios">
+  <form (ngSubmit)="isSignIn ? signIn() : createAccount()" [formGroup]="modalForm">    
+  <h2 class="ion-text-center fs-16"><strong>{{ isSignIn ? 'Welcome back.' : 'Become a Triplan member.' }}</strong></h2>
+    <div class="ion-padding-top">
+        <ion-item lines="none" color="none" [class.ion-invalid]="modalForm.get('email')?.invalid && modalForm.get('email')?.touched">
+          <ion-input label="Email" label-placement="floating" type="email" placeholder="Email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item lines="none" color="none" [class.ion-invalid]="modalForm.get('password')?.invalid && modalForm.get('password')?.touched">
+          <ion-input label="Password" label-placement="floating" type="password" placeholder="Password" formControlName="password"></ion-input>
+        </ion-item>
+      </div>
+      <ion-button expand="block" shape="round" fill="solid" color="dark" class="ion-margin-top" [disabled]="modalForm.invalid" 
+      (click)="isSignIn ? signIn() : createAccount()">
+        {{ isSignIn ? 'Sign In' : 'Create Account' }}
+      </ion-button>
+      <!-- forgot password -->
+      @if(isSignIn) {
+        <div class="ion-text-center ion-margin-top">
+          <p (click)="forgotPassword()" style="text-decoration: underline;">Forgot password?</p>
+        </div>
+      }
+      <!-- sign in with google -->
+      <div class="ion-text-center ion-margin-top">
+        <ion-button expand="block" shape="round" fill="solid" color="dark" class="ion-margin-top"
+        (click)="signInWithGoogle()">
+        <ion-icon name="logo-google" slot="start"></ion-icon>
+        Continue with Google
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

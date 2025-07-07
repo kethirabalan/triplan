@@ -5,7 +5,9 @@ import { chatboxOutline, heartOutline, homeOutline, personCircleOutline, searchO
   sparklesOutline, arrowForwardCircleOutline, heart, navigateOutline,globe,airplane,add,pencilOutline,imageOutline,cameraOutline,cashOutline,settingsOutline,walletOutline,
   helpCircleOutline,linkOutline,lockClosedOutline,navigateCircleOutline,createOutline,chevronForwardOutline,ellipsisHorizontalOutline,
   closeOutline,chevronDownOutline,saveOutline,chevronBackOutline,
-  logoGoogle,radioButtonOnOutline} from 'ionicons/icons';
+  logoGoogle,radioButtonOnOutline,
+  logInOutline,shareOutline,mailOutline,informationCircleOutline,
+  mapOutline,shareSocialOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -22,6 +24,8 @@ export class TabsPage {
       navigateOutline, globe,airplane, add, pencilOutline, imageOutline, cameraOutline,
       cashOutline,settingsOutline,helpCircleOutline,walletOutline, linkOutline,
       lockClosedOutline,navigateCircleOutline, createOutline,chevronForwardOutline,
-      ellipsisHorizontalOutline,closeOutline,chevronDownOutline,saveOutline,chevronBackOutline,logoGoogle,radioButtonOnOutline});
+      ellipsisHorizontalOutline,closeOutline,chevronDownOutline,saveOutline,chevronBackOutline,logoGoogle,radioButtonOnOutline,
+      logInOutline,shareOutline,mailOutline,informationCircleOutline,mapOutline,shareSocialOutline
+    });
   }
 }

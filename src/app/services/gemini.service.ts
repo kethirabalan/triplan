@@ -47,7 +47,42 @@ export class GeminiService {
       return [];
     }
   }
+
+  async getGlobalPlaces(): Promise<any[]> {
+    const model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
   
+    const prompt = `Give me 10 popular tourist destinations in the world in valid JSON format.
+  
+  Each item must include:
+  - name
+  - type (e.g. monument, temple, museum, nature, beach, city, etc.)
+  - rating (between 4.0 and 5)
+  - location (country or city)
+  - image_query (exact name + location, used for image search)
+  
+  Only return a valid JSON array like this:
+  [
+    {
+      "name": "Eiffel Tower",
+      "type": "Monument",
+      "rating": 4.8,
+      "location": "Paris, France",
+      "image_query": "Eiffel Tower Paris France"
+    },
+    ...
+  ]`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response.text();
+  
+    try {
+      const jsonMatch = response.match(/\[.*\]/s);
+      return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
+    } catch (e) {
+      console.error('Global Places JSON parsing failed:', e);
+      return [];
+    }
+  }
 
   async getGlobalAdventure(): Promise<any[]> {
     const model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });

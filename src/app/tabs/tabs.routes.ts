@@ -89,6 +89,14 @@ export const routes: Routes = [
           import('../pages/account/profile/edit-profile/edit-profile.page').then( m => m.EditProfilePage),
       },
       {
+        path: 'home/view-recommendation',
+        loadComponent: () => import('../pages/home/view-recommendation/view-recommendation.page').then(m => m.ViewRecommendationPage),
+      },
+      {
+        path: 'home/view-place',
+        loadComponent: () => import('../pages/home/view-place/view-place.page').then(m => m.ViewPlacePage),
+      },
+      {
         path: '',
         redirectTo: 'tabs/home',
         pathMatch: 'full',

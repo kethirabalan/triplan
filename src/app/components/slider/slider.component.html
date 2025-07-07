@@ -1,7 +1,7 @@
 @if(items){
   <div class="slider-scroll">
     @for (item of items; track item.id) {
-      <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="slider-card">
+      <ion-card [style.width]="cardWidth" [style.height]="cardHeight" class="slider-card" (click)="recommendationClick(item)">
         <div class="image-wrapper">
           <ion-img [src]="item.image || 'assets/images/placeholderimg.png'" [alt]="item.name"></ion-img>
   

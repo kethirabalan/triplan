@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonCard, IonImg,IonIcon,IonButton } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-slider',
@@ -24,7 +25,7 @@ export class SliderComponent  implements OnInit {
 
   @Output() itemClick = new EventEmitter<any>();
 
-  constructor() { 
+  constructor(private router: Router) { 
     
   }
   
@@ -37,6 +38,11 @@ export class SliderComponent  implements OnInit {
   
   onItemClick(item: any) {
     this.itemClick.emit(item);
+    this.router.navigate(['/tabs/home/view-place'], { state: { item: item } });
+  }
+
+  recommendationClick(item: any) {
+    this.router.navigate(['/tabs/home/view-recommendation'], { state: { item: item } });
   }
 
   toggleFavorite(item: any) {

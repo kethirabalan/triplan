@@ -1,5 +1,5 @@
 import { Injectable, NgZone, inject } from '@angular/core';
-import { Auth, signInWithCredential, signInWithEmailAndPassword, signOut, GoogleAuthProvider, EmailAuthProvider, UserCredential, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, signInWithCredential, signInWithEmailAndPassword, signOut, GoogleAuthProvider, EmailAuthProvider, UserCredential, createUserWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification } from '@angular/fire/auth';
 import { FirebaseAuthentication, User } from '@capacitor-firebase/authentication';
 import { Observable, ReplaySubject, firstValueFrom, take } from 'rxjs';
 
@@ -43,6 +43,16 @@ export class AuthService {
 
   async signUpWithEmailAndPassword(email: string, password: string): Promise<UserCredential> {
     return await createUserWithEmailAndPassword(this.auth, email, password);
+  }
+
+  async sendEmailVerification(): Promise<void> {
+    const user = await this.getCurrentAuthUser();
+    if (!user) throw new Error('No user signed in');
+    return await sendEmailVerification(user as any);
+  }
+
+    async sendPasswordResetEmail(email: string): Promise<void> {
+    return await sendPasswordResetEmail(this.auth, email);
   }
 
   async signOut(): Promise<void> {

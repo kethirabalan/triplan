@@ -1,0 +1,41 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ place?.name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="sharePlace()">
+        <ion-icon name="share-social-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="favoritePlace()">
+        <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'" [color]="isFavorite ? 'danger' : 'primary'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" mode="ios">
+
+  <!-- Custom horizontal image gallery -->
+  <div class="image-gallery ion-padding-horizontal ion-margin-vertical" style="display: flex; gap: 0px; padding-left: 0px; overflow-x: auto;   
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;">
+    <div *ngFor="let img of images" style="min-width: 380px; max-width: 380px; flex: 0 0 auto;">
+      <ion-img [src]="img" [alt]="place?.name" style="width: 100%; height: 500px; object-fit: cover; border-radius: 12px;"></ion-img>
+    </div>
+  </div>
+
+  <!-- Details Card -->
+  <ion-card class="ion-margin-top">
+    <ion-card-header >
+      <ion-card-subtitle>{{ place?.type }}</ion-card-subtitle>
+      <ion-card-title>{{ place?.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- <p><strong>Type:</strong> {{ place?.type || place?.spotType }}</p> -->
+      <p> ★ {{ place?.rating}}/5</p>
+      <p>{{place?.shortDesc }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
