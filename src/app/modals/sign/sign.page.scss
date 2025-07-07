@@ -1,0 +1,22 @@
+.custom-outline-input-box {
+    border: 1px solid var(--ion-color-dark-shade);
+    border-radius: 5px;
+    margin-top: 0.2rem;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.divider-with-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+}
+
+.divider-with-text hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 0 8px;
+}
