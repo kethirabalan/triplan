@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard,IonIcon, IonButton,IonLabel,
-  IonText,IonItem,IonInput,IonModal,ModalController,IonCardContent,IonActionSheet,IonList,IonThumbnail,IonFab,IonFabButton,IonFabList} from '@ionic/angular/standalone';
+  IonText,IonItem,IonInput,IonModal,ModalController,IonCardContent,IonActionSheet,IonList,IonThumbnail,IonFab,IonFabButton,IonFabList,ToastController} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { TripService } from 'src/app/services/trip.service';
@@ -29,7 +29,7 @@ export class Trips implements OnInit{
   isModalOpen = false;
   loading = false;
   constructor(private router: Router, private modal: ModalController, private actionSheetCtrl: ActionSheetController, 
-    private tripService: TripService, private authService: AuthService, private modalCtrl: ModalController, private loadingService: LoadingService) {
+    private tripService: TripService, private authService: AuthService, private modalCtrl: ModalController, private loadingService: LoadingService, private toastCtrl: ToastController) {
       this.authService.currentUser$.subscribe((user) => {
         if (user) {
           this.user = user;
@@ -97,10 +97,14 @@ export class Trips implements OnInit{
         { text: 'Share', icon: 'share-outline', handler: () => {
           this.shareTrip(trip);
         } },
-        { text: 'Make public', icon: 'globe-outline', handler: () => {/*...*/} },
-        { text: 'Invite', icon: 'person-add-outline', handler: () => {/*...*/} }, 
-        { text: 'Delete', icon: 'trash-outline', role: 'destructive', handler: () => {/*...*/} },
-        { text: 'Edit', icon: 'pencil-outline', handler: () => {/*...*/} },
+        { text: 'Make public', icon: 'globe-outline', handler: () => {
+          this.makePublic(trip);
+        } },
+        { text: 'Invite', icon: 'person-add-outline', handler: () => {
+          this.inviteToTrip(trip);
+        } }, 
+        { text: 'Delete', icon: 'trash-outline', role: 'destructive', handler: () => {} },
+        { text: 'Edit', icon: 'pencil-outline', handler: () => {} },
         { text: 'Cancel', icon: 'close', role: 'cancel' }
       ]
     }); 
@@ -108,14 +112,54 @@ export class Trips implements OnInit{
   }
 
   async shareTrip(trip: any) {
-    // const modal = await this.modalCtrl.create({
-    //   component: SharePage,
-    //   componentProps: {
-    //     trip: trip,
-    //   },
-    // });
-    // modal.present();
+    const url = `${window.location.origin}/tabs/trips/trip-view/${trip.name}`;
+    this.toastCtrl.create({
+      message: 'Trip Url copied to clipboard',
+      duration: 2000,
+    }).then((toast) => {
+      toast.present();
+      navigator.clipboard.writeText(url);
+    });
   }
+
+  async makePublic(trip: any) {
+    this.toastCtrl.create({
+      message: 'Trip made public',
+      duration: 2000,
+    }).then((toast) => {
+      toast.present();
+    });
+  }
+
+  async inviteToTrip(trip: any) {
+    this.toastCtrl.create({
+      message: 'Invite sent',
+      duration: 2000,
+    }).then((toast) => {
+      toast.present();
+    });
+  }
+
+  async deleteTrip(trip: any) {
+    await this.tripService.deleteTrip(trip.id as any);
+    this.toastCtrl.create({
+      message: 'Trip deleted',
+      duration: 2000,
+    }).then((toast) => {
+      toast.present();
+    });
+  }
+
+  async editTrip(trip: any) {
+    await this.tripService.updateTrip(trip, trip.id as any, trip.data);
+    this.toastCtrl.create({
+      message: 'Trip edited',
+      duration: 2000,
+    }).then((toast) => {
+      toast.present();
+    });
+  }
+
 
   async signIn() {
     const modal = await this.modalCtrl.create({

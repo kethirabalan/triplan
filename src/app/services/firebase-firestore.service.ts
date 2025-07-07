@@ -71,14 +71,14 @@ export class FirebaseFirestoreService {
     return docRef;
   }
 
-  async update(documentPath: string, data: any): Promise<DocumentReference> {
-    const docRef = runInInjectionContext(this.injector, () => doc(this.db, documentPath));
+  async update(documentPath: string, documentId: string, data: any): Promise<DocumentReference> {
+    const docRef = runInInjectionContext(this.injector, () => doc(this.db, documentPath, documentId));
     await updateDoc(docRef, data);
     return docRef;
   }
 
-  async delete(documentPath: string): Promise<DocumentReference> {
-    const docRef = runInInjectionContext(this.injector, () => doc(this.db, documentPath));
+  async delete(documentPath: string, documentId: string): Promise<DocumentReference> {
+    const docRef = runInInjectionContext(this.injector, () => doc(this.db, documentPath, documentId));
     await deleteDoc(docRef);
     return docRef;
   }
