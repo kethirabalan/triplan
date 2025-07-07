@@ -29,8 +29,13 @@ export class UserService {
         const userData: any = {
           loginMethod: loginMethod,
           moreUserData: moreUserData.moreUserData,
-          createdAt: this.firestoreService.timestamp,
-          updatedAt: this.firestoreService.timestamp
+          _meta: {
+            _0: "users",
+            _1: currentUser?.uid,
+            cancelTrigger: false,
+            createdAt: this.firestoreService.timestamp,
+            updatedAt: this.firestoreService.timestamp 
+          }
         };
 
         // Only add fields that have valid values (not null or undefined)
@@ -121,7 +126,10 @@ export class UserService {
       const updatedUserData = {
         ...existingUser,
         ...userData,
-        updatedAt: this.firestoreService.timestamp
+        _meta: {
+          createdAt: this.firestoreService.timestamp,
+          updatedAt: this.firestoreService.timestamp 
+        }
       };
       
       // Remove any undefined values

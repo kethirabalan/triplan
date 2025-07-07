@@ -156,14 +156,20 @@ export class Home implements OnInit{
           timestamp: this.firebaseFirestoreService.timestamp
         };
 
-        // Update the user document with current location
+        // Update the user document with current location and _meta structure
         const userPath = `users/${currentUser.uid}`;
         await this.firebaseFirestoreService.update(userPath, {
           currentLocation: locationData,
-          updatedAt: this.firebaseFirestoreService.timestamp
+          _meta: {
+            _0: "users",
+            _1: currentUser.uid,
+            cancelTrigger: false,
+            createdAt: this.firebaseFirestoreService.timestamp,
+            updatedAt: this.firebaseFirestoreService.timestamp
+          }
         });
         
-        console.log('Current location saved to database');
+        console.log('Current location saved to database with _meta structure');
       } else {
         console.log('No authenticated user found, location not saved');
       }

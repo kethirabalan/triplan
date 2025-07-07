@@ -62,8 +62,6 @@ export class OnboardPage implements OnInit {
     } catch (error) {
       console.error('Error during Google sign-in:', error);
       await this.loadingService.dismissAll();
-      // Show error to user
-      alert('Error during sign-in: ' + error);
     }
   }
 
