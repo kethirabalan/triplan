@@ -153,13 +153,15 @@ export class Home implements OnInit{
           city: city,
           country: country,
           locationName: `${city}, ${country}`,
-          timestamp: this.firebaseFirestoreService.timestamp,
-          userId: currentUser.uid
+          timestamp: this.firebaseFirestoreService.timestamp
         };
 
-        // Save to users/{userId}/currentLocation
-        const locationPath = `users/${currentUser.uid}/currentLocation`;
-        await this.firebaseFirestoreService.set(locationPath, locationData);
+        // Update the user document with current location
+        const userPath = `users/${currentUser.uid}`;
+        await this.firebaseFirestoreService.update(userPath, {
+          currentLocation: locationData,
+          updatedAt: this.firebaseFirestoreService.timestamp
+        });
         
         console.log('Current location saved to database');
       } else {

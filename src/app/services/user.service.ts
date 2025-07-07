@@ -28,7 +28,7 @@ export class UserService {
         
         const userData: any = {
           loginMethod: loginMethod,
-          moreUserData: moreUserData,
+          moreUserData: moreUserData.moreUserData,
           createdAt: this.firestoreService.timestamp,
           updatedAt: this.firestoreService.timestamp
         };
