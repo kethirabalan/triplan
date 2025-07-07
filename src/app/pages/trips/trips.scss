@@ -29,3 +29,22 @@
   border-radius: 50%;
   padding: 15px;
 }
+
+.trip-image {
+  border-radius: 5px;
+}
+
+::ng-deep .trip-action-sheet .action-sheet-button {
+  justify-content: flex-start !important; /* Aligns entire button content */
+  text-align: left !important;
+  color: var(--ion-color-sweet) !important;
+}
+
+::ng-deep .trip-action-sheet .action-sheet-button .action-sheet-button-inner {
+  justify-content: flex-start !important; /* Aligns inner content like icon+text */
+}
+
+::ng-deep .fab-button-in-list {
+  width: 56px !important;
+  height: 56px !important;
+}

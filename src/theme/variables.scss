@@ -74,6 +74,13 @@
 	--ion-color-favorite-shade: #bbb49e;
 	--ion-color-favorite-tint: #d8d2bb;
 
+	--ion-color-sweet: #ff6f61;
+	--ion-color-sweet-rgb: 255,111,97;
+	--ion-color-sweet-contrast: #000000;
+	--ion-color-sweet-contrast-rgb: 0,0,0;
+	--ion-color-sweet-shade: #e06255;
+	--ion-color-sweet-tint: #ff7d71;
+
 }
 
 .ion-color-favorite {
@@ -84,6 +91,15 @@
 	--ion-color-shade: var(--ion-color-favorite-shade);
 	--ion-color-tint: var(--ion-color-favorite-tint);
   }
+
+  .ion-color-sweet {
+	--ion-color-base: var(--ion-color-sweet);
+	--ion-color-base-rgb: var(--ion-color-sweet-rgb);
+	--ion-color-contrast: var(--ion-color-sweet-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-sweet-contrast-rgb);
+	--ion-color-shade: var(--ion-color-sweet-shade);
+	--ion-color-tint: var(--ion-color-sweet-tint);
+}
 
 .safe-area {
   padding-top: env(safe-area-inset-top) !important;
@@ -125,6 +141,10 @@
 
 .fs-26 {
     font-size: 26px;
+}
+
+.fs-28 {
+    font-size: 28px;
 }
 
 .underline-button {

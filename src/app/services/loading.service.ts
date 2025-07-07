@@ -38,4 +38,12 @@ export class LoadingService {
   async delay(ms: number): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
+
+  showLoading(message = 'Loading...', opts?: LoadingOptions, minms?: number, msgInput?: any): Promise<HTMLIonLoadingElement> {
+    return this.show(message, opts, minms, msgInput);
+  }
+
+  hideLoading(): boolean {
+    return this.dismissAll();
+  }
 }
