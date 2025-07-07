@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard,IonIcon, IonButton,IonLabel,
-  IonText,IonItem,IonInput,IonModal} from '@ionic/angular/standalone';
+  IonText,IonItem,IonInput,IonModal,ModalController} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,16 +15,13 @@ import { Router } from '@angular/router';
 })
 export class Trips {
   tripName: string = '';
-  constructor(private router: Router) {}
+  constructor(private router: Router, private modal: ModalController) {}
 
-  createTrip(modal: HTMLIonModalElement) {
-    const name = this.tripName.trim();
+  async createTrip(name: string) {
     if (name) {
-      modal.dismiss();
-      this.router.navigate(['/trip-view'], {
-        queryParams: { name } // You can access this in trip-view
-      });
-      this.tripName = ''; // optional: reset field
+      this.modal.dismiss();
+      await this.router.navigate(['/tabs/trips/trip-view', name]);
+      this.tripName = '';
     }
   }
 }

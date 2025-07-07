@@ -1,0 +1,64 @@
+.trip-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trip-image-placeholder {
+  width: 100vh;
+  height: 200px;
+  background: url('/assets/images/placeholderimg.png') no-repeat center;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.trip-overlay-content {
+  display: flex;
+  width: 50vh;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.trip-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trip-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.invite-btn {
+  --background: var(--ion-color-medium-shade);
+  --color: var(--ion-color-light);
+  font-size: 0.9rem;
+}
+
+.trip-profile-row {
+  margin-top: 8px;
+}
+
+.trip-tabs {
+  margin-top: 16px;
+}
+
+.trip-saves-section {
+  margin: 24px 16px 0 16px;
+}
+
+.trip-saves-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.trip-empty-state {
+  text-align: center;
+}

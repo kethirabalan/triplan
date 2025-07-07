@@ -20,7 +20,7 @@
       <ion-button fill="outline" shape="round" class="trips-signin" expand="block" color="primary" id="open-trip-modal">
         Create a trip
       </ion-button>
-      <ion-button shape="round" color="dark" class="trips-signin" expand="block" routerLink="/ai-plan">
+      <ion-button shape="round" color="dark" class="trips-signin" expand="block" routerLink="/tabs/trips/ai-plan">
         <ion-icon name="sparkles-outline" color="light" class="fs-18 ion-margin-end ion-justify-content-center"></ion-icon>
         Plan with AI
       </ion-button>
@@ -41,7 +41,7 @@
           <ion-input label="Trip name" labelPlacement="stacked" [(ngModel)]="tripName" placeholder="Ex. Weekend in NYC"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" class="ion-margin-top">
+        <ion-button expand="block" class="ion-margin-top" (click)="createTrip(tripName)">
           Create Trip
         </ion-button>
 

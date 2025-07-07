@@ -1,13 +1,56 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" mode="ios">
   <ion-toolbar>
-    <ion-title>trip-view</ion-title>
+    <ion-back-button defaultHref="/tabs/trips" text="" slot="start"></ion-back-button>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="editTrip()" slot="end">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">trip-view</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="trip-view-content ion-padding-horizontal" mode="ios">
+
+  <div class="trip-header">
+    <div class="trip-image-placeholder">  
+      <!-- 👇 This content will now appear over the image -->
+      <div class="trip-overlay-content">
+        <div class="trip-title-row ion-margin-bottom">
+          <h1 class="trip-title">{{ tripName }}</h1>
+        </div>
+        
+        <!-- <div class="trip-profile-row">
+          <ion-avatar>
+            <img src="assets/images/placeholderimg.png" />
+          </ion-avatar>
+        </div>
+        <div>
+          <ion-button size="small" fill="solid" class="invite-btn">
+            <ion-icon name="person-add-outline" class="fs-14" style="margin-right: 4px;"></ion-icon>
+            Invite
+          </ion-button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <ion-segment value="saves" class="trip-tabs">
+    <ion-segment-button value="saves">
+      <ion-label>Saves</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="itinerary">
+      <ion-label>Itinerary</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div class="trip-saves-section">
+    <div class="trip-saves-header">
+      <span>0 items</span>
+      <ion-button size="small" fill="outline">More</ion-button>
+    </div>
+    <div class="trip-empty-state">
+      <p>Start saving places to see, stay, and eat at on your next trip.</p>
+      <ion-button expand="block" (click)="startExploring()">Start Exploring</ion-button>
+    </div>
+  </div>
 </ion-content>

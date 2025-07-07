@@ -7,7 +7,7 @@ import { chatboxOutline, heartOutline, homeOutline, personCircleOutline, searchO
   closeOutline,chevronDownOutline,saveOutline,chevronBackOutline,
   logoGoogle,radioButtonOnOutline,
   logInOutline,shareOutline,mailOutline,informationCircleOutline,
-  mapOutline,shareSocialOutline} from 'ionicons/icons';
+  mapOutline,shareSocialOutline,personAddOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -25,7 +25,7 @@ export class TabsPage {
       cashOutline,settingsOutline,helpCircleOutline,walletOutline, linkOutline,
       lockClosedOutline,navigateCircleOutline, createOutline,chevronForwardOutline,
       ellipsisHorizontalOutline,closeOutline,chevronDownOutline,saveOutline,chevronBackOutline,logoGoogle,radioButtonOnOutline,
-      logInOutline,shareOutline,mailOutline,informationCircleOutline,mapOutline,shareSocialOutline
+      logInOutline,shareOutline,mailOutline,informationCircleOutline,mapOutline,shareSocialOutline,personAddOutline
     });
   }
 }

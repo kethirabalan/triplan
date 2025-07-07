@@ -97,6 +97,11 @@ export const routes: Routes = [
         loadComponent: () => import('../pages/home/view-place/view-place.page').then(m => m.ViewPlacePage),
       },
       {
+        path: 'trips/trip-view/:tripName',
+        loadComponent: () =>
+          import('../pages/trip-view/trip-view.page').then( m => m.TripViewPage),
+      },
+      {
         path: '',
         redirectTo: 'tabs/home',
         pathMatch: 'full',
