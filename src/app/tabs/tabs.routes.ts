@@ -110,7 +110,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'tabs/home',
+    redirectTo: 'onboard-welcome',
     pathMatch: 'full',
   },
 ];
