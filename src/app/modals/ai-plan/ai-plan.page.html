@@ -1,13 +1,95 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>ai-plan</ion-title>
+    <ion-title>Powered by AI</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+  <ion-progress-bar value="{{activeStep/totalSteps}}"></ion-progress-bar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <div class="ion-padding">
+    <!-- Step 1: Destination -->
+    <ng-container *ngIf="activeStep === 1">
+      <h2 class="ion-text-bold">First, where do you want to go?</h2>
+      <p>You'll get custom recs you can save and turn into an itinerary.</p>
+      <ion-searchbar [(ngModel)]="searchTerm" placeholder="Search"></ion-searchbar>
+      <ion-list>
+        <ion-item *ngFor="let city of filteredCities()" (click)="selectCity(city)" [class.selected]="form.destination?.name === city.name">
+          <ion-thumbnail slot="start">
+            <img [src]="city.imageUrl">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{city.name}}</h2>
+            <p>{{city.region}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+
+    <!-- Step 2: Dates/Trip Length -->
+    <ng-container *ngIf="activeStep === 2">
+      <h2 class="ion-text-bold">When do you want to go?</h2>
+      <p>Choose a day/date range, up to 7 days.</p>
+      <ion-segment value="tripLength">
+        <ion-segment-button value="tripLength">Trip Length</ion-segment-button>
+      </ion-segment>
+      <div class="ion-margin-vertical ion-text-center">
+        <span>Total days</span>
+        <ion-button fill="clear" size="small" (click)="decrementTripLength()">-</ion-button>
+        <span class="ion-padding-horizontal">{{form.tripLength}}</span>
+        <ion-button fill="clear" size="small" (click)="incrementTripLength()">+</ion-button>
+      </div>
+      <div class="ion-margin-top">
+        <span>During what month? (optional)</span>
+        <div class="ion-margin-top" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <ion-button *ngFor="let month of months" fill="outline" [color]="form.month === month ? 'primary' : 'medium'" (click)="selectMonth(month)">{{month}}</ion-button>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Step 3: Companions -->
+    <ng-container *ngIf="activeStep === 3">
+      <h2 class="ion-text-bold">Who's coming with you?</h2>
+      <p>Choose one.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <ion-button *ngFor="let c of companions" expand="block" [color]="form.companions === c ? 'primary' : 'medium'" (click)="selectCompanion(c)">{{c}}</ion-button>
+      </div>
+    </ng-container>
+
+    <!-- Step 4: Interests -->
+    <ng-container *ngIf="activeStep === 4">
+      <h2 class="ion-text-bold">How do you want to spend your time?</h2>
+      <p>Choose as many as you'd like.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <ion-chip *ngFor="let interest of interests" [color]="form.interests.includes(interest) ? 'primary' : 'medium'" (click)="toggleInterest(interest)">
+          <ion-label>{{interest}}</ion-label>
+        </ion-chip>
+      </div>
+      <ion-input class="ion-margin-top" placeholder="Other (optional)" type="text" [(ngModel)]="form.otherInterests"></ion-input>
+    </ng-container>
+
+    <!-- Step 5: Loading/Confirmation -->
+    <ng-container *ngIf="activeStep === 5">
+      <div class="ion-text-center ion-padding">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>We're whipping it all up into an easy {{form.tripLength}}-day plan...</p>
+      </div>
+    </ng-container>
+  </div>
+  @if(activeStep < 5) { 
+  <ion-footer>
     <ion-toolbar>
-      <ion-title size="large">ai-plan</ion-title>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="prevStep()" [disabled]="activeStep === 1">Back</ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button expand="block" (click)="nextStep()" [disabled]="!canProceed()">Next</ion-button>
+      </ion-buttons>
     </ion-toolbar>
-  </ion-header>
+  </ion-footer>
+  }
 </ion-content>

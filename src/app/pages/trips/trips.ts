@@ -40,12 +40,6 @@ export class Trips implements OnInit{
 
       this.tripService.getTrips().subscribe((trips) => {
         this.trips = trips;
-        if(trips.length === 0) {
-          this.loading = false;
-        } else {
-          this.loading = false;
-        }
-        this.loadingService.hideLoading();
       });
       addIcons({
         calendarOutline,
@@ -62,8 +56,6 @@ export class Trips implements OnInit{
     }
 
   ngOnInit() {
-    this.loading = true;
-    this.loadingService.showLoading('Loading...');
   }
 
   async createTrip(tripName: string) {

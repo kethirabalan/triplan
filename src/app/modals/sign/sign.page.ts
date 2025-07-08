@@ -69,11 +69,16 @@ export class SignPage implements OnInit {
     });
   }
 
-  forgotPassword() {
-    this.isSignIn = true;
+  async forgotPassword() {
+    if (this.modalForm.invalid) {
+      await this.presentAlert('Please enter a valid email');
+      return;
+    }
     this.authService.sendEmailVerification().then(() => {
+      this.isSignIn = true;
       this.modalCtrl.dismiss(null, 'emailVerificationSent');
     }).catch((error) => {
+      this.isSignIn = false;
       this.modalCtrl.dismiss(null, 'emailVerificationError');
     });
   }
