@@ -81,7 +81,7 @@ export const routes: Routes = [
       {
         path: 'trips/ai-plan',
         loadComponent: () =>
-          import('../pages/ai-plan/ai-plan.page').then( m => m.AiPlanPage),
+          import('../modals/ai-plan/ai-plan.page').then( m => m.AiPlanPage),
       },
       {
         path: 'account/profile/edit-profile',
