@@ -93,12 +93,12 @@ export class Account implements OnInit {
   }
 
   dismissModal() {
-    this.isModalOpen = false;
+    this.modalCtrl.dismiss();
   }
 
   async signInWithGoogle() {
     this.authService.signInWithGoogle();
-    this.isModalOpen = false;
+    this.dismissModal();
   }
 
   async createAccount() {
@@ -108,9 +108,9 @@ export class Account implements OnInit {
         isSignIn: false,
       },
     });
+    this.dismissModal();
     modal.present();
     const { data, role } = await modal.onWillDismiss();
-    this.isModalOpen = false;
     if (role === 'createAccount') {
       this.authService.signUpWithEmailAndPassword(data.email, data.password).then(() => {
         this.authService.sendEmailVerification();
@@ -143,6 +143,7 @@ export class Account implements OnInit {
         isSignIn: true,
       },
     });
+    this.dismissModal();
     modal.present();
     const { data, role } = await modal.onWillDismiss();
     this.isModalOpen = false;
