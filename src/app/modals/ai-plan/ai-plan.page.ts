@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
 import { AiResultPage } from '../ai-result/ai-result.page';
+import { GeminiService } from 'src/app/services/gemini.service';
+import { PixabayService } from 'src/app/services/pixabay.service';
 
 @Component({
   selector: 'app-ai-plan',
@@ -34,8 +36,10 @@ export class AiPlanPage implements OnInit {
     'Eiffel Tower highlights', 'Versailles guided tours', 'French wine & gourmet delights',
     'French Cuisine', 'Art Museums', 'Historical Landmarks', 'Luxury Shopping', 'River Seine Cruise'
   ];
+  loadingAI = false;
+  aiItinerary: any[] = [];
 
-  constructor(private router: Router, private fb: FormBuilder, private modalCtrl: ModalController, private toastCtrl: ToastController) {
+  constructor(private router: Router, private fb: FormBuilder, private modalCtrl: ModalController, private toastCtrl: ToastController, private gemini: GeminiService, private pixabay: PixabayService) {
     this.aiPlanForm = this.fb.group({
       destination: [null, Validators.required],
       tripLength: [3, [Validators.required, Validators.min(1), Validators.max(7)]],
@@ -118,6 +122,7 @@ export class AiPlanPage implements OnInit {
       case 2: return this.aiPlanForm.get('tripLength')?.valid;
       case 3: return this.aiPlanForm.get('companions')?.valid;
       case 4: return (this.aiPlanForm.get('interests')?.value || []).length > 0;
+      case 5: return true;
       default: return true;
     }
   }
@@ -125,16 +130,36 @@ export class AiPlanPage implements OnInit {
   async nextStep() {
     if (this.activeStep < this.totalSteps) {
       this.activeStep++;
+      if (this.activeStep === 5) {
+        this.loadingAI = true;
+        // Simulate AI call with a short delay, then open result modal
+        setTimeout(async () => {
+          this.aiItinerary = [
+            {
+              name: 'Day 1',
+              description: 'Visit the Eiffel Tower',
+              type: 'Attraction',
+              rating: 4.5,
+              location: 'Paris, France',
+              image_query: 'Eiffel Tower'
+            }
+          ];
+          this.loadingAI = false;
+          await this.modalCtrl.dismiss();
+
+          // Open AiResultPage as a new modal
+          const modal = await this.modalCtrl.create({
+            component: AiResultPage,
+            componentProps: {
+              aiPlan: this.aiPlanForm.value,
+              itinerary: this.aiItinerary
+            }
+          });
+          await modal.present();
+        }, 1200);
+      }
     } else {
-      // remove already opened modal
-      this.modalCtrl.dismiss();
-      const modal = await this.modalCtrl.create({
-        component: AiResultPage,
-        componentProps: {
-          aiPlan: this.aiPlanForm.value
-        }
-      });
-      modal.present();
+      // This else block is not needed anymore since step 5 handles the modal
     }
   }
 

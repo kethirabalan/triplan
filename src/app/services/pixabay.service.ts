@@ -17,4 +17,11 @@ export class PixabayService {
     const url = `${this.BASE_URL}?key=${this.API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&per_page=3&safesearch=true`;
     return this.http.get<any>(url);
   }
+
+  getImages(queries: string[]): Promise<any[]> {
+    return Promise.all(queries.map(query => this.searchImage(query))).then(results => {
+      const images = results.map((result: any) => result.hits);
+      return images;
+    });
+  }
 }

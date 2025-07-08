@@ -50,6 +50,15 @@ export class GeminiService {
     }
   }
 
+  async getItinerary(aiPlan: any): Promise<any[]> {
+    const model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const prompt = `Create a detailed ${aiPlan.tripLength}-day itinerary for a trip to ${aiPlan.destination.name} in ${aiPlan.month || 'any month'}, for ${aiPlan.companions}, focusing on: ${aiPlan.interests.join(', ')}. \nReturn a JSON array, each item must include: name, description, type, rating (4.0-5), location, image_query.`;
+    const result = await model.generateContent(prompt);
+    const response = await result.response.text();
+    const jsonMatch = response.match(/\[.*\]/s);
+    return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
+  }
+
   async getGlobalRecommendations(): Promise<any[]> {
     const model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
   

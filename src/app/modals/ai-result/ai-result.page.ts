@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton  } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton, ModalController, IonButtons, IonIcon  } from '@ionic/angular/standalone';
 import { GeminiService } from 'src/app/services/gemini.service';
 import { PixabayService } from 'src/app/services/pixabay.service';
 import { Router } from '@angular/router';
@@ -12,56 +12,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./ai-result.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonSpinner, 
-    IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,IonButton]
+    IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,IonButton, IonButtons, IonIcon]
 })
 export class AiResultPage implements OnInit {
-  aiPlan: any;
-  itinerary: any[] = [];
-  loading = true;
+  @Input() aiPlan: any;
+  @Input() itinerary: any[] = [];
   images: { [key: string]: string } = {};
+  loading = false;
 
   constructor(
-    private gemini: GeminiService,
     private pixabay: PixabayService,
-    private router: Router
+    private router: Router,
+    private modalCtrl: ModalController
   ) { }
 
-  async ngOnInit() {
-    this.aiPlan = window.history.state.aiPlan;
-    if (!this.aiPlan) {
-      this.router.navigate(['/tabs/trips']);
-      return;
-    }
-    this.loading = true;
-    try {
-      // Use Gemini to generate itinerary for the selected city and preferences
-      const prompt = this.buildPrompt();
-      const model = (this.gemini as any).genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-      const result = await model.generateContent(prompt);
-      const response = await result.response.text();
-      const jsonMatch = response.match(/\[.*\]/s);
-      this.itinerary = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
-      // Fetch images for each day/attraction
-      for (const day of this.itinerary) {
-        const query = day.image_query || day.name;
-        this.pixabay.searchImage(query).subscribe(res => {
-          this.images[day.name] = res?.hits?.[0]?.largeImageURL || '';
-        });
-      }
-    } catch (e) {
-      this.itinerary = [];
-    }
-    this.loading = false;
-  }
-
-  buildPrompt() {
-    const { destination, tripLength, month, companions, interests } = this.aiPlan;
-    return `Create a detailed ${tripLength}-day itinerary for a trip to ${destination.name} in ${month || 'any month'}, for ${companions}, focusing on: ${interests.join(', ')}. 
-Return a JSON array, each item must include: name, description, type, rating (4.0-5), location, image_query.`;
+  ngOnInit() {
+    // this.loading = true;
+    // this.pixabay.getImages(this.itinerary.map(day => day.image_query)).then((images: any) => {
+    //   this.images = images;
+    //   this.loading = false;
+    // }).catch((error: any) => {
+    //   console.error('Error fetching images:', error);
+    //   this.loading = false;
+    // });  
   }
 
   saveItinerary() {
     // Implement save logic or navigation
     this.router.navigate(['/tabs/trips']);
+  }
+
+  closeModal() {
+    this.modalCtrl.dismiss();
   }
 }

@@ -21,9 +21,9 @@ export const environment = {
     measurementId: "G-6NGH48XTLK"
   },
   cloudinary: {
-    cloudName: 'triplan',
-    apiKey: '1234567890',
-    apiSecret: '1234567890'
+    cloudName: 'dpnjqev0i',
+    apiKey: '575631284757631',
+    apiSecret: 'UxqJk0FKexch-LwU9H654e3zUww'
   }
 };
 

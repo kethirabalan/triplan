@@ -1,10 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Your AI Trip Plan</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" mode="ios">
+  <ion-header [translucent]="true" mode="ios">
+    <ion-toolbar>
+      <ion-title>Your AI Trip Plan</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon name="close" class="close-icon"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
   <div *ngIf="loading" class="ion-text-center ion-padding">
     <ion-spinner name="crescent"></ion-spinner>
     <p>We're whipping it all up into an easy plan...</p>
@@ -21,7 +25,7 @@
           <p>{{day.description}}</p>
         </ion-card-content>
       </ion-card>
-      <ion-button expand="block" color="success" (click)="saveItinerary()">Save Itinerary</ion-button>
+      <ion-button expand="block" color="success" (click)="saveItinerary()" class="ion-padding">Save Itinerary</ion-button>
     </ng-container>
     <ng-template #noResult>
       <div class="ion-text-center ion-padding">

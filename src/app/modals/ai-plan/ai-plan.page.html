@@ -93,7 +93,7 @@
           <p>Choose as many as you'd like.</p>
           <div style="display: flex; flex-wrap: wrap; gap: 8px;">
             <ion-chip *ngFor="let interest of interests" [color]="aiPlanForm.get('interests')?.value.includes(interest) ? 'primary' : 'medium'" (click)="toggleInterest(interest)">
-              <ion-label>{{interest}}</ion-label>
+              <ion-label color="none">{{interest}}</ion-label>
             </ion-chip>
           </div>
           <ion-input class="ion-margin-top" placeholder="Other (optional)" type="text" formControlName="otherInterests" name="otherInterests"></ion-input>
