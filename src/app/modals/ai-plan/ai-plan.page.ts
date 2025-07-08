@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonInput, IonList, IonLabel, IonButtons, 
   IonIcon, IonCheckbox, IonSegment, IonSegmentButton, IonListHeader, IonProgressBar, IonGrid, IonRow, IonCol,
-   IonThumbnail, IonText, IonFooter, IonSpinner, IonChip, IonItemGroup, IonModal } from '@ionic/angular/standalone';
+   IonThumbnail, IonText, IonFooter, IonSpinner, IonChip, IonItemGroup, IonModal, IonSearchbar } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -14,13 +14,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonItem, IonInput, IonList, IonLabel,
     IonButtons, IonIcon, IonCheckbox, IonSegment, IonSegmentButton, IonListHeader, IonProgressBar, IonGrid, 
-    IonRow, IonCol,IonThumbnail, IonText,IonFooter,IonSpinner,IonChip, IonItemGroup, IonModal,ReactiveFormsModule]
+    IonRow, IonCol,IonThumbnail, IonText,IonFooter,IonSpinner,IonChip, IonItemGroup, IonModal,ReactiveFormsModule,IonSearchbar]
 })
 export class AiPlanPage implements OnInit {
   activeStep = 1;
   totalSteps = 5;
   aiPlanForm: FormGroup;
-  searchTerm = '';
+  searchTerm: any;
   cities = [
     { name: 'Paris', region: 'Ile-de-France, France', imageUrl: 'https://cdn.pixabay.com/photo/2015/03/26/09/54/eiffel-tower-690050_1280.jpg' },
     { name: 'Dubai', region: 'Emirate of Dubai, UAE', imageUrl: 'https://cdn.pixabay.com/photo/2017/01/20/00/30/dubai-1997729_1280.jpg' },

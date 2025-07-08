@@ -16,7 +16,11 @@
         <ng-container *ngIf="activeStep === 1">
           <h2 class="ion-text-bold">First, where do you want to go?</h2>
           <p>You'll get custom recs you can save and turn into an itinerary.</p>
-          <ion-searchbar [(ngModel)]="searchTerm" placeholder="Search"></ion-searchbar>
+          <ion-searchbar
+            [value]="searchTerm"
+            (ionInput)="searchTerm = $event.target.value"
+            placeholder="Search">
+          </ion-searchbar>
           <ion-list>
             <ion-item *ngFor="let city of filteredCities()" (click)="selectCity(city)" [class.selected]="aiPlanForm.get('destination')?.value?.name === city.name">
               <ion-thumbnail slot="start">
