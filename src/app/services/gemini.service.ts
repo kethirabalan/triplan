@@ -62,7 +62,7 @@ export class GeminiService {
   async getGlobalRecommendations(): Promise<any[]> {
     const model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
   
-    const prompt = `Give me 10 popular tourist destinations in the world in valid JSON format.
+    const prompt = `Give me 5 popular tourist destinations in the world in valid JSON format.
   
   Each item must include:
   - name

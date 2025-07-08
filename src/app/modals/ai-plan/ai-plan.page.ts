@@ -39,7 +39,8 @@ export class AiPlanPage implements OnInit {
   loadingAI = false;
   aiItinerary: any[] = [];
 
-  constructor(private router: Router, private fb: FormBuilder, private modalCtrl: ModalController, private toastCtrl: ToastController, private gemini: GeminiService, private pixabay: PixabayService) {
+  constructor(private router: Router, private fb: FormBuilder, private modalCtrl: ModalController, 
+    private toastCtrl: ToastController, private gemini: GeminiService, private pixabay: PixabayService) {
     this.aiPlanForm = this.fb.group({
       destination: [null, Validators.required],
       tripLength: [3, [Validators.required, Validators.min(1), Validators.max(7)]],
@@ -133,8 +134,23 @@ export class AiPlanPage implements OnInit {
       if (this.activeStep === 5) {
         this.loadingAI = true;
         try {
+          // in case fail show defult data
           const itinerary = await this.gemini.getItinerary(this.aiPlanForm.value);
-          this.aiItinerary = itinerary;
+          if (itinerary.length > 0) {
+            console.log('itinerary', itinerary);
+            this.aiItinerary = itinerary;
+          } else {
+            this.aiItinerary = [
+              {
+                name: 'Day 1',
+                description: 'Visit the Eiffel Tower',
+                type: 'Attraction',
+                rating: 4.5,
+                location: 'Paris, France',
+                image_query: 'Eiffel Tower'
+              }
+            ];
+          }
           this.loadingAI = false;
           await this.modalCtrl.dismiss();
           const modal = await this.modalCtrl.create({
@@ -146,6 +162,7 @@ export class AiPlanPage implements OnInit {
           });
           await modal.present();
         } catch (error) {
+          console.error('Error generating itinerary:', error);
           this.loadingAI = false;
           this.showToast('Failed to generate itinerary. Please try again.');
         }
