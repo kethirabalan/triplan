@@ -3,17 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonInput, IonList, IonLabel, IonButtons, 
   IonIcon, IonCheckbox, IonSegment, IonSegmentButton, IonListHeader, IonProgressBar, IonGrid, IonRow, IonCol,
-   IonThumbnail, IonText, IonFooter, IonSpinner, IonChip, IonItemGroup } from '@ionic/angular/standalone';
+   IonThumbnail, IonText, IonFooter, IonSpinner, IonChip, IonItemGroup, IonModal } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
-
-interface AiPlanForm {
-  destination: any;
-  tripLength: number;
-  month: string;
-  companions: string;
-  interests: string[];
-  otherInterests: string;
-}
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ai-plan',
@@ -22,19 +14,12 @@ interface AiPlanForm {
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonItem, IonInput, IonList, IonLabel,
     IonButtons, IonIcon, IonCheckbox, IonSegment, IonSegmentButton, IonListHeader, IonProgressBar, IonGrid, 
-    IonRow, IonCol,IonThumbnail, IonText,IonFooter,IonSpinner,IonChip,ReactiveFormsModule, IonItemGroup ]
+    IonRow, IonCol,IonThumbnail, IonText,IonFooter,IonSpinner,IonChip, IonItemGroup, IonModal,ReactiveFormsModule]
 })
 export class AiPlanPage implements OnInit {
   activeStep = 1;
   totalSteps = 5;
-  form: AiPlanForm = {
-    destination: null,
-    tripLength: 3,
-    month: '',
-    companions: '',
-    interests: [],
-    otherInterests: ''
-  };
+  aiPlanForm: FormGroup;
   searchTerm = '';
   cities = [
     { name: 'Paris', region: 'Ile-de-France, France', imageUrl: 'https://cdn.pixabay.com/photo/2015/03/26/09/54/eiffel-tower-690050_1280.jpg' },
@@ -51,8 +36,16 @@ export class AiPlanPage implements OnInit {
     'French Cuisine', 'Art Museums', 'Historical Landmarks', 'Luxury Shopping', 'River Seine Cruise'
   ];
 
-  constructor(private router: Router) {
-   }
+  constructor(private router: Router, private fb: FormBuilder) {
+    this.aiPlanForm = this.fb.group({
+      destination: [null, Validators.required],
+      tripLength: [3, [Validators.required, Validators.min(1), Validators.max(7)]],
+      month: [''],
+      companions: ['', Validators.required],
+      interests: [[], Validators.required],
+      otherInterests: ['']
+    });
+  }
 
   ngOnInit() {}
 
@@ -62,29 +55,43 @@ export class AiPlanPage implements OnInit {
   }
 
   selectCity(city: any) {
-    this.form.destination = city;
+    this.aiPlanForm.get('destination')?.setValue(city);
   }
 
   selectMonth(month: string) {
-    this.form.month = month;
+    this.aiPlanForm.get('month')?.setValue(month);
   }
 
   selectCompanion(companion: string) {
-    this.form.companions = companion;
+    this.aiPlanForm.get('companions')?.setValue(companion);
   }
 
   toggleInterest(interest: string) {
-    const idx = this.form.interests.indexOf(interest);
-    if (idx > -1) this.form.interests.splice(idx, 1);
-    else this.form.interests.push(interest);
+    const interests = this.aiPlanForm.get('interests')?.value || [];
+    const idx = interests.indexOf(interest);
+    if (idx > -1) {
+      interests.splice(idx, 1);
+    } else {
+      interests.push(interest);
+    }
+    this.aiPlanForm.get('interests')?.setValue([...interests]);
+  }
+
+  decrementTripLength() {
+    const val = Math.max(1, this.aiPlanForm.get('tripLength')?.value - 1);
+    this.aiPlanForm.get('tripLength')?.setValue(val);
+  }
+  incrementTripLength() {
+    const val = Math.min(7, this.aiPlanForm.get('tripLength')?.value + 1);
+    this.aiPlanForm.get('tripLength')?.setValue(val);
   }
 
   canProceed() {
     switch (this.activeStep) {
-      case 1: return !!this.form.destination;
-      case 2: return this.form.tripLength > 0;
-      case 3: return !!this.form.companions;
-      case 4: return this.form.interests.length > 0;
+      case 1: return this.aiPlanForm.get('destination')?.valid;
+      case 2: return this.aiPlanForm.get('tripLength')?.valid;
+      case 3: return this.aiPlanForm.get('companions')?.valid;
+      case 4: return (this.aiPlanForm.get('interests')?.value || []).length > 0;
       default: return true;
     }
   }
@@ -93,8 +100,7 @@ export class AiPlanPage implements OnInit {
     if (this.activeStep < this.totalSteps) {
       this.activeStep++;
     } else {
-      // Navigate to result page with form data
-      this.router.navigate(['/modals/ai-result'], { state: { aiPlan: this.form } });
+      this.router.navigate(['/modals/ai-result'], { state: { aiPlan: this.aiPlanForm.value } });
     }
   }
 
@@ -104,13 +110,5 @@ export class AiPlanPage implements OnInit {
 
   closeModal() {
     window.history.back();
-  }
-
-  decrementTripLength() {
-    this.form.tripLength = Math.max(1, this.form.tripLength - 1);
-  }
-
-  incrementTripLength() {
-    this.form.tripLength = Math.min(7, this.form.tripLength + 1);
   }
 }

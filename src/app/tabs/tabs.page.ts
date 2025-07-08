@@ -11,7 +11,8 @@ import { chatboxOutline, heartOutline, homeOutline, personCircleOutline, searchO
   calendarOutline,
   addCircle,
   addOutline,
-  heartCircleOutline} from 'ionicons/icons';
+  heartCircleOutline,
+  close} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -30,7 +31,7 @@ export class TabsPage {
       lockClosedOutline,navigateCircleOutline, createOutline,chevronForwardOutline,
       ellipsisHorizontalOutline,closeOutline,chevronDownOutline,saveOutline,chevronBackOutline,logoGoogle,radioButtonOnOutline,
       logInOutline,shareOutline,mailOutline,informationCircleOutline,mapOutline,shareSocialOutline,personAddOutline,
-      calendarOutline,addOutline,heartCircleOutline
+      calendarOutline,addOutline,heartCircleOutline,close
     });
   }
 }
