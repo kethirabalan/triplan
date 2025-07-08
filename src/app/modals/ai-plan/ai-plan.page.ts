@@ -132,22 +132,11 @@ export class AiPlanPage implements OnInit {
       this.activeStep++;
       if (this.activeStep === 5) {
         this.loadingAI = true;
-        // Simulate AI call with a short delay, then open result modal
-        setTimeout(async () => {
-          this.aiItinerary = [
-            {
-              name: 'Day 1',
-              description: 'Visit the Eiffel Tower',
-              type: 'Attraction',
-              rating: 4.5,
-              location: 'Paris, France',
-              image_query: 'Eiffel Tower'
-            }
-          ];
+        try {
+          const itinerary = await this.gemini.getItinerary(this.aiPlanForm.value);
+          this.aiItinerary = itinerary;
           this.loadingAI = false;
           await this.modalCtrl.dismiss();
-
-          // Open AiResultPage as a new modal
           const modal = await this.modalCtrl.create({
             component: AiResultPage,
             componentProps: {
@@ -156,7 +145,10 @@ export class AiPlanPage implements OnInit {
             }
           });
           await modal.present();
-        }, 1200);
+        } catch (error) {
+          this.loadingAI = false;
+          this.showToast('Failed to generate itinerary. Please try again.');
+        }
       }
     } else {
       // This else block is not needed anymore since step 5 handles the modal
