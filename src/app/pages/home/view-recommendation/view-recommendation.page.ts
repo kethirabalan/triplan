@@ -1,7 +1,7 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonSpinner, IonList, IonItem, IonLabel, IonNote, IonBackButton, ToastController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonSpinner, IonList, IonItem, IonLabel, IonNote, IonBackButton, ToastController, IonChip } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { GeminiService } from 'src/app/services/gemini.service';
 import { PixabayService } from 'src/app/services/pixabay.service';
@@ -12,7 +12,7 @@ import { Share } from '@capacitor/share';
   templateUrl: './view-recommendation.page.html',
   styleUrls: ['./view-recommendation.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonButton,IonIcon,IonSpinner,IonList,IonItem,IonLabel,IonNote,IonBackButton],
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonButton,IonIcon,IonSpinner,IonList,IonItem,IonLabel,IonNote,IonBackButton,IonChip],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ViewRecommendationPage implements OnInit {
@@ -26,7 +26,7 @@ export class ViewRecommendationPage implements OnInit {
     private router: Router,
     private gemini: GeminiService,
     private pixabay: PixabayService,
-    private toast: ToastController
+    private toast: ToastController,
   ) { }
 
   async ngOnInit() {
@@ -55,7 +55,6 @@ export class ViewRecommendationPage implements OnInit {
       this.loading = false;
     });
   }
-
 
   shareRecommendation() {
     const shareData = {

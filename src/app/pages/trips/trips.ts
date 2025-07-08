@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard,IonIcon, IonButton,IonLabel,
-  IonText,IonItem,IonInput,IonModal,ModalController,IonCardContent,IonActionSheet,IonList,IonThumbnail,IonFab,IonFabButton,IonFabList,ToastController} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard,IonIcon, IonButton,IonLabel,IonCardHeader,
+  IonText,IonItem,IonInput,IonModal,ModalController,IonCardContent,IonActionSheet,IonList,IonThumbnail,IonFab,IonFabButton,IonFabList,ToastController,IonCardTitle,IonCardSubtitle} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { TripService } from 'src/app/services/trip.service';
@@ -12,6 +12,7 @@ import { SignPage } from 'src/app/modals/sign/sign.page';
 import { LoadingService } from 'src/app/services/loading.service';
 import { addIcons } from 'ionicons';
 import { calendarOutline, heartOutline, globeOutline, personAddOutline, trashOutline, shareOutline, close, addCircleOutline, sparklesOutline, ellipsisVertical } from 'ionicons/icons';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-trips',
@@ -20,7 +21,8 @@ import { calendarOutline, heartOutline, globeOutline, personAddOutline, trashOut
   standalone: true,
   providers: [TripService,ActionSheetController,ModalController],
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonIcon, IonButton, IonLabel, 
-    IonText,RouterLink,IonItem,IonInput,CommonModule,FormsModule,IonModal,IonCardContent,IonActionSheet,IonList,IonThumbnail,IonFab,IonFabButton,IonFabList],
+    IonText,RouterLink,IonItem,IonInput,CommonModule,FormsModule,IonModal,IonCardContent,IonActionSheet,IonList,
+    IonThumbnail,IonFab,IonFabButton,IonFabList,TitleCasePipe,IonCardHeader,IonCardTitle,IonCardSubtitle ],
 })
 export class Trips implements OnInit{
   tripName: string = '';
@@ -28,8 +30,6 @@ export class Trips implements OnInit{
   user: any;
   isModalOpen = false;
   loading = false;
-  tripId: string = '';
-  trip: any;
   constructor(private router: Router, private modal: ModalController, private actionSheetCtrl: ActionSheetController, 
     private tripService: TripService, private authService: AuthService, private modalCtrl: ModalController, private loadingService: LoadingService, private toastCtrl: ToastController) {
       this.authService.currentUser$.subscribe((user) => {
@@ -40,11 +40,12 @@ export class Trips implements OnInit{
 
       this.tripService.getTrips().subscribe((trips) => {
         this.trips = trips;
-        this.loadingService.hideLoading();
-        this.loading = false;
         if(trips.length === 0) {
           this.loading = false;
+        } else {
+          this.loading = false;
         }
+        this.loadingService.hideLoading();
       });
       addIcons({
         calendarOutline,
@@ -67,24 +68,19 @@ export class Trips implements OnInit{
 
   async createTrip(tripName: string) {
     const trip = {
-      _meta: {
-        createdBy: this.user.uid,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      id: this.tripService.createId(),
       name: tripName,
       startDate: new Date().toISOString(),
       endDate: new Date().toISOString(),
       imageUrl: 'assets/images/placeholderimg.png',
     };
     await this.tripService.addTrip(trip);
-    await this.router.navigate(['/tabs/trips/trip-view', trip.id]);
     this.modal.dismiss();
+    await this.router.navigate(['/tabs/trips/trip-view', trip.name]);
     this.tripName = '';
   }
 
-  async openTripOptions(tripId: string) {
+  async openTripOptions(event: Event, tripId: string) {
+    event.stopPropagation();
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Trip options',
       cssClass: 'trip-action-sheet',
@@ -98,8 +94,11 @@ export class Trips implements OnInit{
         { text: 'Invite', icon: 'person-add-outline', handler: () => {
           this.inviteToTrip(tripId);
         } }, 
-        { text: 'Delete', icon: 'trash-outline', role: 'destructive', handler: () => {} },
-        { text: 'Edit', icon: 'pencil-outline', handler: () => {} },
+        { text: 'Delete', icon: 'trash-outline', role: 'destructive', handler: () => {
+          this.deleteTrip(tripId);
+        } },
+        { text: 'Edit', icon: 'pencil-outline', handler: () => {
+        } },
         { text: 'Cancel', icon: 'close', role: 'cancel' }
       ]
     }); 
@@ -118,6 +117,11 @@ export class Trips implements OnInit{
   }
 
   async makePublic(tripId: string) { 
+    const trip = this.trips.find((t) => t._meta.id === tripId);
+    this.tripService.updateTrip(trip, tripId, {
+      isPublic: true,
+    });
+    this.trips = this.trips.map((t) => t._meta.id === tripId ? trip : t);
     this.toastCtrl.create({
       message: 'Trip made public',
       duration: 2000,
@@ -128,7 +132,7 @@ export class Trips implements OnInit{
 
   async inviteToTrip(tripId: string) {
     this.toastCtrl.create({
-      message: 'Invite sent',
+      message: 'we are working for this feature',
       duration: 2000,
     }).then((toast) => {
       toast.present();
@@ -136,8 +140,8 @@ export class Trips implements OnInit{
   }
 
   async deleteTrip(tripId: string) { 
-    this.trips = this.trips.filter((t) => t.id !== tripId);
     await this.tripService.deleteTrip(tripId);
+    this.trips = this.trips.filter((t) => t._meta.id !== tripId);
     this.toastCtrl.create({
       message: 'Trip deleted',
       duration: 2000,
@@ -157,8 +161,8 @@ export class Trips implements OnInit{
     });
   }
 
-  openTrip(tripId: string) { 
-    this.router.navigate(['/tabs/trips/trip-view', tripId]);
+  openTrip(tripName: string) { 
+    this.router.navigate(['/tabs/trips/trip-view', tripName]);
   }
 
 

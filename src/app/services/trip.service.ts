@@ -39,8 +39,8 @@ export class TripService {
   deleteTrip(tripId: string): Promise<any> { 
     return this.authService.getCurrentAuthUser().then(user => {
       if (!user) throw new Error('No user signed in');
-      const collectionPath = `users/${user.uid}/trips`;
-      return this.firestoreService.delete(collectionPath, tripId);  
+      const collectionPath = `users/${user.uid}/trips/${tripId}`;
+      return this.firestoreService.delete(collectionPath);  
     });
   }
 

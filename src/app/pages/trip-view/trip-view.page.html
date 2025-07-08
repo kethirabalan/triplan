@@ -16,7 +16,7 @@
       <!-- 👇 This content will now appear over the image -->
       <div class="trip-overlay-content">
         <div class="trip-title-row ion-margin-bottom">
-          <h1 class="trip-title">{{ tripName }}</h1>
+          <h1 class="trip-title">{{ tripName | titlecase }}</h1>
         </div>
         
         <!-- <div class="trip-profile-row">
@@ -44,13 +44,63 @@
   </ion-segment>
 
   <div class="trip-saves-section">
-    <div class="trip-saves-header">
+    <div class="trip-saves-header ion-margin-top">
       <span>0 items</span>
       <ion-button size="small" fill="outline">More</ion-button>
     </div>
-    <div class="trip-empty-state">
-      <p>Start saving places to see, stay, and eat at on your next trip.</p>
-      <ion-button expand="block" (click)="startExploring()">Start Exploring</ion-button>
+    <div class="trip-empty-state ion-margin-top ion-padding-vertical">
+      <p class="ion-padding-horizontal">Start saving places to see, stay, and eat at on your next trip.</p>
+      <ion-button expand="block" (click)="startExploring()" class="ion-margin-top">Start Exploring</ion-button>
     </div>
   </div>
+
+  <!-- create ai images for the trip based on the name of the trip and the places in the trip -->
+
+<!-- Wrap all cards in a scrollable flex container -->
+  <div class="card-scroll-container">
+    @for(place of places; track place.name) {
+      <ion-card class="action-card scroll-card">
+        <div class="trip-ai-images-content" *ngIf="placeImages[place.name]?.length">
+          @for(img of placeImages[place.name]; track img) {
+            <div class="trip-image-wrapper">
+              <div class="image-badge-container">
+                <ion-img [src]="img" [alt]="place?.name"></ion-img>
+                <ion-badge color="primary" size="small" class="badge-on-image">AI Generated</ion-badge>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Card Content -->
+        <ion-card-header>
+          <ion-card-title class="fs-12" color="medium">
+            <strong class="">{{ place.description }}</strong>
+          </ion-card-title>
+          <ion-card-subtitle class="fs-12 ion-text-wrap" color="tertiary">
+            {{ place.name | titlecase }}
+          </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid class="ion-no-padding">
+            <ion-row>
+              <ion-col style="display: flex; justify-content: flex-start;">
+                <ion-button size="small">Add to trip</ion-button>
+              </ion-col>
+              <ion-col size="5" style="display: flex; justify-content: flex-end;">
+                <ion-button fill="clear">
+                  <ion-icon slot="icon-only" name="heart-outline" class="fs-22"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear">
+                  <ion-icon slot="icon-only" name="share-social-outline" class="fs-22"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    }
+  </div>
+
+  
 </ion-content>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonText, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonIcon, IonText, IonGrid, IonRow, IonCol, ModalController, AlertController  } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoGoogle, radioButtonOnOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { firstValueFrom } from 'rxjs';
+import { SignPage } from 'src/app/modals/sign/sign.page';
 
 
 @Component({
@@ -16,10 +17,12 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './onboard.page.html',
   styleUrls: ['./onboard.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonIcon, IonText, IonGrid, IonRow, IonCol]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonIcon, IonText, IonGrid, IonRow, IonCol, SignPage]
 })
 export class OnboardPage implements OnInit {
-  constructor(private authService: AuthService, private router: Router,private userService: UserService,private loadingService: LoadingService) {
+  isModalOpen = false;
+  constructor(private authService: AuthService, private router: Router,private userService: UserService,private loadingService: 
+    LoadingService,private modalCtrl: ModalController,private alertController: AlertController) {
     addIcons({
       radioButtonOnOutline,
       logoGoogle
@@ -70,9 +73,56 @@ export class OnboardPage implements OnInit {
       console.error('Navigation failed:', err);
     });
   }
+  
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
 
-  signIn() {
-    this.router.navigate(['/tabs/signin']);
+
+  async createAccount() {
+    const modal = await this.modalCtrl.create({
+      component: SignPage,
+      componentProps: {
+        isSignIn: false,
+      },
+    });
+    modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    this.isModalOpen = false;
+    if (role === 'createAccount') {
+      this.authService.signUpWithEmailAndPassword(data.email, data.password).then(() => {
+        this.authService.sendEmailVerification();
+      }).catch((error) => {
+        this.presentAlert('Error creating account');
+      });
+    }
+    if (role === 'signIn') {
+      this.authService.signInWithEmailAndPassword(data.email, data.password);
+    }
+    if (role === 'emailVerificationSent') {
+      this.presentAlert('Email verification sent');
+    } else if (role === 'emailVerificationError') {
+      this.presentAlert('Error sending email verification');
+    }
+  }
+
+  async signIn() {
+    const modal = await this.modalCtrl.create({
+      component: SignPage,
+      componentProps: {
+        isSignIn: true,
+      },
+    });
+    modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    this.isModalOpen = false;
+    if (role === 'signIn') {
+      this.authService.signInWithEmailAndPassword(data.email, data.password);
+    }
   }
 
 }

@@ -20,6 +20,20 @@ import {
 } from '@angular/fire/firestore';
 import { Observable, debounceTime } from 'rxjs';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { DocMetaStatus } from '../core/enums';
+
+export type DocMeta = {
+  id: string;
+  path: string;
+  cancelTrigger: boolean;
+  status: DocMetaStatus;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+export type DocLike = {
+  _meta: DocMeta;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +59,31 @@ export class FirebaseFirestoreService {
     return runInInjectionContext(this.injector, () => doc(this.db, documentPath));
   }
 
+  getDocMeta(documentPath: string) {
+    const timestamp = Timestamp.now();
+    let docRef: DocumentReference | null = runInInjectionContext(this.injector, () => doc(this.db, documentPath));
+    const meta: any = {
+      id: docRef.id,
+      path: docRef.path,
+      cancelTrigger: false,
+      status: DocMetaStatus.Live,
+      createdAt: timestamp,
+      updatedAt: timestamp
+    };
+
+    let count = 1;
+    while (docRef && docRef.parent !== null) {
+      if (docRef.parent.parent) {
+        meta[`parent${count}`] = docRef.parent.parent.id;
+        count++;
+        docRef = docRef.parent.parent;
+      } else {
+        docRef = null;
+      }
+    }
+    return meta;
+  }
+
   async getDocData(documentPath: string): Promise<DocumentData | undefined> {
     return runInInjectionContext(this.injector, async () => {
       const docRef = doc(this.db, documentPath);
@@ -64,29 +103,50 @@ export class FirebaseFirestoreService {
     const querySnapshot = await runInInjectionContext(this.injector, () => getDocs(queryDocData));
     return querySnapshot.docs.map(doc => doc.data());
   }
+  
 
-  async set(documentPath: string, data: any): Promise<DocumentReference> {
-    const docRef = runInInjectionContext(this.injector, () => doc(this.db, documentPath));
-    await setDoc(docRef, data);
+  async add(collectionPath: string, data: any, log: any = {}): Promise<DocumentReference> {
+    const docRef = doc(collection(this.db, collectionPath));
+    const _meta = this.getDocMeta(docRef.path);
+    await setDoc(docRef, {
+      _meta,
+      ...data,
+    })
     return docRef;
   }
 
-  async update(documentPath: string, documentId: string, data: any): Promise<DocumentReference> {
-    const docRef = runInInjectionContext(this.injector, () => doc(this.db, documentPath, documentId));
-    await updateDoc(docRef, data);
+  async set(documentPath: string, data: any, log: any = {}): Promise<DocumentReference> {
+    const docRef = doc(this.db, documentPath)
+    const _meta = this.getDocMeta(docRef.path);
+    await setDoc(docRef, {
+      _meta,
+      ...data,
+    })
     return docRef;
   }
 
-  async delete(documentPath: string, documentId: string): Promise<DocumentReference> {
-    const docRef = runInInjectionContext(this.injector, () => doc(this.db, documentPath, documentId));
-    await deleteDoc(docRef);
+  async setWithMerge(documentPath: string, data: any, log: any = {}): Promise<DocumentReference> {
+    const docRef = runInInjectionContext(this.injector, () => doc(this.db, documentPath))
+    const _meta = this.getDocMeta(docRef.path);
+    await runInInjectionContext(this.injector, () => setDoc(docRef, {
+      _meta,
+      ...data,
+    }, { merge: true }))
     return docRef;
   }
 
-  async add(collectionPath: string, data: any): Promise<DocumentReference> {
-    const colRef = collection(this.db, collectionPath);
-    const docRef = runInInjectionContext(this.injector, () => doc(colRef));
-    await setDoc(docRef, data);
+  async update(documentPath: string, data: any, log: any = {}): Promise<DocumentReference> {
+    const docRef = doc(this.db, documentPath);
+    await updateDoc(docRef, {
+      ...data,
+      '_meta.updatedAt': Timestamp.now(),
+    })
+    return docRef;
+  }
+
+  async delete(documentPath: string, log: any = {}): Promise<DocumentReference> {
+    const docRef = doc(this.db, documentPath)
+    await deleteDoc(docRef)
     return docRef;
   }
 

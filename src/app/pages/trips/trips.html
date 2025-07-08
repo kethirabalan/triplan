@@ -5,28 +5,47 @@
       <ion-title size="large" color="primary">My trips</ion-title>
     </ion-toolbar>
   </ion-header>
-  @if(trips.length > 0 && user && !loading) {
-    <ion-list class="ion-padding-horizontal" lines="none" (click)="openTrip(trip.id)">
-      @for(trip of trips; track trip.id) {
+  @if(trips.length === 1 && user && !loading) {
+    @let trip = trips[0];
+    <ion-card style="height: 290px;" (click)="openTrip(trip.name)">
+      <img [src]="trip.imageUrl || 'assets/images/placeholderimg.png'" style="height: 200px; width: 100%;"/>
+      <ion-card-header>
+        <ion-card-subtitle style="display: flex; align-items: center; gap: 4px;">
+          <ion-icon name="calendar-outline" class="fs-12"></ion-icon>
+          {{ trips[0].startDate | date:'MMM d' }} - {{ trips[0].endDate | date:'MMM d, y' }}
+        </ion-card-subtitle>
+        <ion-card-title style="display: flex; align-items: center; justify-content: space-between;">
+          {{ trips[0].name | titlecase }}
+          <ion-icon name="ellipsis-vertical" class="fs-16" color="medium" (click)="openTripOptions($event, trip._meta.id)"></ion-icon>
+        </ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  }
+
+  @if(trips.length > 1 && user && !loading) {
+    @for(trip of trips; track trip?._meta?.id) {
+    <ion-list class="ion-padding-horizontal ion-margin-top" lines="none" (click)="openTrip(trip.name)">
       <ion-item class="ion-no-padding" detail="false">
         <ion-thumbnail slot="start">
           <img [src]="trip.imageUrl || 'assets/images/p aceholderimg.png'" class="trip-image">
         </ion-thumbnail>
         <ion-label class="ion-text-wrap">
-          <h2 class="fs-12" color="medium"><strong>{{ trip.name }}</strong></h2>
+          <h2 class="fs-12" color="medium"><strong>{{ trip.name | titlecase }}</strong></h2>
           <h6 class="fs-10" color="medium" style="display: flex; align-items: center; gap: 4px;">
             <ion-icon name="calendar-outline" class="fs-14"></ion-icon>
             {{ trip.startDate | date:'MMM d' }} - {{ trip.endDate | date:'MMM d, y' }}
           </h6>
+          @if(trip.isPublic) {
           <h6 class="fs-10" color="medium" style="display: flex; align-items: center; gap: 4px;">
             <ion-icon name="heart-outline" class="fs-14"></ion-icon>
             {{ trip.savesCount || 0 }} saves
           </h6> 
+          }
         </ion-label>
-        <ion-icon name="ellipsis-vertical" slot="end" class="fs-16" color="medium" (click)="openTripOptions(trip.id)"></ion-icon>
+        <ion-icon name="ellipsis-vertical" slot="end" class="fs-16" color="medium" (click)="openTripOptions($event, trip._meta.id)"></ion-icon>
       </ion-item> 
-      }
     </ion-list>
+  }
   }
 
   @if(!trips.length && !loading) {
@@ -37,9 +56,7 @@
         <ion-icon name="globe" color="tertiary" class="trip-icon"></ion-icon>
         <!-- <ion-icon name="airplane" color="tertiary" class="trip-icon"></ion-icon> -->
       </div>
-      <ion-label>
-        <ion-text class="fs-18" color="medium"><strong>Plan your way with Trips...</strong></ion-text>
-      </ion-label>
+      <h2 class="fs-18 ion-margin-top">Plan your way with Trips...</h2>
       <p class="fs-12 ion-margin-bottom">
           Build a trip with your saves or use AI to get custom recommendations, collaborate with friends, and organize your trip ideas.
       </p>
@@ -59,13 +76,13 @@
     </ion-card>
   </div>
  }
-
+<!-- 
   @if(trips.length > 1 && user && !loading) {
-  <div class="ion-text-center ion-margin-top">
+  <div class="ion-text-center ion-margin-top" style="margin-top: 100px;">
     <h2>Completed trips</h2>
     <p>Your completed trips will appear here.</p>
   </div>
-  }
+  } -->
   
   @if(trips.length > 0 && user && !loading) {
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
@@ -73,20 +90,18 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button>
+      <ion-fab-button routerLink="/tabs/trips/ai-plan">
         <ion-icon name="sparkles-outline" class="fs-24"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button>
+      <ion-fab-button id="open-trip-modal">
         <ion-icon name="add-outline" class="fs-24"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
   }
-  @if(user) {
-  <ion-modal #tripModal id="trip-modal" trigger="open-trip-modal" initialBreakpoint="0.4" [breakpoints]="[0, 0.25, 0.5]">
-    <ng-template>
+  <ion-modal #tripModal trigger="open-trip-modal" id="trip-modal" initialBreakpoint="0.3" [breakpoints]="[0, 0.25, 0.5]">
+    <ng-template #tripModalContent>
       <ion-content class="ion-padding">
-  
         <ion-header collapse="condense" class="ion-no-border">
           <ion-toolbar>
             <ion-title class="ion-text-center">Create a trip</ion-title>
@@ -94,7 +109,7 @@
         </ion-header>
   
         <ion-item lines="full" class="ion-margin-top">
-          <ion-input class="ion-input" label="Trip name" labelPlacement="stacked" [(ngModel)]="tripName" placeholder="Ex. Weekend in NYC"></ion-input>
+          <ion-input class="ion-input" autocapitalize="on" label="Trip name" labelPlacement="stacked" [(ngModel)]="tripName" placeholder="Ex. Weekend in NYC"></ion-input>
         </ion-item>
   
         <ion-button expand="block" class="ion-margin-top" (click)="createTrip(tripName)">
@@ -104,6 +119,4 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-  }
 </ion-content>
-

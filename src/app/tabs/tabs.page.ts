@@ -10,7 +10,8 @@ import { chatboxOutline, heartOutline, homeOutline, personCircleOutline, searchO
   mapOutline,shareSocialOutline,personAddOutline,
   calendarOutline,
   addCircle,
-  addOutline} from 'ionicons/icons';
+  addOutline,
+  heartCircleOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -29,7 +30,7 @@ export class TabsPage {
       lockClosedOutline,navigateCircleOutline, createOutline,chevronForwardOutline,
       ellipsisHorizontalOutline,closeOutline,chevronDownOutline,saveOutline,chevronBackOutline,logoGoogle,radioButtonOnOutline,
       logInOutline,shareOutline,mailOutline,informationCircleOutline,mapOutline,shareSocialOutline,personAddOutline,
-      calendarOutline,addOutline
+      calendarOutline,addOutline,heartCircleOutline
     });
   }
 }
