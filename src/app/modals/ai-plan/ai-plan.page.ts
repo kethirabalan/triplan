@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonInput, IonList, IonLabel, IonButtons, 
   IonIcon, IonCheckbox, IonSegment, IonSegmentButton, IonListHeader, IonProgressBar, IonGrid, IonRow, IonCol,
-   IonThumbnail, IonText, IonFooter, IonSpinner, IonChip, IonItemGroup, IonModal, IonSearchbar } from '@ionic/angular/standalone';
+   IonThumbnail, IonText, IonFooter, IonSpinner, IonChip, IonItemGroup, IonSearchbar, ModalController, IonDatetime, ToastController, IonModal, IonDatetimeButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
+import { AiResultPage } from '../ai-result/ai-result.page';
 
 @Component({
   selector: 'app-ai-plan',
@@ -14,20 +16,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonItem, IonInput, IonList, IonLabel,
     IonButtons, IonIcon, IonCheckbox, IonSegment, IonSegmentButton, IonListHeader, IonProgressBar, IonGrid, 
-    IonRow, IonCol,IonThumbnail, IonText,IonFooter,IonSpinner,IonChip, IonItemGroup, IonModal,ReactiveFormsModule,IonSearchbar]
+    IonRow, IonCol,IonThumbnail, IonText,IonFooter,IonSpinner,IonChip, IonItemGroup, ReactiveFormsModule, IonSearchbar, IonDatetime, IonModal, IonDatetimeButton]
 })
 export class AiPlanPage implements OnInit {
   activeStep = 1;
   totalSteps = 5;
   aiPlanForm: FormGroup;
   searchTerm: any;
-  cities = [
-    { name: 'Paris', region: 'Ile-de-France, France', imageUrl: 'https://cdn.pixabay.com/photo/2015/03/26/09/54/eiffel-tower-690050_1280.jpg' },
-    { name: 'Dubai', region: 'Emirate of Dubai, UAE', imageUrl: 'https://cdn.pixabay.com/photo/2017/01/20/00/30/dubai-1997729_1280.jpg' },
-    { name: 'Las Vegas', region: 'Nevada, USA', imageUrl: 'https://cdn.pixabay.com/photo/2016/11/29/09/32/architecture-1868667_1280.jpg' },
-    { name: 'London', region: 'England, UK', imageUrl: 'https://cdn.pixabay.com/photo/2016/11/18/16/19/london-1839519_1280.jpg' },
-    { name: 'Cancun', region: 'Yucatan Peninsula, Mexico', imageUrl: 'https://cdn.pixabay.com/photo/2016/11/29/09/32/beach-1867883_1280.jpg' }
-  ];
+  // segmentValue: any = 'tripLength';
+  cities: any[] = recommendedPlaces;
+  minDate = new Date().toISOString(); // today
+  maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(); // optional
   months = ['July', 'August', 'September', 'October'];
   companions = ['Going solo', 'Partner', 'Friends', 'Family'];
   interests = [
@@ -36,22 +35,49 @@ export class AiPlanPage implements OnInit {
     'French Cuisine', 'Art Museums', 'Historical Landmarks', 'Luxury Shopping', 'River Seine Cruise'
   ];
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder, private modalCtrl: ModalController, private toastCtrl: ToastController) {
     this.aiPlanForm = this.fb.group({
       destination: [null, Validators.required],
       tripLength: [3, [Validators.required, Validators.min(1), Validators.max(7)]],
       month: [''],
       companions: ['', Validators.required],
       interests: [[], Validators.required],
-      otherInterests: ['']
+      otherInterests: [''],
+      // date: [[]]
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  // segmentChanged(event: any) {
+  //   this.segmentValue = event.detail.value;
+  // }
+
+  // validateRange(event: any) {
+  //   const range = event.detail.value;
+  //   if (range && range.length > 0) {
+  //     const fromDate = new Date(range[0]);
+  //     const toDate = new Date(range[range.length - 1]);
+  //     const diffDays = Math.ceil((toDate.getTime() - fromDate.getTime()) / (1000 * 3600 * 24));
+
+  //     if (diffDays > 7) {
+  //       this.aiPlanForm.get('date')?.setValue(null);
+  //       this.showToast('Please select a range of 7 days or less.');
+  //     }
+  //   }
+  // }
+
+  showToast(message: string) {
+    this.toastCtrl.create({
+      message: message,
+      duration: 2000
+    }).then(toast => toast.present());
+  }
 
   filteredCities() {
-    if (!this.searchTerm) return this.cities;
-    return this.cities.filter(city => city.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    if (!this.searchTerm) return this.cities.slice(0, 5);
+    return this.cities.filter(city => city.name.toLowerCase().includes(this.searchTerm.toLowerCase())).slice(0, 5);
   }
 
   selectCity(city: any) {
@@ -96,11 +122,19 @@ export class AiPlanPage implements OnInit {
     }
   }
 
-  nextStep() {
+  async nextStep() {
     if (this.activeStep < this.totalSteps) {
       this.activeStep++;
     } else {
-      this.router.navigate(['/modals/ai-result'], { state: { aiPlan: this.aiPlanForm.value } });
+      // remove already opened modal
+      this.modalCtrl.dismiss();
+      const modal = await this.modalCtrl.create({
+        component: AiResultPage,
+        componentProps: {
+          aiPlan: this.aiPlanForm.value
+        }
+      });
+      modal.present();
     }
   }
 
@@ -109,6 +143,6 @@ export class AiPlanPage implements OnInit {
   }
 
   closeModal() {
-    window.history.back();
+    this.modalCtrl.dismiss();
   }
 }

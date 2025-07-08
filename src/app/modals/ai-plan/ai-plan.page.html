@@ -1,34 +1,37 @@
-<ion-content [fullscreen]="true">    
+<ion-content [fullscreen]="true" mode="ios">    
     <ion-header [translucent]="true">
       <ion-toolbar>
-        <ion-title>Powered by AI</ion-title>
+        <ion-title> Triplan Powered by AI</ion-title>
+        <ion-progress-bar value="{{activeStep/totalSteps}}" color="success"></ion-progress-bar>
         <ion-buttons slot="end">
           <ion-button (click)="closeModal()">
-            <ion-icon name="close"></ion-icon>
+            <ion-icon name="close" class="close-icon"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
-      <ion-progress-bar value="{{activeStep/totalSteps}}"></ion-progress-bar>
     </ion-header>
     <form [formGroup]="aiPlanForm">
       <div class="ion-padding">
         <!-- Step 1: Destination -->
         <ng-container *ngIf="activeStep === 1">
-          <h2 class="ion-text-bold">First, where do you want to go?</h2>
-          <p>You'll get custom recs you can save and turn into an itinerary.</p>
+          <div class="ion-padding-horizontal">
+            <h2 class="ion-text-bold fs-20"><strong>First, where do you want to go?</strong></h2>
+            <p>You'll get custom recs you can save and turn into an itinerary.</p>
+          </div>
           <ion-searchbar
             [value]="searchTerm"
             (ionInput)="searchTerm = $event.target.value"
             placeholder="Search">
           </ion-searchbar>
-          <ion-list>
-            <ion-item *ngFor="let city of filteredCities()" (click)="selectCity(city)" [class.selected]="aiPlanForm.get('destination')?.value?.name === city.name">
+          @let selectedCity = aiPlanForm.get('destination')?.value; 
+          <ion-list color="none" lines="none">
+            <ion-item  color="none" [class.selected]="selectedCity?.name === city.name" class="ion-margin-top ion-margin-bottom"  *ngFor="let city of filteredCities()" (click)="selectCity(city)">
               <ion-thumbnail slot="start">
-                <img [src]="city.imageUrl">
+                <img [src]="city.image" style="border-radius: 8px;">
               </ion-thumbnail>
               <ion-label>
                 <h2>{{city.name}}</h2>
-                <p>{{city.region}}</p>
+                <p>{{city.country}}</p>
               </ion-label>
             </ion-item>
           </ion-list>
@@ -37,22 +40,42 @@
         <!-- Step 2: Dates/Trip Length -->
         <ng-container *ngIf="activeStep === 2">
           <h2 class="ion-text-bold">When do you want to go?</h2>
-          <p>Choose a day/date range, up to 7 days.</p>
-          <ion-segment value="tripLength">
+          <p>Choose a date range, up to 7 days.</p>
+          <!-- <ion-segment value="tripLength" (ionChange)="segmentValue = $event.detail.value">
+            <ion-segment-button value="date">Date (MM/DD)</ion-segment-button>
             <ion-segment-button value="tripLength">Trip Length</ion-segment-button>
-          </ion-segment>
-          <div class="ion-margin-vertical ion-text-center">
-            <span>Total days</span>
-            <ion-button fill="clear" size="small" (click)="decrementTripLength()">-</ion-button>
-            <span class="ion-padding-horizontal">{{aiPlanForm.get('tripLength')?.value}}</span>
-            <ion-button fill="clear" size="small" (click)="incrementTripLength()">+</ion-button>
-          </div>
+          </ion-segment> -->
+          <!-- <div class="ion-margin-vertical"> -->
+            <!-- @if(segmentValue === 'tripLength') { -->
+            <ion-grid>
+              <ion-row class="ion-justify-content-center ion-margin-top ion-margin-bottom">
+                <ion-col size="6" style="display: flex; align-items: center;">
+                  <span>Total days</span>
+                </ion-col> 
+                <ion-button fill="clear" size="small" (click)="decrementTripLength()" class="fs-20 plus-minus-button">-</ion-button>
+                <span class="ion-padding-horizontal" style="display: flex; align-items: center; justify-content: center;">{{aiPlanForm.get('tripLength')?.value}}</span>
+                <ion-button fill="clear" size="small" (click)="incrementTripLength()" class="fs-20 plus-minus-button">+</ion-button>
+              </ion-row>
+            </ion-grid>
+          <!-- </div> -->
           <div class="ion-margin-top">
             <span>During what month? (optional)</span>
             <div class="ion-margin-top" style="display: flex; gap: 8px; flex-wrap: wrap;">
               <ion-button *ngFor="let month of months" fill="outline" [color]="aiPlanForm.get('month')?.value === month ? 'primary' : 'medium'" (click)="selectMonth(month)">{{month}}</ion-button>
             </div>
           </div>
+        <!-- } -->
+        <!-- @if(segmentValue === 'date') {
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+            <ion-item lines="none" class="ion-margin-top" color="none">
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime multiple="false" id="datetime" presentation="date-range" formControlName="date" name="date" 
+                [value]="aiPlanForm.get('date')?.value" (ionChange)="validateRange($event)"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        } -->
         </ng-container>
     
         <!-- Step 3: Companions -->
@@ -85,16 +108,17 @@
         </ng-container>
       </div>
     </form>
-    @if(activeStep < 5) { 
-    <ion-footer>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button fill="clear" (click)="prevStep()" [disabled]="activeStep === 1">Back</ion-button>
-        </ion-buttons>
-        <ion-buttons slot="end">
-          <ion-button expand="block" (click)="nextStep()" [disabled]="!canProceed()">Next</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-footer>
-    }
-</ion-content>
+  </ion-content>
+  
+  @if(activeStep < 5) { 
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="prevStep()" [disabled]="activeStep === 1">Back</ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button expand="block" (click)="nextStep()" [disabled]="!canProceed()">Next</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+  }

@@ -19,6 +19,11 @@ export const environment = {
     messagingSenderId: "686247485632",
     appId: "1:686247485632:web:9f9839bbbd09302d848d25",
     measurementId: "G-6NGH48XTLK"
+  },
+  cloudinary: {
+    cloudName: 'triplan',
+    apiKey: '1234567890',
+    apiSecret: '1234567890'
   }
 };
 

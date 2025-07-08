@@ -13,6 +13,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { addIcons } from 'ionicons';
 import { calendarOutline, heartOutline, globeOutline, personAddOutline, trashOutline, shareOutline, close, addCircleOutline, sparklesOutline, ellipsisVertical } from 'ionicons/icons';
 import { TitleCasePipe } from '@angular/common';
+import { AiPlanPage } from 'src/app/modals/ai-plan/ai-plan.page';
 
 @Component({
   selector: 'app-trips',
@@ -171,5 +172,13 @@ export class Trips implements OnInit{
     if (role === 'signIn') {
       this.authService.signInWithEmailAndPassword(data.email, data.password);
     }
+  }
+
+  async openAiPlan() {
+    const modal = await this.modalCtrl.create({
+      component: AiPlanPage,
+      backdropBreakpoint: 1024,
+    });
+    modal.present();
   }
 }

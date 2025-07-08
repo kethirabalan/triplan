@@ -64,7 +64,7 @@
       <ion-button fill="outline" shape="round" class="trips-signin" expand="block" color="primary" id="open-trip-modal">
         Create a trip
       </ion-button>
-      <ion-button shape="round" color="dark" class="trips-signin" expand="block" routerLink="/tabs/trips/ai-plan">
+      <ion-button shape="round" color="dark" class="trips-signin" expand="block" (click)="openAiPlan()">
         <ion-icon name="sparkles-outline" color="light" class="fs-18 ion-margin-end ion-justify-content-center"></ion-icon>
         Plan with AI
       </ion-button>
@@ -90,7 +90,7 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button routerLink="/tabs/trips/ai-plan">
+      <ion-fab-button (click)="openAiPlan()">
         <ion-icon name="sparkles-outline" class="fs-24"></ion-icon>
       </ion-fab-button>
       <ion-fab-button id="open-trip-modal">

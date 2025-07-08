@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton  } from '@ionic/angular/standalone';
 import { GeminiService } from 'src/app/services/gemini.service';
 import { PixabayService } from 'src/app/services/pixabay.service';
 import { Router } from '@angular/router';
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
   templateUrl: './ai-result.page.html',
   styleUrls: ['./ai-result.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonSpinner, 
+    IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,IonButton]
 })
 export class AiResultPage implements OnInit {
   aiPlan: any;
