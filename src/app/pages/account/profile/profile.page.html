@@ -18,9 +18,15 @@
     <ion-list>
       <ion-item lines="none">
         <ion-thumbnail slot="start" class="">
-          @if(userData?.photoURL) {
-            <img [src]="userData.photoURL | cldImg" alt="Profile" />
-          }
+            @if(userData?.photoURL?.includes('cs')) {
+              <img [src]="userData.photoURL | cldImg" alt="Profile" />
+            } @else {
+              @if(userData?.photoURL) {
+                <img [src]="userData.photoURL" alt="Profile" />
+              } @else {
+                <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="Profile" />
+              }
+            }
         </ion-thumbnail>
         <ion-label>
           <ion-text><strong>{{userData?.displayName || userData?.email.split('@')[0]}}</strong></ion-text><br>

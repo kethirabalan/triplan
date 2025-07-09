@@ -8,10 +8,14 @@
   <ion-list lines="none" class="account-list ion-margin-top">
     <ion-item button detail routerLink="profile">
       <ion-avatar slot="start">
-        @if(userData?.photoURL) {
+        @if(userData?.photoURL?.includes('cs')) {
           <img [src]="userData.photoURL | cldImg" />
         } @else {
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          @if(userData?.photoURL) {
+            <img [src]="userData.photoURL" />
+          } @else {
+            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          }
         }
       </ion-avatar>
       <ion-label>

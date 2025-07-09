@@ -13,10 +13,14 @@
     <div class="ion-text-center ion-margin-bottom profile-avatar-wrapper">
       <div class="avatar-container">
         <ion-avatar style="width: 80px; height: 80px;">
-          @if(avatar) {
+          @if(avatar?.includes('cs')) {
             <img [src]="avatar | cldImg" />   
           } @else {
-            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />   
+            @if(avatar) {
+              <img [src]="avatar" />   
+            } @else {
+              <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />   
+            }
           }
         </ion-avatar>
     

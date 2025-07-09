@@ -250,7 +250,7 @@ export class Home implements OnInit {
         };
 
         const userPath = `users/${currentUser.uid}`;
-        await this.firebaseFirestoreService.update(userPath, currentUser.uid as any, {
+        await this.firebaseFirestoreService.update(userPath, {
           currentLocation: locationData,
           _meta: {
             _0: "users",
