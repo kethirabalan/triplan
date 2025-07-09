@@ -36,6 +36,9 @@ export class Trips implements OnInit{
   constructor(private router: Router, private modal: ModalController, private actionSheetCtrl: ActionSheetController, 
     private tripService: TripService, private authService: AuthService, private modalCtrl: ModalController, 
     private loadingService: LoadingService, private toastCtrl: ToastController) {
+      this.authService.currentUser$.subscribe((user) => {
+        this.user = user;
+      });
       this.loading = true;
       this.tripService.getTrips().subscribe((trips) => {
         this.trips = trips;
