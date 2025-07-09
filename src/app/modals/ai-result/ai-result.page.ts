@@ -45,7 +45,7 @@ export class AiResultPage implements OnInit {
           const imageUrl = imageArray[0].webformatURL;
           this.images[this.itinerary[index].image_query] = imageUrl;
         } else {
-          console.log(`No images found for: ${this.itinerary[index].image_query}`);
+          // console.log(`No images found for: ${this.itinerary[index].image_query}`);
         }
       });
       this.loading = false;
