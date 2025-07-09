@@ -35,11 +35,7 @@ export class AiResultPage implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    console.log('Loading images for itinerary:', this.itinerary);
-    
-    this.pixabay.getImages(this.itinerary.map(day => day.image_query)).then((imageResults: any[]) => {
-      console.log('Pixabay results:', imageResults);
-      
+    this.pixabay.getImages(this.itinerary.map(day => day.image_query)).then((imageResults: any[]) => {      
       // Process the image results and create a mapping
       this.images = {};
       imageResults.forEach((imageArray, index) => {
@@ -47,16 +43,12 @@ export class AiResultPage implements OnInit {
           // Use the first image from each result
           const imageUrl = imageArray[0].webformatURL;
           this.images[this.itinerary[index].image_query] = imageUrl;
-          console.log(`Image for "${this.itinerary[index].image_query}":`, imageUrl);
         } else {
           console.log(`No images found for: ${this.itinerary[index].image_query}`);
         }
       });
-      
-      console.log('Final images object:', this.images);
       this.loading = false;
     }).catch((error: any) => {
-      console.error('Error fetching images:', error);
       this.loading = false;
     });  
   }

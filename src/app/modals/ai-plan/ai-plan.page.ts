@@ -133,11 +133,9 @@ export class AiPlanPage implements OnInit {
       this.activeStep++;
       if (this.activeStep === 5) {
         this.loadingAI = true;
-        console.log('aiPlanForm.value', this.aiPlanForm.value);
         try {
           const itinerary = await this.gemini.getItinerary(this.aiPlanForm.value);
           if (itinerary.length > 0) {
-            console.log('itinerary', itinerary);
             this.aiItinerary = itinerary;
           } else {
             this.aiItinerary = [

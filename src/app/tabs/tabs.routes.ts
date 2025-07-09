@@ -3,7 +3,7 @@ import { TabsPage } from './tabs.page';
 
 export const routes: Routes = [
   {
-    path: 'onboard-welcome',      
+    path: 'login',      
     loadComponent: () => import('../pages/onboard/onboard.page').then( m => m.OnboardPage),
   },
   {
@@ -110,7 +110,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'onboard-welcome',
+    redirectTo: 'login',
     pathMatch: 'prefix',  
   },
   {
