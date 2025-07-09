@@ -111,6 +111,6 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'onboard-welcome',
-    pathMatch: 'full',
+    pathMatch: 'prefix',  
   },
 ];
