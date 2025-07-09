@@ -113,4 +113,8 @@ export const routes: Routes = [
     redirectTo: 'onboard-welcome',
     pathMatch: 'prefix',  
   },
+  {
+    path: '**',
+    loadComponent: () => import('../pages/not-found/not-found.page').then((m) => m.NotFoundPage),
+  },  
 ];
