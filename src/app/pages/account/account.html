@@ -89,20 +89,20 @@
       <ion-content class="ion-padding" mode="ios">
         <h2 class="ion-text-center"><strong class="fs-16 ion-margin-bottom">Sign in and plan your next adventure</strong></h2>
         <div class="ion-text-center ion-margin-top">
-          <ion-button expand="block" shape="round" fill="outline" class="ion-margin-bottom" (click)="createAccount()">Create
+          <ion-button expand="block" shape="round" class="ion-margin-bottom" (click)="createAccount()">Create
             account</ion-button>
-          <ion-button expand="block" shape="round" fill="solid" color="dark" class="ion-margin-bottom"
+          <ion-button expand="block" shape="round" fill="solid" color="dark"
             (click)="signInWithGoogle()">
             <ion-icon name="logo-google" slot="start"></ion-icon>
             Continue with Google
           </ion-button>
           <div class="ion-margin-top">
-            <a style="text-decoration: underline; color: var(--ion-color-light);" (click)="signIn()">Have an account? Sign in</a>
+            <a style="text-decoration: underline;"(click)="signIn()">Have an account? Sign in</a>
           </div>
         </div>
-        <p color="medium" class="ion-text-center ion-margin-top ion-margin-bottom" style="font-size: 12px;">
-          By proceeding, you agree to our <a href="#" style="text-decoration: underline; color: var(--ion-color-light);">Terms of Use</a> and confirm
-          you have read our <a href="#" style="text-decoration: underline; color: var(--ion-color-light);">Privacy and Cookie Statement</a>.
+        <p class="ion-text-center" style="font-size: 12px;">
+          By proceeding, you agree to our <a href="#">Terms of Use</a> and confirm
+          you have read our <a href="#">Privacy and Cookie Statement</a>.
         </p>
       </ion-content>
     </div>

@@ -78,3 +78,22 @@
     align-items: center;
     justify-content: center;
   }
+
+  p {
+    color: var(--ion-color-medium);
+    font-weight: 500;
+    a {
+      color: var(--ion-color-medium);
+      text-decoration: underline;
+    }
+  }
+
+  div{
+    color: var(--ion-color-medium);
+    font-weight: 600;
+    font-size: 14px;
+    a {
+      color: var(--ion-color-medium);
+      text-decoration: underline;
+    }
+  }

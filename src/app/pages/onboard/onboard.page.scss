@@ -91,3 +91,11 @@
   height: 85%;
 }
 
+p {
+  color: var(--ion-color-light);
+  font-weight: 500;
+  a {
+    color: var(--ion-color-light);
+    text-decoration: underline;
+  }
+}
