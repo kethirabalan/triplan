@@ -17,13 +17,12 @@ TripPlan is a smart and intuitive travel planner built with **Ionic Angular**. P
 
 ---
 
-## 📸 Screenshots
 <h3>📸 App Screenshots</h3>
 
 <div align="center">
   <img src="src/assets/screenshots/login.png" alt="Login" width="150" style="margin: 8px;" />
   <img src="src/assets/screenshots/home.png" alt="Home" width="150" style="margin: 8px;" />
-  <img src="src/assets/screenshots/ai.png" alt="AI Itinerary" width="150" style="margin: 8px;" />
+  <img src="src/assets/screenshots/ai.png" alt="AI Itinerary" width="150" style="margin: 8px;" /><br>
   <img src="src/assets/screenshots/account.png" alt="Account" width="150" style="margin: 8px;" />
   <img src="src/assets/screenshots/search.png" alt="Search" width="150" style="margin: 8px;" />
   <img src="src/assets/screenshots/place-preview.png" alt="Place Preview" width="150" style="margin: 8px;" />
