@@ -8,7 +8,11 @@
   <ion-list lines="none" class="account-list ion-margin-top">
     <ion-item button detail routerLink="profile">
       <ion-avatar slot="start">
-        <img [src]="user?.photoURL || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+        @if(userData?.photoURL) {
+          <img [src]="userData.photoURL | cldImg" />
+        } @else {
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        }
       </ion-avatar>
       <ion-label>
         <strong>Profile</strong>
@@ -83,13 +87,13 @@
 </ion-modal> -->
 
 <!-- modal -->
-<ion-modal trigger="isModalOpen" id="isModalOpen" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.3, 0.5, 0.8,0.1]">
+<ion-modal #signInModal trigger="isModalOpen" id="isModalOpen" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.3, 0.5, 0.8,0.1]">
   <ng-template>
     <div class="block">
       <ion-content class="ion-padding" mode="ios">
         <h2 class="ion-text-center"><strong class="fs-16 ion-margin-bottom">Sign in and plan your next adventure</strong></h2>
         <div class="ion-text-center ion-margin-top">
-          <ion-button expand="block" shape="round" class="ion-margin-bottom" (click)="createAccount()">Create
+          <ion-button fill="outline" expand="block" shape="round" class="ion-margin-bottom" (click)="createAccount()">Create
             account</ion-button>
           <ion-button expand="block" shape="round" fill="solid" color="dark"
             (click)="signInWithGoogle()">

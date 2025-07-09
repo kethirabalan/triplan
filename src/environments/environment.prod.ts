@@ -18,7 +18,9 @@ export const environment = {
   },
   cloudinary: {
     cloudName: 'dpnjqev0i',
-    apiKey: '575631284757631',
-    apiSecret: 'UxqJk0FKexch-LwU9H654e3zUww'
+    baseUrl: 'https://res.cloudinary.com/dpnjqev0i',
+    folder: 'trip-dev',
+    uploadPreset: 'upload',
+    uploadEndpoint: 'https://api.cloudinary.com/v1_1/dpnjqev0i/auto/upload'
   }
 };

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "686247485632",
+    "project_id": "triplan-247f3",
+    "storage_bucket": "triplan-247f3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686247485632:android:c5d975abf06b0d39848d25",
+        "android_client_info": {
+          "package_name": "com.triplan.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686247485632-f0nkau77setc20q3ea1tkq6j7a5b4s6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANupjXg-mJwCuz8NGZ-qDPNjFzzw9s_Wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686247485632-f0nkau77setc20q3ea1tkq6j7a5b4s6t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

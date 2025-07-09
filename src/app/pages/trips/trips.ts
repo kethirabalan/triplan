@@ -14,6 +14,7 @@ import { addIcons } from 'ionicons';
 import { calendarOutline, heartOutline, globeOutline, personAddOutline, trashOutline, shareOutline, close, addCircleOutline, sparklesOutline, ellipsisVertical } from 'ionicons/icons';
 import { TitleCasePipe } from '@angular/common';
 import { AiPlanPage } from 'src/app/modals/ai-plan/ai-plan.page';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-trips',
@@ -31,16 +32,14 @@ export class Trips implements OnInit{
   user: any;
   isModalOpen = false;
   loading = false;
+  
   constructor(private router: Router, private modal: ModalController, private actionSheetCtrl: ActionSheetController, 
-    private tripService: TripService, private authService: AuthService, private modalCtrl: ModalController, private loadingService: LoadingService, private toastCtrl: ToastController) {
-      this.authService.currentUser$.subscribe((user) => {
-        if (user) {
-          this.user = user;
-        }
-      });
-
+    private tripService: TripService, private authService: AuthService, private modalCtrl: ModalController, 
+    private loadingService: LoadingService, private toastCtrl: ToastController) {
+      this.loading = true;
       this.tripService.getTrips().subscribe((trips) => {
         this.trips = trips;
+        this.loading = false;
       });
       addIcons({
         calendarOutline,
@@ -56,7 +55,12 @@ export class Trips implements OnInit{
       })
     }
 
-  ngOnInit() {
+  async ngOnInit() {
+    try {
+      this.user = await firstValueFrom(this.authService.currentUser$);
+    } catch (error) {
+      console.error('Error loading user:', error);
+    }
   }
 
   async createTrip(tripName: string) {

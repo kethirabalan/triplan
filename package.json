@@ -36,6 +36,7 @@
     "@capacitor/keyboard": "7.0.1",
     "@capacitor/share": "^7.0.1",
     "@capacitor/status-bar": "7.0.1",
+    "@cloudinary/url-gen": "^1.21.0",
     "@google/generative-ai": "^0.24.1",
     "@ionic/angular": "^8.0.0",
     "cordova-plugin-app-version": "^0.1.14",

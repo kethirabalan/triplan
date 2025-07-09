@@ -20,10 +20,18 @@ export const environment = {
     appId: "1:686247485632:web:9f9839bbbd09302d848d25",
     measurementId: "G-6NGH48XTLK"
   },
+  // cloudinary: {
+  //   cloudName: 'dpnjqev0i',
+  //   apiKey: '575631284757631',
+  //   apiSecret: 'UxqJk0FKexch-LwU9H654e3zUww'
+  // }
+
   cloudinary: {
     cloudName: 'dpnjqev0i',
-    apiKey: '575631284757631',
-    apiSecret: 'UxqJk0FKexch-LwU9H654e3zUww'
+    baseUrl: 'https://res.cloudinary.com/dpnjqev0i',
+    folder: 'trip-dev',
+    uploadPreset: 'upload',
+    uploadEndpoint: 'https://api.cloudinary.com/v1_1/dpnjqev0i/auto/upload'
   }
 };
 

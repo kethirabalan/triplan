@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { firstValueFrom } from 'rxjs';
+import { CloudinaryService } from 'src/app/services/cloudinary.service';
+import { CldImgPipe } from 'src/app/pipes/cld-img.pipe';
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,11 +21,11 @@ import { firstValueFrom } from 'rxjs';
   providers:[ModalController],
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, IonAvatar, IonButton, IonIcon, 
     IonInput, IonLabel, IonList, IonItem, IonTextarea, IonSearchbar,IonButtons,IonBackButton,ReactiveFormsModule,
-    IonImg, IonToast]
+    IonImg, IonToast, CldImgPipe]
 })
 export class EditProfilePage implements OnInit {
   selectedPlace: any;
-  avatar: string = '';
+  avatar: any;
   form: FormGroup;
   currentUser: any;
   userData: any;
@@ -34,7 +36,8 @@ export class EditProfilePage implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private loadingService: LoadingService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private cloudinaryService: CloudinaryService
   ) {
     this.form = new FormGroup({
       name: new FormControl(''),
@@ -119,22 +122,40 @@ export class EditProfilePage implements OnInit {
         source: CameraSource.Camera,
         direction: CameraDirection.Front
       });
+  
       if (capturedPhoto.webPath) {
-        this.avatar = capturedPhoto.webPath;
-        this.cdr.detectChanges();
-        
-        // Optionally save the image immediately
-        if (this.currentUser) {
-          await this.userService.updateUserProfile(this.currentUser.uid, {
-            photoURL: this.avatar
-          });
-        }
+        // Convert webPath to Blob
+        const response = await fetch(capturedPhoto.webPath);
+        const blob = await response.blob();  
+        // Upload the Blob to Cloudinary
+         this.cloudinaryService.uploadImage$(blob, ['user-avatar']).subscribe({
+          next: async (uploadEvent: any) => {
+            const cloudinaryRes = uploadEvent.response;
+            const publicId = cloudinaryRes?.public_id;
+            if (cloudinaryRes && cloudinaryRes.secure_url) {
+              this.avatar = cloudinaryRes.secure_url;
+              this.cdr.detectChanges();
+            
+              if (this.currentUser && publicId) {
+                const csPath = 'cs:' + publicId;
+                await this.userService.updateUserProfile(this.currentUser.uid, {
+                  photoURL: csPath
+                });
+              }
+
+              
+            }
+          },
+          error: (err) => {
+            console.error('Upload failed:', err);
+          }
+        });
       }
     } catch (error) {
-      console.error('Error capturing photo:', error);
-      this.showToast('Error capturing photo. Please try again.');
+      console.error('Camera error or upload failure:', error);
     }
   }
+ 
 
   async save() {
     try {
@@ -178,7 +199,7 @@ export class EditProfilePage implements OnInit {
       message: message,
       duration: 3000,
       position: 'bottom',
-      color: 'success'
+      color: 'medium'
     });
     await toast.present();
   }

@@ -26,7 +26,8 @@ export class AiResultPage implements OnInit {
     private router: Router,
     private modalCtrl: ModalController,
     private authService: AuthService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private firestoreService: FirebaseFirestoreService
   ) { 
     this.authService.currentUser$.subscribe((user) => {
       this.user = user;
@@ -54,12 +55,9 @@ export class AiResultPage implements OnInit {
   }
 
   async saveItinerary() {
-
-    // use firebase-firestore service to save  the itinerary data as a document remove old code
     try {
-    const firestoreService = inject(FirebaseFirestoreService);
-    const itineraryRef = firestoreService.getDocRef(`users/${this.user.uid}/itineraries`);
-    await firestoreService.add(itineraryRef.path, {
+      const itineraryCollectionPath = `users/${this.user.uid}/itineraries`;
+      await this.firestoreService.add(itineraryCollectionPath, {
       itinerary: this.itinerary,
       aiPlan: this.aiPlan,
     });

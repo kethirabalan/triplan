@@ -15,6 +15,9 @@ import { NotificationsPage } from 'src/app/modals/notifications/notifications.pa
 import { AuthService } from 'src/app/services/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignPage } from 'src/app/modals/sign/sign.page';
+import { CldImgPipe } from 'src/app/pipes/cld-img.pipe';
+import { firstValueFrom } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-account',
@@ -22,7 +25,8 @@ import { SignPage } from 'src/app/modals/sign/sign.page';
   styleUrls: ['account.scss'],
   providers: [AppVersion, ModalController],
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel,
-    IonListHeader, IonAvatar, IonIcon, IonNote, RouterLink, IonButton, CommonModule, IonModal, IonButtons, IonInput, ReactiveFormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent],
+    IonListHeader, IonAvatar, IonIcon, IonNote, RouterLink, IonButton, CommonModule, IonModal, IonButtons, IonInput, 
+    ReactiveFormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent, CldImgPipe],
 })
 export class Account implements OnInit {
   appInfo: AppInfo = {
@@ -31,21 +35,29 @@ export class Account implements OnInit {
     deviceId: ''
   };
   user: any;
+  userData: any;
   isModalOpen = false;
   showSignInForm = false;
   email: string = '';
   password: string = '';
   isNative: any;
   constructor(private appVersionPlugin: AppVersion, private alertController: AlertController,
-    private modalCtrl: ModalController, private authService: AuthService, private router: Router) {
-    this.authService.currentUser$.subscribe((user) => {
-      if (user) {
-        this.user = user;
-      }
-    });
+    private modalCtrl: ModalController, private authService: AuthService, private router: Router, private userService: UserService) {
   }
 
   async ngOnInit() {
+    try {
+      
+      // Get current authenticated user
+      this.user = await firstValueFrom(this.authService.currentUser$);
+      
+      if (this.user) {
+        // Get user data from Firestore
+        this.userData = await this.userService.getUser(this.user.uid);
+      }
+    } catch (error) {
+      console.error('Error loading profile:', error);
+    }
     this.isNative = Capacitor.isNativePlatform();
     if (this.isNative) {
       try {
