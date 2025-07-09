@@ -1,4 +1,4 @@
-# 🌍 TripPlan – Your AI Travel Itinerary Generator ✈️
+# TripPlan – Your AI Travel Itinerary Generator
 
 TripPlan is a smart and intuitive travel planner built with **Ionic Angular**. Powered by **AI**, it helps you generate detailed trip itineraries with just a few inputs like destination, trip length, and interests. It also fetches relevant images using the **Pixabay API** to bring your plan to life visually.
 
@@ -22,7 +22,7 @@ TripPlan is a smart and intuitive travel planner built with **Ionic Angular**. P
 
 | Login | Home | AI Itinerary Result |
 |------------|---------------------|---------------------|
-| ![Login](screenshots/login.png) | ![Home](screenshots/home.png) | ![AI](screenshots/AI.png) |
+| ![Login](assets/screenshots/login.png) | ![Home](assets/screenshots/home.png) | ![AI](assets/screenshots/AI.png) |
 <!-- Upload screenshots into a `screenshots/` folder -->
 
 ---
