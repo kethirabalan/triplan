@@ -155,6 +155,6 @@ export class Account implements OnInit {
   async signOut() {
     this.user = null;
     await this.authService.signOut();
-    await this.router.navigate(['/onboard-welcome']);
+    await this.router.navigate(['/login']);
   }
 }
