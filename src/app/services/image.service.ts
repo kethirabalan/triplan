@@ -32,7 +32,6 @@ export class ImageService {
         resolve(reader.result);
       };
       reader.onerror = (error) => {
-        console.log(error);
         resolve(null);
       };
     })

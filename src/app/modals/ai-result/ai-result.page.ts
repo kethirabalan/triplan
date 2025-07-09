@@ -79,6 +79,11 @@ export class AiResultPage implements OnInit {
     }
   }
 
+  backToHome() {
+    this.modalCtrl.dismiss();
+    this.router.navigate(['/tabs/home']);
+  }
+
   closeModal() {
     this.modalCtrl.dismiss();
   }

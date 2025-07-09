@@ -32,10 +32,11 @@ export class ViewPlacePage implements OnInit {
 
   async ngOnInit() {
     let place = window.history.state.item;
-    if (!place) {
+    this.loading = true;
+    if (place) {
       // Get a random spot from Gemini
       try {
-        const places = await this.gemini.getGlobalPlaces();
+        const places = await this.gemini.getPlaceDetails(place);
         place = places[Math.floor(Math.random() * places.length)];
       } catch (error) {
         console.error('Error getting global places:', error);
@@ -46,10 +47,11 @@ export class ViewPlacePage implements OnInit {
         });
         place = this.recommendedPlaces[Math.floor(Math.random() * this.recommendedPlaces.length)];
       }
+      this.place = place;
+      this.loading = false;
     }
-    this.place = place;
     // Fetch images from Pixabay
-    this.pixabay.searchImage(place.image_query || place.name).subscribe(result => {
+    this.pixabay.searchImage(place.image_query || place.location).subscribe(result => {
       this.images = (result?.hits || []).map((img: any) => img.largeImageURL);
       this.loading = false;
     }, err => {

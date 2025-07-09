@@ -31,10 +31,11 @@ export class ViewRecommendationPage implements OnInit {
 
   async ngOnInit() {
     let spot = window.history.state.item;
-    if (!spot) {
+    this.loading = true;
+    if (spot) {
       // Get a random spot from Gemini
       try {
-        const spots = await this.gemini.getGlobalRecommendations();
+        const spots = await this.gemini.getPlaceDetails(spot);
         spot = spots[Math.floor(Math.random() * spots.length)];
       } catch (error) {
         console.error('Error getting global recommendations:', error);
@@ -45,10 +46,11 @@ export class ViewRecommendationPage implements OnInit {
         });
         spot = this.recommendedPlaces[Math.floor(Math.random() * this.recommendedPlaces.length)];
       }
+      this.spot = spot;
+      this.loading = false;
     }
-    this.spot = spot;
     // Fetch images from Pixabay
-    this.pixabay.searchImage(spot.image_query || spot.name).subscribe(result => {
+    this.pixabay.searchImage(spot.image_query).subscribe(result => {
       this.images = (result?.hits || []).map((img: any) => img.largeImageURL);
       this.loading = false;
     }, err => {
@@ -88,5 +90,10 @@ export class ViewRecommendationPage implements OnInit {
     } else {
       this.spot.isFavorite = false;
     }
+  }
+
+  openMap() {
+    const url = this.spot.mapUrl || `https://www.google.com/maps/search/?api=1&query=${this.spot.latitude},${this.spot.longitude}`;
+    window.open(url, '_blank');
   }
 }

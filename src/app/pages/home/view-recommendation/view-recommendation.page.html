@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" text=""></ion-back-button>
+      <ion-back-button defaultHref="/tabs/home" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>{{ spot?.name }}</ion-title>
     <ion-buttons slot="end">
@@ -49,7 +49,7 @@
   </ion-card>
 
   <div class="ion-text-center ion-margin-bottom">
-    <ion-button shape="round" fill="outline" color="primary">
+    <ion-button shape="round" fill="outline" color="primary" (click)="openMap()">
       <ion-icon name="map-outline" slot="start"></ion-icon>
       Map
     </ion-button>

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" text=""></ion-back-button>
+      <ion-back-button defaultHref="/tabs/home" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>{{ place?.name }}</ion-title>
     <ion-buttons slot="end">
@@ -28,11 +28,14 @@
 
   <!-- Details Card -->
   <ion-card class="ion-margin-top">
-    <ion-card-header >
-      <ion-card-subtitle>{{ place?.type }}</ion-card-subtitle>
+    <ion-card-header>
+      <ion-text color="medium" class="fs-14 ion-text-capitalize" style="display: flex; align-items: center; align-content: center;">
+        <ion-icon name="location-outline"></ion-icon>
+        {{ place?.location }}</ion-text>
       <ion-card-title>{{ place?.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
+      <ion-card-subtitle>{{ place?.type }}</ion-card-subtitle>
       <!-- <p><strong>Type:</strong> {{ place?.type || place?.spotType }}</p> -->
       <p> ★ {{ place?.rating}}/5</p>
       <p>{{place?.shortDesc }}</p>

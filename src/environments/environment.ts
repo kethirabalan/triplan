@@ -9,7 +9,7 @@ export const environment = {
     key: '43762662-30a9a29aa7cb6eb9177b77fcb'
   },
   geminiApi: {
-    key: 'AIzaSyAJk25h_ew_dTCXzHsJvRX_NR_gqvOj3u0'
+    key: 'AIzaSyBUoUG6zdV3D0KsEqt-k7Fxh2GaN24ZObY'
   },
   firebase: {
     apiKey: "AIzaSyCcFHNCwPyBS74pEXpw0plifwK87jshjvI",
