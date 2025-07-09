@@ -1,8 +1,8 @@
 {
   "name": "triplan",
   "version": "0.0.0",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Kethirabalan",
+  "homepage": "https://github.com/kethirabalan/triplan",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
