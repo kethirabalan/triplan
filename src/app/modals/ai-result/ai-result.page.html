@@ -16,7 +16,10 @@
   <div *ngIf="!loading">
     <ng-container *ngIf="itinerary.length; else noResult">
       <ion-card *ngFor="let day of itinerary">
-        <img *ngIf="images[day.name]" [src]="images[day.name]" style="width: 100%; height: 180px; object-fit: cover;" />
+        <div style="width: 100%; height: 180px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: bold; position: relative;">
+          <img *ngIf="images[day.image_query]" [src]="images[day.image_query]" style="width: 100%; height: 100%; object-fit: cover;" />
+          <span *ngIf="!images[day.image_query]" class="ion-text-center fs-14">{{day.name}}</span>
+        </div>
         <ion-card-header>
           <ion-card-title>{{day.name}}</ion-card-title>
           <ion-card-subtitle>{{day.location}} | {{day.type}} | ⭐ {{day.rating}}</ion-card-subtitle>

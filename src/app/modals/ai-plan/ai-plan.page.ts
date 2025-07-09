@@ -133,8 +133,8 @@ export class AiPlanPage implements OnInit {
       this.activeStep++;
       if (this.activeStep === 5) {
         this.loadingAI = true;
+        console.log('aiPlanForm.value', this.aiPlanForm.value);
         try {
-          // in case fail show defult data
           const itinerary = await this.gemini.getItinerary(this.aiPlanForm.value);
           if (itinerary.length > 0) {
             console.log('itinerary', itinerary);
@@ -167,8 +167,6 @@ export class AiPlanPage implements OnInit {
           this.showToast('Failed to generate itinerary. Please try again.');
         }
       }
-    } else {
-      // This else block is not needed anymore since step 5 handles the modal
     }
   }
 

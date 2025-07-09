@@ -1,12 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton, ModalController, IonButtons, IonIcon, ToastController   } from '@ionic/angular/standalone';
-import { GeminiService } from 'src/app/services/gemini.service';
 import { PixabayService } from 'src/app/services/pixabay.service';
 import { Router } from '@angular/router';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/services/auth.service';
+import { FirebaseFirestoreService } from 'src/app/services/firebase-firestore.service';
 
 @Component({
   selector: 'app-ai-result',
@@ -26,7 +25,6 @@ export class AiResultPage implements OnInit {
     private pixabay: PixabayService,
     private router: Router,
     private modalCtrl: ModalController,
-    private firestore: Firestore,
     private authService: AuthService,
     private toastCtrl: ToastController
   ) { 
@@ -37,8 +35,25 @@ export class AiResultPage implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.pixabay.getImages(this.itinerary.map(day => day.image_query)).then((images: any) => {
-      this.images = images;
+    console.log('Loading images for itinerary:', this.itinerary);
+    
+    this.pixabay.getImages(this.itinerary.map(day => day.image_query)).then((imageResults: any[]) => {
+      console.log('Pixabay results:', imageResults);
+      
+      // Process the image results and create a mapping
+      this.images = {};
+      imageResults.forEach((imageArray, index) => {
+        if (imageArray && imageArray.length > 0) {
+          // Use the first image from each result
+          const imageUrl = imageArray[0].webformatURL;
+          this.images[this.itinerary[index].image_query] = imageUrl;
+          console.log(`Image for "${this.itinerary[index].image_query}":`, imageUrl);
+        } else {
+          console.log(`No images found for: ${this.itinerary[index].image_query}`);
+        }
+      });
+      
+      console.log('Final images object:', this.images);
       this.loading = false;
     }).catch((error: any) => {
       console.error('Error fetching images:', error);
@@ -47,14 +62,16 @@ export class AiResultPage implements OnInit {
   }
 
   async saveItinerary() {
+
+    // use firebase-firestore service to save  the itinerary data as a document remove old code
     try {
-      const itinerariesRef = collection(this.firestore, 'users', this.user.uid, 'itineraries');
-      await addDoc(itinerariesRef, {
-        itinerary: this.itinerary,
-        aiPlan: this.aiPlan,
-        createdAt: new Date()
-      });
-      
+    const firestoreService = inject(FirebaseFirestoreService);
+    const itineraryRef = firestoreService.getDocRef(`users/${this.user.uid}/itineraries`);
+    await firestoreService.add(itineraryRef.path, {
+      itinerary: this.itinerary,
+      aiPlan: this.aiPlan,
+    });
+
       const toast = await this.toastCtrl.create({
         message: 'Itinerary saved successfully',
         duration: 2000
