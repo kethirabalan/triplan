@@ -39,6 +39,9 @@ export class EditProfilePage implements OnInit {
     private toastController: ToastController,
     private cloudinaryService: CloudinaryService
   ) {
+    this.authService.currentUser$.subscribe((user) => {
+      this.currentUser = user;
+    });
     this.form = new FormGroup({
       name: new FormControl(''),
       currentCity: new FormControl(''),

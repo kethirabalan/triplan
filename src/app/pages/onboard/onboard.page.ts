@@ -55,7 +55,7 @@ export class OnboardPage implements OnInit {
       }, currentUser);
   
       await this.loadingService.dismiss(loader);
-      this.router.navigate(['/tabs/home']).then(() => {
+      this.router.navigate(['/main/tabs/home']).then(() => {
         // Navigation completed successfully
       }).catch(err => {
         console.error('Navigation to home failed:', err);

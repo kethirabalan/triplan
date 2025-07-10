@@ -28,7 +28,9 @@ export class SliderComponent  implements OnInit {
   user: any;
 
   constructor(private router: Router, private authService: AuthService, private toastController: ToastController) { 
-    
+    this.authService.currentUser$.subscribe((user) => {
+      this.user = user;
+    });
   }
   
   async ngOnInit() {
@@ -49,7 +51,7 @@ export class SliderComponent  implements OnInit {
       return;
     }
     this.itemClick.emit(item);
-    this.router.navigate(['/tabs/home/view-place'], { state: { item: item } });
+    this.router.navigate(['/main/tabs/home/view-place'], { state: { item: item } });
   }
 
   recommendationClick(item: any) {
@@ -61,7 +63,7 @@ export class SliderComponent  implements OnInit {
       }).then(toast => toast.present());
       return;
     }
-    this.router.navigate(['/tabs/home/view-recommendation'], { state: { item: item } });
+    this.router.navigate(['/main/tabs/home/view-recommendation'], { state: { item: item } });
   }
 
   toggleFavorite(item: any) {

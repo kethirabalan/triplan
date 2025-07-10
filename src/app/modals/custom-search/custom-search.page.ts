@@ -23,7 +23,11 @@ export class CustomSearchPage implements OnInit {
   user: any;
   @Input() fromPage: string = '';
 
-  constructor(private modalCtrl: ModalController, private router: Router, private authService: AuthService, private toastController: ToastController) {}
+  constructor(private modalCtrl: ModalController, private router: Router, private authService: AuthService, private toastController: ToastController) {
+    this.authService.currentUser$.subscribe((user) => {
+      this.user = user;
+    });
+  }
 
   async ngOnInit() {
     this.user = await firstValueFrom(this.authService.currentUser$);
@@ -55,7 +59,7 @@ export class CustomSearchPage implements OnInit {
     this.selectedPlace = place;
     this.modalCtrl.dismiss(this.selectedPlace, 'select');
     if (this.fromPage === 'home') {
-      await this.router.navigate(['/tabs/home/view-recommendation'], { state: { item: place } });
+      await this.router.navigate(['/main/tabs/home/view-recommendation'], { state: { item: place } });
       await this.modalCtrl.dismiss(null, 'select');
     }
   }

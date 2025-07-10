@@ -91,7 +91,7 @@
 </ion-modal> -->
 
 <!-- modal -->
-<ion-modal #signInModal trigger="isModalOpen" id="isModalOpen" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.3, 0.5, 0.8,0.1]">
+<ion-modal #signInModal trigger="isModalOpen" id="isModalOpen" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.3, 0.5, 0.8,0.1]" (didDismiss)="dismissModal()">
   <ng-template>
     <div class="block">
       <ion-content class="ion-padding" mode="ios">

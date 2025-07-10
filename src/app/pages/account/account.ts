@@ -43,6 +43,9 @@ export class Account implements OnInit {
   isNative: any;
   constructor(private appVersionPlugin: AppVersion, private alertController: AlertController,
     private modalCtrl: ModalController, private authService: AuthService, private router: Router, private userService: UserService) {
+      this.authService.currentUser$.subscribe((user) => {
+        this.user = user;
+      });
   }
 
   async ngOnInit() {
@@ -109,8 +112,11 @@ export class Account implements OnInit {
   }
 
   async signInWithGoogle() {
-    this.authService.signInWithGoogle();
-    this.dismissModal();
+    this.authService.signInWithGoogle().then(() => {
+      this.dismissModal();
+    }).catch((error) => {
+      this.presentAlert('Error signing in with Google');
+    });
   }
 
   async createAccount() {
@@ -167,6 +173,6 @@ export class Account implements OnInit {
   async signOut() {
     this.user = null;
     await this.authService.signOut();
-    await this.router.navigate(['/login']);
+    await this.router.navigate(['/main/login']);
   }
 }

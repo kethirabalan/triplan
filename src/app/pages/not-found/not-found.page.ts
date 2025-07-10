@@ -43,6 +43,6 @@ export class NotFoundPage {
   constructor(private router: Router) {}
 
   goHome() {
-    this.router.navigate(['/tabs/home']);
+    this.router.navigate(['/main/tabs/home']);
   }
 } 

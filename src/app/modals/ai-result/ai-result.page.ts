@@ -81,7 +81,7 @@ export class AiResultPage implements OnInit {
 
   backToHome() {
     this.modalCtrl.dismiss();
-    this.router.navigate(['/tabs/home']);
+    this.router.navigate(['/main/tabs/home']);
   }
 
   closeModal() {

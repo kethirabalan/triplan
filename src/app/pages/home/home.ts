@@ -54,7 +54,11 @@ export class Home implements OnInit {
   constructor(private toastController: ToastController, private platform: Platform,
     private geminiService: GeminiService, private pixabay: PixabayService,
     private firebaseFirestoreService: FirebaseFirestoreService, private authService: AuthService, private router: Router,
-    private modalCtrl: ModalController, private cdr: ChangeDetectorRef) { }
+    private modalCtrl: ModalController, private cdr: ChangeDetectorRef) {
+      this.authService.currentUser$.subscribe((user) => {
+        this.user = user;
+      });
+     }
 
   async ngOnInit() {
     this.user = await firstValueFrom(this.authService.currentUser$);
@@ -174,7 +178,7 @@ export class Home implements OnInit {
   }
 
   onItemClick(item: any) {
-    this.router.navigate(['/tabs/home/view-place'], { state: { item: item } });
+    this.router.navigate(['/main/tabs/home/view-place'], { state: { item: item } });
   }
 
   async openCustomSearch() {

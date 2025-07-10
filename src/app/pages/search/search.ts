@@ -21,6 +21,9 @@ export class Search implements OnInit {
   user: any;
 
   constructor(private router: Router, private authService: AuthService, private toastController: ToastController) {
+    this.authService.currentUser$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   async ngOnInit() {
@@ -50,7 +53,7 @@ export class Search implements OnInit {
       }).then(toast => toast.present());
       return;
     }
-    this.router.navigate(['/tabs/home/view-recommendation'], { state: { item: place} });
+    this.router.navigate(['/main/tabs/home/view-recommendation'], { state: { item: place} });
   }
 
 }
