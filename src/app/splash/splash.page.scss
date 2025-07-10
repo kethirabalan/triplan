@@ -1,0 +1,22 @@
+.splash-screen {
+    --background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .logo-container {
+        animation: zoomIn 1.5s ease-in-out forwards;
+    }
+
+    @keyframes zoomIn {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+}
