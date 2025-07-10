@@ -32,7 +32,7 @@ export class SplashPage implements OnInit {
   ionViewDidEnter() {
     setTimeout(() => {
       this.navCtrl.navigateRoot('/main'); // or your start route
-    }, 6000); // Duration matches the animation
+    }, 2000); // Duration matches the animation
   }
 
 }

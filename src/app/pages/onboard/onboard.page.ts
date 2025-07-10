@@ -67,7 +67,7 @@ export class OnboardPage implements OnInit {
   }
 
   skip() {
-    this.router.navigate(['/tabs/home']).then(() => {
+    this.router.navigate(['/main/tabs/home']).then(() => {
       // Navigation completed successfully
     }).catch(err => {
       console.error('Navigation failed:', err);
