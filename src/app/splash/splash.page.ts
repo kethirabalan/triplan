@@ -22,6 +22,7 @@ export class SplashPage implements OnInit {
       this.dotLottie = new DotLottie({
         autoplay: true,
         loop: true,
+        speed: 0.5,
         canvas: canvas,
         src: "https://lottie.host/7b0cd4a7-d1f6-4a5b-a207-abef358c6d81/TQbfgmAqcr.lottie", // replace with your .lottie or .json file URL
       });
@@ -31,8 +32,8 @@ export class SplashPage implements OnInit {
 
   ionViewDidEnter() {
     setTimeout(() => {
-      this.navCtrl.navigateRoot('/main'); // or your start route
-    }, 2000); // Duration matches the animation
+      this.navCtrl.navigateRoot('/main');
+    }, 4000); // Duration matches the animation
   }
 
 }
