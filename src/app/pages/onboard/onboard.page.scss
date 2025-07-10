@@ -15,8 +15,7 @@
   z-index: 2;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column-reverse;
   padding: 10px 10px 0 10px;
 }
 
@@ -80,7 +79,6 @@
   font-size: 12px;
   color: var(--ion-color-light);
   text-align: center;
-  margin-top: 8px;
 }
 .onboard-terms a {
   color: var(--ion-color-light);
@@ -97,5 +95,23 @@ p {
   a {
     color: var(--ion-color-light);
     text-decoration: underline;
+  }
+}
+
+@media (min-width: 1024px) {
+  .onboard-content-inner {
+    position: absolute;
+    z-index: 3;
+    padding: 32px 20px 20px 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-content {
+    display: flex;
+    width: 50%;
   }
 }
