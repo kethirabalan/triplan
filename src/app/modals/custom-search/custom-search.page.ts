@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonList, IonThumbnail, IonLabel, IonIcon, IonButton,IonButtons,IonSearchbar,IonBackButton,ModalController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonList, IonThumbnail, IonLabel, IonIcon, 
+  IonButton,IonButtons,IonSearchbar,IonBackButton,ModalController, ToastController } from '@ionic/angular/standalone';
 import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-custom-search',
@@ -17,11 +20,13 @@ export class CustomSearchPage implements OnInit {
   allPlaces = recommendedPlaces;
   places = recommendedPlaces.slice(0, 3);
   selectedPlace: any;
+  user: any;
   @Input() fromPage: string = '';
 
-  constructor(private modalCtrl: ModalController, private router: Router) {}
+  constructor(private modalCtrl: ModalController, private router: Router, private authService: AuthService, private toastController: ToastController) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.user = await firstValueFrom(this.authService.currentUser$);
   }
 
   onSearchInput(event: any) {
@@ -39,6 +44,14 @@ export class CustomSearchPage implements OnInit {
   }
 
   async selectPlace(place: any) {
+    if(!this.user) {
+      this.toastController.create({
+        message: 'Please sign in to view this place',
+        duration: 2000,
+        color: 'primary'
+      }).then(toast => toast.present());
+      return;
+    }
     this.selectedPlace = place;
     this.modalCtrl.dismiss(this.selectedPlace, 'select');
     if (this.fromPage === 'home') {

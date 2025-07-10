@@ -17,6 +17,7 @@ import { FirebaseFirestoreService } from 'src/app/services/firebase-firestore.se
 import { AuthService } from 'src/app/services/auth.service';
 import { CustomSearchPage } from 'src/app/modals/custom-search/custom-search.page';
 import { NotificationsPage } from 'src/app/modals/notifications/notifications.page';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -34,6 +35,7 @@ export class Home implements OnInit {
   adventureContent: any[] = staticAdventure;
   bestRestaurants: any[] = staticBestRestaurants;
   isScrolled = false;
+  user: any;
   selectedPlace: any;
   customFeed = {
     title: 'Triplan Rewards',
@@ -55,8 +57,12 @@ export class Home implements OnInit {
     private modalCtrl: ModalController, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
+    this.user = await firstValueFrom(this.authService.currentUser$);
     // Load dynamic recommendations
     try {
+      if (!this.user) {
+        return;
+      }
       const recommendations = await this.geminiService.getGlobalRecommendations();
       const imageLoadPromises = recommendations.map(place =>
         this.pixabay.searchImage(place.image_query).toPromise().then(result => {
@@ -75,6 +81,9 @@ export class Home implements OnInit {
 
     // Load dynamic adventure content
     try {
+      if (!this.user) {
+        return;
+      }
       const adventures = await this.geminiService.getGlobalAdventure();
       // Load images using Promises to wait until all are fetched
       const imageLoadPromises = adventures.map(content =>
@@ -151,6 +160,8 @@ export class Home implements OnInit {
       this.selectedPlace = data;
       this.cdr.detectChanges();
     }
+    this.cdr.detectChanges();
+    modal.dismiss(null, 'dismiss');
   }
 
   viewAll(items: any[]) {
