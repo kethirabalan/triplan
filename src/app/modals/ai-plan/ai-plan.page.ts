@@ -21,8 +21,9 @@ import { DotLottie } from '@lottiefiles/dotlottie-web';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonItem, IonInput, IonList, IonLabel,
     IonButtons, IonIcon, IonCheckbox, IonSegment, IonSegmentButton, IonListHeader, IonProgressBar, IonGrid, 
     IonRow, IonCol,IonThumbnail, IonText,IonFooter,IonSpinner,IonChip, IonItemGroup, ReactiveFormsModule, IonSearchbar, IonDatetime, IonModal, IonDatetimeButton]
-})
-export class AiPlanPage implements OnInit {
+  })
+  export class AiPlanPage implements OnInit {
+  dotLottie: DotLottie | null = null;
   activeStep = 1;
   totalSteps = 5;
   aiPlanForm: FormGroup;
@@ -40,7 +41,6 @@ export class AiPlanPage implements OnInit {
   ];
   loadingAI = false;
   aiItinerary: any[] = [];
-  dotLottie: DotLottie | null = null;
 
   constructor(private router: Router, private fb: FormBuilder, private modalCtrl: ModalController, 
     private toastCtrl: ToastController, private gemini: GeminiService, private pixabay: PixabayService) {
@@ -58,16 +58,17 @@ export class AiPlanPage implements OnInit {
 
 
   ngOnInit() {
-    const canvas = document.querySelector('#dotlottie-canvas') as HTMLCanvasElement;
-    if (canvas) {
-      this.dotLottie = new DotLottie({
-        autoplay: true,
-        loop: true,
-        speed: 1,
-        canvas: canvas,
-        src: "https://lottie.host/dcab8fe1-a3c7-4115-aca8-f5dce2640acc/90wNu8KLT2.lottie"
-      });
-    }
+    // const canvas = document.querySelector('#dotlottie-canvas') as HTMLCanvasElement;
+    // if (canvas) {
+    //   this.dotLottie = new DotLottie({
+    //     autoplay: true,
+    //     loop: true,
+    //     speed: 1,
+    //     canvas: canvas,
+    //     // src: "https://lottie.host/f0ff9e85-3648-4bda-b003-3090ff8149ca/E1Sf5AzR5J.lottie"
+    //     src: "https://lottie.host/5c1c36af-7b0e-438e-bf9f-197d89a3d2fb/LMonNwiqEF.lottie"
+    //   });
+    // }
   }
   
   // segmentChanged(event: any) {

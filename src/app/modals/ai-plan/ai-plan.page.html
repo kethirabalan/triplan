@@ -102,7 +102,7 @@
         <!-- Step 5: Loading/Confirmation -->
         <ng-container *ngIf="activeStep === 5"> 
           <div class="ion-text-center ion-padding">
-            <canvas id="dotlottie-canvas" style="width: 100%; height: 100%;"></canvas>
+            <ion-spinner name="crescent"></ion-spinner>
             <p>We're whipping it all up into an easy {{aiPlanForm.get('tripLength')?.value}}-day plan...</p>
           </div>
         </ng-container>
