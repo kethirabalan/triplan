@@ -106,6 +106,10 @@ export const routes: Routes = [
         redirectTo: 'tabs/home',
         pathMatch: 'full',
       },
+      {
+        path: '**',
+        loadComponent: () => import('../pages/not-found/not-found.page').then((m) => m.NotFoundPage),
+      },
     ],
   },
   {
@@ -115,6 +119,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    loadComponent: () => import('../pages/not-found/not-found.page').then((m) => m.NotFoundPage),
-  },  
+    redirectTo: 'login',
+    pathMatch: 'prefix',  
+  },
 ];

@@ -49,8 +49,8 @@ export class Account implements OnInit {
   }
 
   async ngOnInit() {
+    if (!this.user) {
     try {
-      
       // Get current authenticated user
       this.user = await firstValueFrom(this.authService.currentUser$);
       
@@ -61,6 +61,7 @@ export class Account implements OnInit {
     } catch (error) {
       console.error('Error loading profile:', error);
     }
+  }
     this.isNative = Capacitor.isNativePlatform();
     if (this.isNative) {
       try {

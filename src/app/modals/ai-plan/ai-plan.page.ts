@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonInput, IonList, IonLabel, IonButtons, 
@@ -10,12 +10,14 @@ import { recommendedPlaces } from 'src/app/data/recommendedPlaces';
 import { AiResultPage } from '../ai-result/ai-result.page';
 import { GeminiService } from 'src/app/services/gemini.service';
 import { PixabayService } from 'src/app/services/pixabay.service';
+import { DotLottie } from '@lottiefiles/dotlottie-web';
 
 @Component({
   selector: 'app-ai-plan',
   templateUrl: './ai-plan.page.html',
   styleUrls: ['./ai-plan.page.scss'],
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonItem, IonInput, IonList, IonLabel,
     IonButtons, IonIcon, IonCheckbox, IonSegment, IonSegmentButton, IonListHeader, IonProgressBar, IonGrid, 
     IonRow, IonCol,IonThumbnail, IonText,IonFooter,IonSpinner,IonChip, IonItemGroup, ReactiveFormsModule, IonSearchbar, IonDatetime, IonModal, IonDatetimeButton]
@@ -38,6 +40,7 @@ export class AiPlanPage implements OnInit {
   ];
   loadingAI = false;
   aiItinerary: any[] = [];
+  dotLottie: DotLottie | null = null;
 
   constructor(private router: Router, private fb: FormBuilder, private modalCtrl: ModalController, 
     private toastCtrl: ToastController, private gemini: GeminiService, private pixabay: PixabayService) {
@@ -52,9 +55,21 @@ export class AiPlanPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
 
+
+  ngOnInit() {
+    const canvas = document.querySelector('#dotlottie-canvas') as HTMLCanvasElement;
+    if (canvas) {
+      this.dotLottie = new DotLottie({
+        autoplay: true,
+        loop: true,
+        speed: 1,
+        canvas: canvas,
+        src: "https://lottie.host/dcab8fe1-a3c7-4115-aca8-f5dce2640acc/90wNu8KLT2.lottie"
+      });
+    }
+  }
+  
   // segmentChanged(event: any) {
   //   this.segmentValue = event.detail.value;
   // }

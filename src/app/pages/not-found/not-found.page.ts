@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { IonButton, IonContent} from '@ionic/angular/standalone';
+import { DotLottie } from '@lottiefiles/dotlottie-web';
 
 @Component({
   selector: 'app-not-found',
@@ -10,8 +11,7 @@ import { IonButton, IonContent} from '@ionic/angular/standalone';
   template: `
     <ion-content class="ion-padding">
       <div class="not-found-container">
-        <h1>404</h1>
-        <p>Page not found</p>
+        <canvas id="dotlottie-canvas" style="width: 100%; height: 60%;"></canvas>
         <ion-button (click)="goHome()">Go to home</ion-button>
       </div>
     </ion-content>
@@ -39,8 +39,22 @@ import { IonButton, IonContent} from '@ionic/angular/standalone';
     }
   `]
 })
-export class NotFoundPage {
+export class NotFoundPage implements OnInit {
+  dotLottie: DotLottie | null = null;
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    const canvas = document.querySelector('#dotlottie-canvas') as HTMLCanvasElement;
+    if (canvas) {
+      this.dotLottie = new DotLottie({
+        autoplay: true,
+        loop: true,
+        speed: 1,
+        canvas: canvas,
+        src: "https://lottie.host/1ca98d3c-de42-4f30-be33-0768d988047a/NLPnXR8QhI.lottie", // replace with your .lottie or .json file URL
+      });
+    }
+  }
 
   goHome() {
     this.router.navigate(['/main/tabs/home']);
