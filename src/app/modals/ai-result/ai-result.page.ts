@@ -68,7 +68,7 @@ export class AiResultPage implements OnInit {
       });
       await toast.present();
       this.modalCtrl.dismiss();
-      this.router.navigate(['/tabs/trips']);
+      this.router.navigate(['/main/tabs/trips']);
     } catch (error) {
       console.error('Error saving itinerary:', error);
       const toast = await this.toastCtrl.create({

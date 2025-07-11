@@ -277,7 +277,7 @@ export class Home implements OnInit {
         });
       } else {
         await this.showToast('Please sign in to save your location');
-        this.router.navigate(['/tabs/account']);
+        this.router.navigate(['/main/tabs/account']);
       }
     } catch (error) {
       console.error('Error saving current location:', error);

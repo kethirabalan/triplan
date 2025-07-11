@@ -77,7 +77,7 @@ export class Trips implements OnInit{
     };
     await this.tripService.addTrip(trip);
     this.modal.dismiss();
-    await this.router.navigate(['/tabs/trips/trip-view', trip.name]);
+    await this.router.navigate(['/main/tabs/trips/trip-view', trip.name]);
     this.tripName = '';
   }
 
@@ -164,7 +164,7 @@ export class Trips implements OnInit{
   }
 
   openTrip(tripName: string) { 
-    this.router.navigate(['/tabs/trips/trip-view', tripName]);
+    this.router.navigate(['/main/tabs/trips/trip-view', tripName]);
   }
 
   async dismissModal() {
