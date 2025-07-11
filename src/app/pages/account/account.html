@@ -82,6 +82,31 @@
     <div>Device ID: {{ appInfo.deviceId }}</div>
   </div>
   }
+  <ion-modal #signInModal trigger="isModalOpen" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.3, 0.5, 0.8,0.1]" (didDismiss)="dismissModal()">
+    <ng-template>
+      <div class="block">
+        <ion-content class="ion-padding" mode="ios">
+          <h2 class="ion-text-center"><strong class="fs-16 ion-margin-bottom">Sign in and plan your next adventure</strong></h2>
+          <div class="ion-text-center ion-margin-top">
+            <ion-button fill="outline" expand="block" shape="round" class="ion-margin-bottom" (click)="createAccount()">Create
+              account</ion-button>
+            <ion-button expand="block" shape="round" fill="solid" color="dark"
+              (click)="signInWithGoogle()">
+              <ion-icon name="logo-google" slot="start"></ion-icon>
+              Continue with Google
+            </ion-button>
+            <div class="ion-margin-top">
+              <a style="text-decoration: underline;"(click)="signIn()">Have an account? Sign in</a>
+            </div>
+          </div>
+          <p class="ion-text-center" style="font-size: 12px;">
+            By proceeding, you agree to our <a href="#">Terms of Use</a> and confirm
+            you have read our <a href="#">Privacy and Cookie Statement</a>.
+          </p>
+        </ion-content>
+      </div>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
 <!-- <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
@@ -91,28 +116,3 @@
 </ion-modal> -->
 
 <!-- modal -->
-<ion-modal #signInModal trigger="isModalOpen" id="isModalOpen" [initialBreakpoint]="0.4" [breakpoints]="[0, 0.3, 0.5, 0.8,0.1]" (didDismiss)="dismissModal()">
-  <ng-template>
-    <div class="block">
-      <ion-content class="ion-padding" mode="ios">
-        <h2 class="ion-text-center"><strong class="fs-16 ion-margin-bottom">Sign in and plan your next adventure</strong></h2>
-        <div class="ion-text-center ion-margin-top">
-          <ion-button fill="outline" expand="block" shape="round" class="ion-margin-bottom" (click)="createAccount()">Create
-            account</ion-button>
-          <ion-button expand="block" shape="round" fill="solid" color="dark"
-            (click)="signInWithGoogle()">
-            <ion-icon name="logo-google" slot="start"></ion-icon>
-            Continue with Google
-          </ion-button>
-          <div class="ion-margin-top">
-            <a style="text-decoration: underline;"(click)="signIn()">Have an account? Sign in</a>
-          </div>
-        </div>
-        <p class="ion-text-center" style="font-size: 12px;">
-          By proceeding, you agree to our <a href="#">Terms of Use</a> and confirm
-          you have read our <a href="#">Privacy and Cookie Statement</a>.
-        </p>
-      </ion-content>
-    </div>
-  </ng-template>
-</ion-modal>
