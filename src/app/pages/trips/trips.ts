@@ -22,8 +22,8 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['trips.scss'],
   standalone: true,
   providers: [TripService,ActionSheetController,ModalController],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonIcon, IonButton, IonLabel, 
-    IonText,RouterLink,IonItem,IonInput,CommonModule,FormsModule,IonModal,IonCardContent,IonActionSheet,IonList,
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonIcon, IonButton, IonLabel,IonItem,IonInput,
+    CommonModule,FormsModule,IonModal,IonList,
     IonThumbnail,IonFab,IonFabButton,IonFabList,TitleCasePipe,IonCardHeader,IonCardTitle,IonCardSubtitle ],
 })
 export class Trips implements OnInit{
@@ -59,11 +59,13 @@ export class Trips implements OnInit{
     }
 
   async ngOnInit() {
+    if (!this.user) {
     try {
       this.user = await firstValueFrom(this.authService.currentUser$);
     } catch (error) {
       console.error('Error loading user:', error);
     }
+  }
   }
 
   async createTrip(tripName: string) {
@@ -163,6 +165,10 @@ export class Trips implements OnInit{
 
   openTrip(tripName: string) { 
     this.router.navigate(['/tabs/trips/trip-view', tripName]);
+  }
+
+  async dismissModal() {
+    await this.modal.dismiss();
   }
 
 

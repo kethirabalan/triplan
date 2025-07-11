@@ -100,7 +100,7 @@
   }
 
   
-  <ion-modal trigger="open-trip-modal" initialBreakpoint="0.3" [breakpoints]="[0, 0.25, 0.5]" >
+  <ion-modal trigger="open-trip-modal" id="open-trip-modal" initialBreakpoint="0.3" [breakpoints]="[0, 0.25, 0.5]" (didDismiss)="dismissModal()">
     <ng-template>
       <ion-content class="ion-padding">
         <ion-header collapse="condense" class="ion-no-border">
