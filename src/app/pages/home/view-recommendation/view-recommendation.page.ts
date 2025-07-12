@@ -59,7 +59,6 @@ export class ViewRecommendationPage implements OnInit {
   }
 
   shareRecommendation() {
-    console.log(window.location.href);
     const shareData = {
       title: this.spot.name,
       text: this.spot.shortDesc,
@@ -94,7 +93,6 @@ export class ViewRecommendationPage implements OnInit {
   }
 
   openMap() {
-    console.log(this.spot);
     const url = this.spot.mapUrl || `https://www.google.com/maps/search/?api=1&query=${this.spot.latitude},${this.spot.longitude}`;
     window.open(url, '_blank');
   }
