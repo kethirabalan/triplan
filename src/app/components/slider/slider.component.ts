@@ -51,7 +51,7 @@ export class SliderComponent  implements OnInit {
       return;
     }
     this.itemClick.emit(item);
-    this.router.navigate(['/main/tabs/home/view-place'], { state: { item: item } });
+    this.router.navigate(['/main/tabs/home/view-place', item.name], { state: { item: item } });
   }
 
   recommendationClick(item: any) {
@@ -63,7 +63,7 @@ export class SliderComponent  implements OnInit {
       }).then(toast => toast.present());
       return;
     }
-    this.router.navigate(['/main/tabs/home/view-recommendation'], { state: { item: item } });
+    this.router.navigate(['/main/tabs/home/view-recommendation', item.name], { state: { item: item } });
   }
 
   toggleFavorite(item: any) {

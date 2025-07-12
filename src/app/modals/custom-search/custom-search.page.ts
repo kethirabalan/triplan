@@ -59,7 +59,7 @@ export class CustomSearchPage implements OnInit {
     this.selectedPlace = place;
     this.modalCtrl.dismiss(this.selectedPlace, 'select');
     if (this.fromPage === 'home') {
-      await this.router.navigate(['/main/tabs/home/view-recommendation'], { state: { item: place } });
+      await this.router.navigate(['/main/tabs/home/view-recommendation', place.name], { state: { item: place } });
       await this.modalCtrl.dismiss(null, 'select');
     }
   }

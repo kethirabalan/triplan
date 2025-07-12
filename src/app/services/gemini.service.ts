@@ -106,7 +106,7 @@ export class GeminiService {
   "rating": 4.7,
   "location": "New York, USA",
   "image_query": "Statue of Liberty New York USA",
-  "mapUrl": "https://www.google.com/maps/search/?api=1&query=40.6892,-74.0445",
+  "mapUrl": "https://www.google.com/maps/search/?api=1&query=Salar+de+Uyuni",
   "latitude": 40.6892,
   "longitude": -74.0445
   },
@@ -146,7 +146,10 @@ export class GeminiService {
       "rating": 4.8,
       "location": "Paris, France",
       "image_query": "Eiffel Tower Paris France",
-      "mapUrl": "https://www.google.com/maps/search/?api=1&query=48.8584,2.3584"
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Salar+de+Uyuni"
+      "latitude": 40.6892,
+      "longitude": -74.0445
+      
     },
     ...
   ]`;
@@ -171,6 +174,7 @@ export class GeminiService {
   Each item must include:
   - id
   - name
+  - description (short description of the place)
   - type (e.g. trekking, scuba diving, bungee jumping, adventure park)
   - rating (between 4.0 and 5)
   - location (country or city)
@@ -182,11 +186,12 @@ export class GeminiService {
     {
       "id": 1,
       "name": "Mount Kilimanjaro",
+      "description": "Mount Kilimanjaro is a dormant volcano in Tanzania and the highest mountain in Africa. It is the highest single free-standing mountain in the world, with its three volcanic cones, Kibo, Mawenzi, and Shira.",
       "type": "Trekking",
       "rating": 4.9,
       "location": "Tanzania",
       "image_query": "Mount Kilimanjaro Tanzania",
-      "mapUrl": "https://www.google.com/maps/search/?api=1&query=3.0695,37.3508"
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Salar+de+Uyuni"
     },
     ...
   ]`;
@@ -209,11 +214,27 @@ export class GeminiService {
   Each item must include:
   - id
   - name
+  - description (short description of the place)
   - type (e.g. monument, temple, museum, nature, beach, city, etc.)
   - rating (between 4.0 and 5)
   - location (country or city)
   - image_query (exact name + location, used for image search)
-  Return only raw JSON, do not wrap it in markdown.`;
+  - mapUrl (google maps url)
+  Return only raw JSON, do not wrap it in markdown.
+  Only return a valid JSON array like this:
+  [
+    {
+      "id": 1,
+      "name": "Mount Kilimanjaro",
+      "type": "Trekking",
+      "description": "Mount Kilimanjaro is a dormant volcano in Tanzania and the highest mountain in Africa. It is the highest single free-standing mountain in the world, with its three volcanic cones, Kibo, Mawenzi, and Shira.",
+      "rating": 4.9,
+      "location": "Tanzania",
+      "image_query": "Mount Kilimanjaro Tanzania",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Salar+de+Uyuni"
+    },
+    ...
+  ]`;
 
     try {
       const result = await model.generateContent(prompt);

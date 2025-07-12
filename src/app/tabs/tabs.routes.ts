@@ -89,11 +89,11 @@ export const routes: Routes = [
           import('../pages/account/profile/edit-profile/edit-profile.page').then( m => m.EditProfilePage),
       },
       {
-        path: 'home/view-recommendation',
+        path: 'home/view-recommendation/:name',
         loadComponent: () => import('../pages/home/view-recommendation/view-recommendation.page').then(m => m.ViewRecommendationPage),
       },
       {
-        path: 'home/view-place',
+        path: 'home/view-place/:name',
         loadComponent: () => import('../pages/home/view-place/view-place.page').then(m => m.ViewPlacePage),
       },
       {

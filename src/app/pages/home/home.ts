@@ -178,7 +178,7 @@ export class Home implements OnInit {
   }
 
   onItemClick(item: any) {
-    this.router.navigate(['/main/tabs/home/view-place'], { state: { item: item } });
+    this.router.navigate(['/main/tabs/home/view-place', item.name], { state: { item: item } });
   }
 
   async openCustomSearch() {

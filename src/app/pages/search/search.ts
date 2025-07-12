@@ -53,7 +53,7 @@ export class Search implements OnInit {
       }).then(toast => toast.present());
       return;
     }
-    this.router.navigate(['/main/tabs/home/view-recommendation'], { state: { item: place} });
+    this.router.navigate(['/main/tabs/home/view-recommendation', place.name], { state: { item: place} });
   }
 
 }
