@@ -11,7 +11,16 @@
     "test": "ng test",
     "lint": "ng lint",
     "ionic:build": "npm run build",
-    "ionic:serve": "npm run start -- --open"
+    "ionic:serve": "npm run start -- --open",
+    "android:build": "npx cap sync android && npx cap open android",
+    "android:run": "npx cap run android --livereload --external",
+    "android:sync": "npx cap sync android",
+    "ios:build": "npx cap sync ios && npx cap open ios",
+    "ios:run": "npx cap run ios --livereload --external",
+    "ios:sync": "npx cap sync ios",
+    "generate": "ng generate",
+    "g": "ng generate",
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "private": true,
   "dependencies": {
